@@ -64,6 +64,7 @@ public class Item implements purchaseable{
     @Override
     public void setSellbackPrice(int sellbackPrice) {
         // TODO Auto-generated method stub
+        
         this.sellbackPrice = sellbackPrice;    }
 
     public void setAmount(int amount) {

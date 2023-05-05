@@ -6,6 +6,7 @@ public class Player {
     private ArrayList<Athlete> team;
     private int points;
     private ArrayList<EffectItem> inventory;
+    private int Turn = 0;
 
     public Player(String difficulty) {
         this.difficulty = difficulty;
@@ -36,7 +37,9 @@ public class Player {
     public int getGold() {
         return gold;
     }
-
+    public int getTurn() {
+        return Turn;
+    }
     public void setGold(int gold) {
         this.gold = gold;
     }
@@ -66,6 +69,19 @@ public class Player {
     public void getTeamanmes() {
         for (int i = 0; i < team.size(); i++) {
             System.out.println(team.get(i).getName());
+        }
+    }
+
+    public void init_team_commandline() {
+        System.out.println("Please select 5 players for your team");
+        for (int i = 0; i < 5; i++) {
+            System.out.println("Please select player " + (i + 1));
+            for (int j = 0; j < team.size(); j++) {
+                System.out.println((j + 1) + ". " + team.get(j).getName());
+            }
+            int selection = Integer.parseInt(System.console().readLine());
+            team.add(team.get(selection - 1));
+            team.remove(selection - 1);
         }
     }
 }

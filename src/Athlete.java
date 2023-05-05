@@ -44,6 +44,9 @@ public class Athlete implements purchaseable{
     }
 
     public boolean getInjury() {
+        if (this.stamina <= 20){
+            this.injury = true;
+        }
         return injury;
     }
 
@@ -181,7 +184,22 @@ public class Athlete implements purchaseable{
         }
         return defence;
     }
-
+    public boolean personal_duel( Athlete j,int round){
+        double temp_attack = this.getOffence() *round;
+        double temp_def = j.getDefence() *j.getStamina()/100;
+        double temp = temp_attack - temp_def;
+        double chance_success = (1-temp)/100;
+        if (Math.random() < chance_success){
+            this.increaseStamina(-2);
+            j.increaseStamina(-5);
+            return false;
+        }
+        else{
+            this.increaseStamina(-3);
+            j.increaseStamina(-2);
+        return true;
+        }
+    }
     private static String generateName() {
         String[] firstNames = {"John", "Jane", "Alice", "Bob", "Chris", "David", "Emily", "Frank", "Grace", "Henry"};
         String[] lastNames = {"Smith", "Johnson", "Brown", "Jones", "Davis", "Wilson", "Moore", "Taylor", "Anderson", "Thomas"};
