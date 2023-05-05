@@ -31,7 +31,7 @@ public class Athlete implements purchaseable{
         this.injury = false;
 
         this.storeValue = (int) (stamina * 2 + offence * 5 + defence * 5);
-        this.sellbackPrice = storeValue / 2;
+        this.sellbackPrice = (int) (storeValue *0.8);
         this.amount = 1;
     }
     
@@ -190,7 +190,6 @@ public class Athlete implements purchaseable{
         return firstName + " " + lastName;
     }
     public static void main(String[] args) {
-        // TODO Auto-generated method stub
         Athlete j = new Athlete("jack", 100, 50, 50, "defender", 1000, 500, 1);
         System.out.println(j.getStoreValue());
         j.increaseStamina(10);
