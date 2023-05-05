@@ -1,4 +1,4 @@
-public class Athlete {
+public class Athlete implements purchaseable{
     private String name;
     private int stamina;
     private boolean injury;
@@ -29,6 +29,10 @@ public class Athlete {
         this.defence = defence;
         this.role = role;
         this.injury = false;
+
+        this.storeValue = (int) (stamina * 2 + offence * 5 + defence * 5);
+        this.sellbackPrice = storeValue / 2;
+        this.amount = 0;
     }
 
     public String getName() {
@@ -60,17 +64,74 @@ public class Athlete {
     }
 
 	public void increaseStamina(int staminaBoost) {
-		// TODO Auto-generated method stub
+		
 		this.stamina += staminaBoost;
 	}
 
 	public void increaseDefense(int defenseBoost) {
-		// TODO Auto-generated method stub
+		
 		this.defence += defenseBoost ;
 	}
 
 	public void increaseOffense(int offenseBoost) {
-		// TODO Auto-generated method stub
+		
 		this.offence += offenseBoost ;
 	}
+
+    @Override
+    public int getStoreValue() {
+        
+        
+        return this.storeValue;
+    }
+
+    @Override
+    public void setStoreValue(int storeValue) {
+        // TODO Auto-generated method stub
+        this.storeValue = storeValue;
+    }
+    
+    public void setStoreValue() {
+        // TODO Auto-generated method stub
+        this.storeValue = (int) (this.stamina * 2 + this.offence * 5 + this.defence * 5);
+    }
+    
+    @Override
+    public int getSellbackPrice() {
+        // TODO Auto-generated method stub
+        return this.sellbackPrice;
+    }
+
+    @Override
+    public void setSellbackPrice(int sellbackPrice) {
+        // TODO Auto-generated method stub
+        this.sellbackPrice = sellbackPrice;
+    }
+    public void setSellbackPrice() {
+        // TODO Auto-generated method stub
+        this.sellbackPrice = (int) (this.storeValue * 0.8);
+    }
+    public int getAmount() {
+        // TODO Auto-generated method stub
+        return this.amount;    }
+
+    
+    public void setAmount(int amount) {
+        // TODO Auto-generated method stub
+        this.amount = amount;    }
+
+    @Override
+    public void increaseAmount(int amount) {
+        // TODO Auto-generated method stub
+        this.amount += amount ;
+    }
+
+    @Override
+    public void decreaseAmount(int amount) {
+        // TODO Auto-generated method stub
+        this.amount -= amount;
+        if (this.amount < 0){
+            this.amount = 0;
+        }
+    }
 }
