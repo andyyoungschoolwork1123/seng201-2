@@ -39,8 +39,7 @@ public class AthleteTest {
         athlete.setStoreValue();
         System.out.println(athlete.getStoreValue()); // 590
         
-        athlete.setSellbackPrice();
-        System.out.println(athlete.getSellbackPrice()); // 472
+        
     }
 
 }
