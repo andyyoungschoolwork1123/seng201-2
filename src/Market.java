@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Market {
@@ -13,13 +14,13 @@ public class Market {
                 String name = offenseNames[(int) (Math.random() * offenseNames.length)];
                 int value = (int) (Math.random() * 50) + 50;
                 int amount = (int) (Math.random() * 5) + 1;
-                EffectItem item = new EffectItem(name, "offense", 0, value, 0, value, value / 2, amount);
+                Item item = new Item(name, "offense",value, value / 2, amount);
                 items.add(item);
             } else {
                 String name = defenseNames[(int) (Math.random() * defenseNames.length)];
                 int value = (int) (Math.random() * 100) + 100;
                 int amount = (int) (Math.random() * 3) + 1;
-                EffectItem item = new EffectItem(name, "defense", 0, 0, value, value, value / 2, amount);
+                Item item = new Item(name, "defense", value, value / 2, amount);
                 items.add(item);
             }
         }

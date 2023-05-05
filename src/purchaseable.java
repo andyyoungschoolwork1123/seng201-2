@@ -7,4 +7,5 @@ public interface purchaseable {
     void increaseAmount(int amount);
     void decreaseAmount(int amount);
     String getName();
+    int getAmount();
 }

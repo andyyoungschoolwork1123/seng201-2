@@ -19,7 +19,7 @@ public class Player {
         } else if (difficulty.equals("Hard")) {
             this.gold = 10;
         } else {
-            this.gold = 0;  // default to 0 if difficulty level is unknown
+            System.out.println("ValueError") ;  // default to 0 if difficulty level is unknown
         }
     
         this.points = 0;
