@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "PlayerTest",
+            "request": "launch",
+            "mainClass": "PlayerTest",
+            "projectName": "seng201-2_eb6a5720"
+        },
+        {
+            "type": "java",
             "name": "ItemTest",
             "request": "launch",
             "mainClass": "ItemTest",
