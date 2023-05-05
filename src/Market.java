@@ -1,29 +1,61 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Market {
-    private List<purchaseable> items;
+public class Market<Purchaseable> {
+    private List<Purchaseable> items;
 
     public Market() {
-        this.items = new ArrayList<purchaseable>();
-        String[] offenseNames = {"Sword", "Hammer", "Shiv"};
-        String[] defenseNames = {"Shield", "Chainmail", "Platemail"};
-    
+        this.items = new ArrayList<>();
+    }
+
+    public void addPurchaseable(Item item) {
+        items.add(item);
+    }
+
+    public void removePurchaseable(Purchaseable purchaseable) {
+        items.remove(purchaseable);
+    }
+
+    public void generateItems() {
+        String[] offenseNames = {"Sword", "Axe", "Mace", "Dagger", "Bow"};
+        String[] defenseNames = {"Shield", "Helmet", "Armor", "Gauntlets", "Boots"};
+
         for (int i = 0; i < 10; i++) {
-            if (Math.random() < 0.5) {
+            if (Math.random() < 0.33) {
                 String name = offenseNames[(int) (Math.random() * offenseNames.length)];
                 int value = (int) (Math.random() * 50) + 50;
                 int amount = (int) (Math.random() * 5) + 1;
-                Item item = new Item(name, "offense",value, value / 2, amount);
-                items.add(item);
-            } else {
+                Item item = new Item(name, "offense", value, value / 2, amount);
+                addPurchaseable(item);
+            } else if (Math.random() < 0.66) {
                 String name = defenseNames[(int) (Math.random() * defenseNames.length)];
                 int value = (int) (Math.random() * 100) + 100;
                 int amount = (int) (Math.random() * 3) + 1;
                 Item item = new Item(name, "defense", value, value / 2, amount);
-                items.add(item);
+                addPurchaseable(item);
+            } else {
+                // generate a random item
+                String name = "Random Item " + i;
+                int value = (int) (Math.random() * 50) + 50;
+                int amount = (int) (Math.random() * 5) + 1;
+                Item item = new Item(name, "random", value, value / 2, amount);
+                addPurchaseable(item);
             }
         }
+    }
+
+    public void generateEffectItems() {
+        String[] effectNames = {"Elixir", "Potion", "Tonic", "Serum", "Ointment"};
+        for (int i = 0; i < 10; i++) {
+            String name = effectNames[(int) (Math.random() * effectNames.length)];
+            int staminaBoost = (int) (Math.random() * 20) + 10;
+            int offenseBoost = (int) (Math.random() * 5) + 1;
+            int defenseBoost = (int) (Math.random() * 5) + 1;
+            EffectItem effectItem = new EffectItem(name, "effect", staminaBoost, offenseBoost, defenseBoost);
+            addPurchaseable(effectItem);
+        }
+    }
+        
     
         String[] athleteNames = {"John", "Jane", "Bob", "Alice", "Tom", "Jerry", "Mike", "Sarah"};
         String[] roles = {"Forward", "Midfielder", "Defender", "Goalkeeper"};
@@ -37,7 +69,7 @@ public class Market {
             int value = (int) (Math.random() * 500) + 500;
             int amount = (int) (Math.random() * 2) + 1;
             Athlete athlete = new Athlete(name, stamina, offense, defence, role, value, value / 2, amount);
-            items.add(athlete);
+            items.addAll(athlete);
         }
     }
     
@@ -67,5 +99,8 @@ public class Market {
     public List<purchaseable> getItems() {
         return items;
     }
+
+    
+    
 }
 
