@@ -34,7 +34,7 @@ public class Athlete implements purchaseable{
         this.sellbackPrice = storeValue / 2;
         this.amount = 1;
     }
-
+    
     public String getName() {
         return name;
     }
@@ -135,6 +135,60 @@ public class Athlete implements purchaseable{
         }
     }
 
+    public static Athlete generateAthlete(int turn, String role) {
+        int stamina = 100;
+        int offence = calculateOffence(role, turn);
+        int defence = calculateDefence(role, turn);
+        String name = generateName();
+        int value = generateValue(offence, defence);
+        int sellBackValue = generateSellBackValue(value);
+        
+        return new Athlete(name, stamina, offence, defence, role, value, sellBackValue,1);
+    }
+    
+    private static int generateSellBackValue(int value) {
+        return (int) (value * 0.8);
+    }
+
+    private static int generateValue(int offence, int defence) {
+        return (int) (offence * 2 + defence * 2);
+    }
+
+    private static int calculateOffence(String role, int turn) {
+        int offence = 50;
+        if (role.equals("Forward")) {
+            offence = 60 + (turn * 2);
+        } else if (role.equals("Midfielder")) {
+            offence = 50 + (turn * 2);
+        } else if (role.equals("Defender")) {
+            offence = 30 + (turn * 2);
+        } else if (role.equals("Goalkeeper")) {
+            offence = 20 + (turn * 2);
+        }
+        return offence;
+    }
+
+    private static int calculateDefence(String role, int turn) {
+        int defence = 50;
+        if (role.equals("Forward")) {
+            defence = 20 + (turn * 2);
+        } else if (role.equals("Midfielder")) {
+            defence = 35 + (turn * 2);
+        } else if (role.equals("Defender")) {
+            defence = 50 + (turn * 2);
+        } else if (role.equals("Goalkeeper")) {
+            defence = 60 + (turn * 2);
+        }
+        return defence;
+    }
+
+    private static String generateName() {
+        String[] firstNames = {"John", "Jane", "Alice", "Bob", "Chris", "David", "Emily", "Frank", "Grace", "Henry"};
+        String[] lastNames = {"Smith", "Johnson", "Brown", "Jones", "Davis", "Wilson", "Moore", "Taylor", "Anderson", "Thomas"};
+        String firstName = firstNames[(int) (Math.random() * firstNames.length)];
+        String lastName = lastNames[(int) (Math.random() * lastNames.length)];
+        return firstName + " " + lastName;
+    }
     public static void main(String[] args) {
         // TODO Auto-generated method stub
         Athlete j = new Athlete("jack", 100, 50, 50, "defender", 1000, 500, 1);
