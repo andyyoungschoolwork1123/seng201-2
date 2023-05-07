@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Arena{
@@ -59,12 +60,10 @@ public class Arena{
     public void displayAvailableOpponents_cmd() {
         System.out.println("Available opponents:");
         for (int i = 0; i < availableOpponents.size(); i++) {
-            Team opponent = availableOpponents.get(i);
-            for (int j = 0; j < opponent.size(); j++) {
-                System.out.println((j+1) + ". " + opponent.team.get(j).getName() + " (" + opponent.team.get(j).getRole() + ")");
+            System.out.println((i+1) + ". " + availableOpponents.get(i).getname()+ " (" + availableOpponents.get(i).gettotalestpower() + ")");
             }
             //System.out.println((i+1) + ". " + opponent.getName() + " (" + opponent.getRole() + ")");
-        }
+        
     }
     public ArrayList<Athlete> generate_AvailableTeamAthletes(int turn,String type) {
         ArrayList<Athlete> ava = new ArrayList<Athlete>();
@@ -120,7 +119,7 @@ public class Arena{
         ava.add(opponent5);
         
         }
-        
+        //Collection.shuffle(ava); to do
         return ava;
         
     }
@@ -132,12 +131,12 @@ public class Arena{
         }
 
         int turn = player.getTurn();
-        InitAvailableOpponents(turn);
-        displayAvailableOpponents_cmd();
+        this.InitAvailableOpponents(turn);
+        this.displayAvailableOpponents_cmd();
         System.out.println("Please select an opponent to battle");
         int selection = Integer.parseInt(System.console().readLine());
         Team opponent = availableOpponents.get(selection - 1);
-        
+        opponent.printteam();
         battle_easy(player,opponent);
     }
     
@@ -150,32 +149,51 @@ public class Arena{
         
         Team attacker = Team_player;
         Team defender = Team2;
-        while (duration <= 20){
-        
+        while (duration <= 20) {
+
             duration += 1;
-            if (attacker.team.get(attacker.getpos()).personal_duel(defender.team.get(defender.getpos()), duration)){
-                defender.setpos(defender.getpos()+1);
-                if (defender.getpos() == 5){
-                    attacker.addScore(1);  
-                    System.out.println("Team1 score");                
+            if (attacker.team.get(attacker.getpos()).personal_duel(defender.team.get(defender.getpos()), duration)) {
+                if (attacker.getpos() !=0){
+                    System.out.println(attacker.team.get(attacker.getpos()).getName() + " passes to " + attacker.team.get(attacker.getpos()-1).getName());
+                    attacker.setpos(attacker.getpos()-1);
+                    attacker.team.get(attacker.getpos()).setStamina(attacker.team.get(attacker.getpos()).getStamina()-1);
+                    defender.setpos(defender.getpos() + 1);
+                    System.out.println(attacker.team.get(attacker.getpos()).getName() + " pass though " + defender.team.get(defender.getpos()).getName());
                 }
-                System.out.println(attacker.team.get(attacker.getpos()).getName() + "go pass"  + defender.team.get(defender.getpos()).getName());
-            }
-            else {
-                
-                attacker.setpos(attacker.getpos()+1);
-                if (attacker.getpos() == 5){
+                if (defender.getpos() == 4) {
+                    attacker.addScore(1);
+                    System.out.println("Team1 score");
+                    attacker.setpos(0);
+                    defender.setpos(0);
+                } else {
+                    defender.setpos(defender.getpos() + 1);
+                    System.out.println(attacker.team.get(attacker.getpos()).getName() + " go past " + defender.team.get(defender.getpos()).getName());
+                }
+            } else {
+    
+                if (attacker.getpos() == 4) {
                     defender.addScore(1);
                     System.out.println("Team2 score");
+                    attacker.setpos(0);
+                    defender.setpos(0);
+                } else {
+                    System.out.println(attacker.team.get(attacker.getpos()).getName() + " loses the ball to " + defender.team.get(defender.getpos()).getName());
+                    Team temp = attacker;
+                    attacker = defender;
+                    defender = temp;
+                    attacker.setpos(defender.getpos());
+                    defender.setpos(temp.getpos());
                 }
-                attacker = Team2;
-                defender = Team_player;
-                System.out.println(attacker.team.get(attacker.getpos()).getName() + "give away the ball to"  + defender.team.get(defender.getpos()).getName());
-
-            }    
-        }
+            }
+            if (duration == 20) {
+                System.out.println("Game over");
+                break;
+            }
+        }    
         
         
+        System.out.println("Team1 score: " + Team_player.getscore());
+        System.out.println("Team2 score: " + Team2.getscore());
         if (Team_player.getscore() > Team2.getscore()){
             System.out.println("You win");
             player.increasepoints(3);
@@ -189,5 +207,14 @@ public class Arena{
         }
     }
 
-    
+    public static void main(String[] args) {
+        Arena arena = new Arena();
+        arena.InitAvailableOpponents(1);
+        //arena.displayAvailableOpponents_cmd();
+        Player player = new Player("Easy","test");
+        player.setTeam(arena.generate_AvailableTeamAthletes(1,"balance"));
+        player.printteam();
+        arena.pre_battle(player);
+    }
+
 }

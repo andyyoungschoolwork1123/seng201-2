@@ -60,7 +60,14 @@ public class Team {
     public void addScore(int score) {
         this.score += score;
     }
-
+    public int gettotalestpower(){
+        int total = 0;
+        for (int i = 0; i < this.team.size(); i++) {
+            Athlete athlete = this.team.get(i);
+            total += athlete.esimatepower();
+        }
+        return total;
+    }
     public void displayTeam_cmd() {
         System.out.println("Team " + this.name + ":");
         for (int i = 0; i < this.team.size(); i++) {
