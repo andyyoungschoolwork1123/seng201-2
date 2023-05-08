@@ -6,7 +6,18 @@
     "configurations": [
         {
             "type": "java",
+<<<<<<< Updated upstream
             "name": "TeamBattleTest",
+=======
+            "name": "AthleteTestTwo",
+            "request": "launch",
+            "mainClass": "AthleteTestTwo",
+            "projectName": "seng201-2_eb6a5720"
+        },
+        {
+            "type": "java",
+            "name": "Athlete",
+>>>>>>> Stashed changes
             "request": "launch",
             "mainClass": "TeamBattleTest",
             "projectName": "JAVA_TEST_a897b0e1"
