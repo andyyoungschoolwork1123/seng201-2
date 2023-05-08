@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "TeamBattleTest",
+            "request": "launch",
+            "mainClass": "TeamBattleTest",
+            "projectName": "JAVA_TEST_a897b0e1"
+        },
+        {
+            "type": "java",
             "name": "TestMarket",
             "request": "launch",
             "mainClass": "TestMarket",
