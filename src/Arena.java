@@ -169,6 +169,20 @@ public class Arena{
                     defender.setpos(defender.getpos() + 1);
                     System.out.println(attacker.team.get(attacker.getpos()).getName() + " go past " + defender.team.get(defender.getpos()).getName());
                 }
+                if (attacker.team.get(attacker.getpos()).getStamina() <= 20) {
+                    System.out.println(attacker.team.get(attacker.getpos()).getName() + " is exhausted");
+                    System.out.println("1 use a sub?/2 use a stamina potion?/3 continue");
+                    int selection = Integer.parseInt(System.console().readLine());
+                    if (selection == 1) {
+                        //attacker.team.get(attacker.getpos()).setStamina(attacker.team.get(attacker.getpos()).getStamina() + 20);
+                        //attacker.team.get(attacker.getpos()).setStamina(attacker.team.get(attacker.getpos()).getStamina() - 20);
+                        System.out.println("Sub used");
+                    } else if (selection == 2) {
+                        attacker.team.get(attacker.getpos()).setStamina(attacker.team.get(attacker.getpos()).getStamina() + 20);
+                        System.out.println("Stamina potion used");
+                    }
+                    
+                }
             } else {
     
                 if (attacker.getpos() == 4) {

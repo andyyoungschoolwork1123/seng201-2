@@ -5,7 +5,7 @@ public class Player {
     private int gold;
     private ArrayList<Athlete> team;
     private int points;
-    private ArrayList<EffectItem> inventory;
+    private ArrayList<Item> inventory;
     private int Turn = 0;
     private String name;
 
@@ -75,6 +75,16 @@ public class Player {
             System.out.println(inventory.get(i).getName());
         }
     }
+    public void setInventory(ArrayList<Item> inventory) {
+        this.inventory = inventory;
+    }
+    public void addInventory(Item item) {
+        this.inventory.add(item);
+    }
+    public void removeInventory(Item item) {
+        this.inventory.remove(item);
+    }
+    
     public void getTeamanmes() {
         for (int i = 0; i < team.size(); i++) {
             System.out.println(team.get(i).getName());
