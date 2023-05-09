@@ -68,4 +68,7 @@ public class Player {
             System.out.println(team.get(i).getName());
         }
     }
+
+    public void setInventory(ArrayList<EffectItem> inventory2) {
+    }
 }

@@ -195,4 +195,10 @@ public class Athlete implements purchaseable{
         j.increaseStamina(10);
         System.out.println(j.getStamina());
     }
+
+    public String esimatepower() {
+        return null;
+    }
 }
+
+

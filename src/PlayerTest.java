@@ -28,5 +28,7 @@ public class PlayerTest {
         int points = player.getpoints();
         System.out.println("Points: " + points);
     }
+
+    
 }
 
