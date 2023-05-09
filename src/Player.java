@@ -5,12 +5,14 @@ public class Player {
     private int gold;
     private ArrayList<Athlete> team;
     private int points;
-    private ArrayList<EffectItem> inventory;
+    private ArrayList<Item> inventory;
+    private int Turn = 0;
+    private String name;
 
-    public Player(String difficulty) {
+    public Player(String difficulty,String name) {
         this.difficulty = difficulty;
         this.team = new ArrayList<Athlete>();
-    
+        this.name = name;
         // set starting gold based on difficulty
         if (difficulty.equals("Easy")) {
             this.gold = 50;
@@ -19,12 +21,15 @@ public class Player {
         } else if (difficulty.equals("Hard")) {
             this.gold = 10;
         } else {
-            System.out.println("ValueError") ;  // default to 0 if difficulty level is unknown
+            System.out.println("ValueError:diffculty") ;  // default to 0 if difficulty level is unknown
+            return;
         }
     
         this.points = 0;
     }
-
+    public String getname(){
+        return this.name;
+    }
     public String getDifficulty() {
         return difficulty;
     }
@@ -36,7 +41,13 @@ public class Player {
     public int getGold() {
         return gold;
     }
-
+    public int getTurn() {
+        return Turn;
+    }
+    public int addgold(int gold) {
+        this.gold += gold;
+        return this.gold;
+    }
     public void setGold(int gold) {
         this.gold = gold;
     }
@@ -48,7 +59,12 @@ public class Player {
     public void setTeam(ArrayList<Athlete> team) {
         this.team = team;
     }
-
+    public void printteam(){
+        for (int i = 0; i < this.team.size(); i++) {
+            Athlete athlete = this.team.get(i);
+            System.out.println((i+1) + ". " + athlete.getName() + " (" + athlete.getRole() + ")");
+        }
+    }
     public int getpoints() {
         return points;
     }
@@ -63,12 +79,32 @@ public class Player {
             System.out.println(inventory.get(i).getName());
         }
     }
+    public void setInventory(ArrayList<Item> inventory) {
+        this.inventory = inventory;
+    }
+    public void addInventory(Item item) {
+        this.inventory.add(item);
+    }
+    public void removeInventory(Item item) {
+        this.inventory.remove(item);
+    }
+    
     public void getTeamanmes() {
         for (int i = 0; i < team.size(); i++) {
             System.out.println(team.get(i).getName());
         }
     }
 
-    public void setInventory(ArrayList<EffectItem> inventory2) {
+    public void init_team_commandline() {
+        System.out.println("Please select 5 players for your team");
+        for (int i = 0; i < 5; i++) {
+            System.out.println("Please select player " + (i + 1));
+            for (int j = 0; j < team.size(); j++) {
+                System.out.println((j + 1) + ". " + team.get(j).getName());
+            }
+            int selection = Integer.parseInt(System.console().readLine());
+            team.add(team.get(selection - 1));
+            team.remove(selection - 1);
+        }
     }
 }

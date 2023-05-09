@@ -64,7 +64,7 @@ public class Team {
         int total = 0;
         for (int i = 0; i < this.team.size(); i++) {
             Athlete athlete = this.team.get(i);
-            //total += athlete.esimatepower();
+            total += athlete.esimatepower();
         }
         return total;
     }

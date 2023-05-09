@@ -11,8 +11,6 @@ public class EffectItem extends Item  {
         this.defenseBoost = defenseBoost;
         
     }
-   
-    
 
     public int getStaminaBoost() {
         return staminaBoost;

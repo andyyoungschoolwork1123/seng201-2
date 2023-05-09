@@ -44,6 +44,9 @@ public class Athlete implements purchaseable{
     }
 
     public boolean getInjury() {
+        if (this.stamina <= 20){
+            this.injury = true;
+        }
         return injury;
     }
 
@@ -54,7 +57,9 @@ public class Athlete implements purchaseable{
     public int getOffence() {
         return offence;
     }
-
+    public void setStamina(int i) {
+            this.stamina = i;
+        }
     public int getDefence() {
         return defence;
     }
@@ -77,7 +82,9 @@ public class Athlete implements purchaseable{
 		
 		this.offence += offenseBoost ;
 	}
-
+    public int esimatepower(){
+        return (int) (this.stamina  + this.offence *2 + this.defence * 2);
+    }
     @Override
     public int getStoreValue() {
         
@@ -87,48 +94,39 @@ public class Athlete implements purchaseable{
 
     @Override
     public void setStoreValue(int storeValue) {
-        // TODO Auto-generated method stub
         this.storeValue = storeValue;
     }
     
     public void setStoreValue() {
-        // TODO Auto-generated method stub
         this.storeValue = (int) (this.stamina * 2 + this.offence * 5 + this.defence * 5);
     }
     
     @Override
     public int getSellbackPrice() {
-        // TODO Auto-generated method stub
         return this.sellbackPrice;
     }
 
     @Override
     public void setSellbackPrice(int sellbackPrice) {
-        // TODO Auto-generated method stub
         this.sellbackPrice = sellbackPrice;
     }
     public void setSellbackPrice() {
-        // TODO Auto-generated method stub
         this.sellbackPrice = (int) (this.storeValue * 0.8);
     }
     public int getAmount() {
-        // TODO Auto-generated method stub
         return this.amount;    }
 
     
     public void setAmount(int amount) {
-        // TODO Auto-generated method stub
         this.amount = amount;    }
 
     @Override
     public void increaseAmount(int amount) {
-        // TODO Auto-generated method stub
         this.amount += amount ;
     }
 
     @Override
     public void decreaseAmount(int amount) {
-        // TODO Auto-generated method stub
         this.amount -= amount;
         if (this.amount < 0){
             this.amount = 0;
@@ -157,11 +155,11 @@ public class Athlete implements purchaseable{
     private static int calculateOffence(String role, int turn) {
         int offence = 50;
         if (role.equals("Forward")) {
-            offence = 60 + (turn * 2);
+            offence = 30+ (int)(Math.random()*30) + (turn * 2);
         } else if (role.equals("Midfielder")) {
-            offence = 50 + (turn * 2);
+            offence = 20+ (int)(Math.random()*25) + (turn * 2);
         } else if (role.equals("Defender")) {
-            offence = 30 + (turn * 2);
+            offence = (int)(Math.random()*40) + (turn * 2);
         } else if (role.equals("Goalkeeper")) {
             offence = 20 + (turn * 2);
         }
@@ -171,17 +169,37 @@ public class Athlete implements purchaseable{
     private static int calculateDefence(String role, int turn) {
         int defence = 50;
         if (role.equals("Forward")) {
-            defence = 20 + (turn * 2);
+            defence = (int)(Math.random()*30) + (turn * 2);
         } else if (role.equals("Midfielder")) {
-            defence = 35 + (turn * 2);
+            defence = 25 + (int)(Math.random()*25) + (turn * 2);
         } else if (role.equals("Defender")) {
-            defence = 50 + (turn * 2);
+            defence = 30+ (int)(Math.random()*30) + (turn * 2);
         } else if (role.equals("Goalkeeper")) {
             defence = 60 + (turn * 2);
         }
         return defence;
     }
-
+    public boolean personal_duel( Athlete j,int round){
+        double attackerluck = Math.random()*15;
+        double temp_attack = this.getOffence() *round*attackerluck;
+        double temp_def = j.getDefence() *j.getStamina()/100;
+        double temp = temp_attack - temp_def;
+        double chance_success = (temp)/100 +33;
+        if (chance_success > 100){
+            chance_success = 100;
+        }
+        System.out.println(chance_success);
+        if (Math.random()*100 > chance_success){
+            this.increaseStamina(-3);
+            j.increaseStamina(-7);
+            return false;
+        }
+        else{
+            this.increaseStamina(-4);
+            j.increaseStamina(-10);
+        return true;
+        }
+    }
     private static String generateName() {
         String[] firstNames = {"John", "Jane", "Alice", "Bob", "Chris", "David", "Emily", "Frank", "Grace", "Henry"};
         String[] lastNames = {"Smith", "Johnson", "Brown", "Jones", "Davis", "Wilson", "Moore", "Taylor", "Anderson", "Thomas"};
@@ -194,11 +212,21 @@ public class Athlete implements purchaseable{
         System.out.println(j.getStoreValue());
         j.increaseStamina(10);
         System.out.println(j.getStamina());
+        Athlete a1 = new Athlete("Alice", 100, 80, 30, "Attacker");
+        Athlete a2 = new Athlete("Bob",  100, 50, 80,"Defender");
+        int i = 0;
+        while ( i <20){
+            i++;
+            System.out.println("round " + i);
+            boolean result = a1.personal_duel(a2, i);
+            System.out.println(result);
+            System.out.println(a1.getStamina());
+            System.out.println(a2.getStamina());}
+        //boolean result = a1.personal_duel(a2, 1);
+
+        //System.out.println(result);
+
     }
 
-    public String esimatepower() {
-        return null;
-    }
+    
 }
-
-
