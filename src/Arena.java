@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Arena{
@@ -141,7 +140,6 @@ public class Arena{
     }
     
     public void battle_easy(Player player,Team opponent) {
-        // TODO: implement battle mechanism
         Team Team_player = new Team(player.getname(),player.getTeam());
         Team Team2 = opponent;
         

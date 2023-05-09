@@ -44,6 +44,10 @@ public class Player {
     public int getTurn() {
         return Turn;
     }
+    public int addgold(int gold) {
+        this.gold += gold;
+        return this.gold;
+    }
     public void setGold(int gold) {
         this.gold = gold;
     }

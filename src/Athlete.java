@@ -94,48 +94,39 @@ public class Athlete implements purchaseable{
 
     @Override
     public void setStoreValue(int storeValue) {
-        // TODO Auto-generated method stub
         this.storeValue = storeValue;
     }
     
     public void setStoreValue() {
-        // TODO Auto-generated method stub
         this.storeValue = (int) (this.stamina * 2 + this.offence * 5 + this.defence * 5);
     }
     
     @Override
     public int getSellbackPrice() {
-        // TODO Auto-generated method stub
         return this.sellbackPrice;
     }
 
     @Override
     public void setSellbackPrice(int sellbackPrice) {
-        // TODO Auto-generated method stub
         this.sellbackPrice = sellbackPrice;
     }
     public void setSellbackPrice() {
-        // TODO Auto-generated method stub
         this.sellbackPrice = (int) (this.storeValue * 0.8);
     }
     public int getAmount() {
-        // TODO Auto-generated method stub
         return this.amount;    }
 
     
     public void setAmount(int amount) {
-        // TODO Auto-generated method stub
         this.amount = amount;    }
 
     @Override
     public void increaseAmount(int amount) {
-        // TODO Auto-generated method stub
         this.amount += amount ;
     }
 
     @Override
     public void decreaseAmount(int amount) {
-        // TODO Auto-generated method stub
         this.amount -= amount;
         if (this.amount < 0){
             this.amount = 0;
@@ -164,11 +155,11 @@ public class Athlete implements purchaseable{
     private static int calculateOffence(String role, int turn) {
         int offence = 50;
         if (role.equals("Forward")) {
-            offence = 30+ (int)Math.random()*30 + (turn * 2);
+            offence = 30+ (int)(Math.random()*30) + (turn * 2);
         } else if (role.equals("Midfielder")) {
-            offence = 20+ (int)Math.random()*25 + (turn * 2);
+            offence = 20+ (int)(Math.random()*25) + (turn * 2);
         } else if (role.equals("Defender")) {
-            offence = (int)Math.random()*40 + (turn * 2);
+            offence = (int)(Math.random()*40) + (turn * 2);
         } else if (role.equals("Goalkeeper")) {
             offence = 20 + (turn * 2);
         }
@@ -178,11 +169,11 @@ public class Athlete implements purchaseable{
     private static int calculateDefence(String role, int turn) {
         int defence = 50;
         if (role.equals("Forward")) {
-            defence = (int)Math.random()*30 + (turn * 2);
+            defence = (int)(Math.random()*30) + (turn * 2);
         } else if (role.equals("Midfielder")) {
-            defence = 25 + (int)Math.random()*25 + (turn * 2);
+            defence = 25 + (int)(Math.random()*25) + (turn * 2);
         } else if (role.equals("Defender")) {
-            defence = 30+ (int)Math.random()*30 + (turn * 2);
+            defence = 30+ (int)(Math.random()*30) + (turn * 2);
         } else if (role.equals("Goalkeeper")) {
             defence = 60 + (turn * 2);
         }
