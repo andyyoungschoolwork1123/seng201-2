@@ -6,6 +6,41 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Athlete",
+            "request": "launch",
+            "mainClass": "Athlete",
+            "projectName": "JAVA_TEST_a897b0e1"
+        },
+        {
+            "type": "java",
+            "name": "Arena",
+            "request": "launch",
+            "mainClass": "Arena",
+            "projectName": "JAVA_TEST_a897b0e1"
+        },
+        {
+            "type": "java",
+            "name": "ArenaTest",
+            "request": "launch",
+            "mainClass": "ArenaTest",
+            "projectName": "JAVA_TEST_a897b0e1"
+        },
+        {
+            "type": "java",
+            "name": "TeamTest",
+            "request": "launch",
+            "mainClass": "TeamTest",
+            "projectName": "JAVA_TEST_a897b0e1"
+        },
+        {
+            "type": "java",
+            "name": "AthleteTest",
+            "request": "launch",
+            "mainClass": "AthleteTest",
+            "projectName": "JAVA_TEST_a897b0e1"
+        },
+        {
+            "type": "java",
             "name": "AthleteTest",
             "request": "launch",
             "mainClass": "AthleteTest",
