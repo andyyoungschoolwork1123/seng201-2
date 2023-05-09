@@ -6,6 +6,7 @@
     "configurations": [
         {
             "type": "java",
+<<<<<<< Updated upstream
             "name": "Athlete",
             "request": "launch",
             "mainClass": "Athlete",
@@ -38,6 +39,19 @@
             "request": "launch",
             "mainClass": "AthleteTest",
             "projectName": "JAVA_TEST_a897b0e1"
+=======
+            "name": "EffectItemTest",
+            "request": "launch",
+            "mainClass": "EffectItemTest",
+            "projectName": "seng201-2_eb6a5720"
+        },
+        {
+            "type": "java",
+            "name": "EffectItem",
+            "request": "launch",
+            "mainClass": "EffectItem",
+            "projectName": "seng201-2_eb6a5720"
+>>>>>>> Stashed changes
         },
         {
             "type": "java",
