@@ -71,6 +71,63 @@ public class MarketTwoTest {
         // test the getItemAmount method
         int itemAmount = market.getItemAmount("Basketball");
         System.out.println(itemAmount);
+
+        //test Player buy somthing while gold reduce 
+        
+        // Create a player
+        Player player = new Player("Easy", "Jack");
+            
+        // Create a market
+        MarketTwo marketTwo= new MarketTwo();
+            
+        // Add some athletes to the market
+        Athlete a4 = new Athlete("James", 90, 90, 70, "Small Forward", 1000, 500,1);
+        Athlete a5 = new Athlete("Bryant", 85, 95, 75, "Shooting Guard", 800, 350,1);
+        market.addAthlete(a4);
+        market.addAthlete(a5);
+            
+        // Add some items to the market
+        Item item1 = new Item("Basketball", "Equipment", 20, 10,1);
+        Item item2 = new Item("Running shoes", "Footwear", 50, 30,2);
+        market.addItem(item1);
+        market.addItem(item2);
+            
+        // Display the initial state of the player and the market
+        System.out.println("Initial state:");
+        System.out.println(player);
+        System.out.println(market.getItems());
+            
+        // Simulate the player buying an item from the market
+        Item boughtItem = market.getItemByName("Basketball");
+        if (boughtItem != null && player.getGold() >= boughtItem.getStoreValue()) {
+            player.reduceGold(boughtItem.getStoreValue());
+            market.removeItem(boughtItem);
+            System.out.println("Item bought successfully!");
+        } else {
+            System.out.println("Unable to buy item!");
+        }
+            
+        // Display the updated state of the player and the market
+        System.out.println("Updated state:");
+        System.out.println(player);
+        System.out.println(market.getItems());
+        }
+
+        //for not sure the New change with Andy's idea cannot find a good obejct to test the second methods
+    
+               
+        
+       
+        
+
     }
-}
+
+    
+    
+    
+
+
+    
+
+
 

@@ -27,7 +27,7 @@ public class Player {
     
         this.points = 0;
     }
-    public String getname(){
+    public String getName(){
         return this.name;
     }
     public String getDifficulty() {
@@ -106,5 +106,7 @@ public class Player {
             team.add(team.get(selection - 1));
             team.remove(selection - 1);
         }
+    }
+    public void reduceGold(int storeValue) {
     }
 }
