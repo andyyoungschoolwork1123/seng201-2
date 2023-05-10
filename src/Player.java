@@ -27,7 +27,7 @@ public class Player {
     
         this.points = 0;
     }
-    public String getname(){
+    public String getName(){
         return this.name;
     }
     public String getDifficulty() {
