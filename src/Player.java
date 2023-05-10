@@ -35,7 +35,10 @@ public class Player {
     public String getDifficulty() {
         return difficulty;
     }
-
+    public int inc_trun(){
+        this.Turn += 1;
+        return this.Turn;
+    }
     public void setDifficulty(String difficulty) {
         this.difficulty = difficulty;
     }
@@ -51,7 +54,15 @@ public class Player {
     public void removesubs(Athlete athlete){
         this.subs.remove(athlete);
     }
-
+    public void printsubs(){
+        for (int i = 0; i < this.subs.size(); i++) {
+            Athlete athlete = this.subs.get(i);
+            System.out.println((i+1) + ". " + athlete.getName() + " (" + athlete.getRole() + ")");
+            System.out.println("Stamina: " + athlete.getStamina());
+            System.out.println("Offense: " + athlete.getOffence());
+            System.out.println("Defense: " + athlete.getDefence());
+        }
+    }
 
     public int getGold() {
         return gold;
@@ -89,10 +100,9 @@ public class Player {
     public void increasepoints(int points) {
         this.points += points;
     }
-    public void getInventory() {
-        for (int i = 0; i < inventory.size(); i++) {
-            System.out.println(inventory.get(i).getName());
-        }
+    public ArrayList<Item> getInventory() {
+        return this.inventory;
+        
     }
     public void setInventory(ArrayList<Item> inventory) {
         this.inventory = inventory;
