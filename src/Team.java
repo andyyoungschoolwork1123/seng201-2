@@ -16,10 +16,25 @@ public class Team {
         this.team = new ArrayList<Athlete>();
         this.score = 0;
     }
+    public Team(String name, ArrayList<Athlete> team,ArrayList<Athlete> subs) {
+        this.name = name;
+        this.team = team;
+        this.score = 0;
+        this.subs = subs;
+
+    }
     public Team(String name, ArrayList<Athlete> team) {
         this.name = name;
         this.team = team;
         this.score = 0;
+        this.subs = new ArrayList<Athlete>();
+
+    }
+    public Team(Player player) {
+        this.name = player.getName();
+        this.team = player.getTeam();
+        this.score = 0;
+        this.subs = player.getsubs();
 
     }
     public int getpos(){

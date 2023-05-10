@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Arena{
+public class Arena {
     private ArrayList<Team> availableOpponents;
     private ArrayList<String> availableOpponentsNames;
 
@@ -160,32 +161,19 @@ public class Arena{
                 }
                 if (defender.getpos() == 4) {
                     attacker.addScore(1);
-                    System.out.println("Team1 score");
+                    System.out.println(attacker.getname() + " score!");
                     attacker.setpos(0);
                     defender.setpos(0);
                 } else {
                     defender.setpos(defender.getpos() + 1);
                     System.out.println(attacker.team.get(attacker.getpos()).getName() + " go past " + defender.team.get(defender.getpos()).getName());
                 }
-                if (attacker.team.get(attacker.getpos()).getStamina() <= 20) {
-                    System.out.println(attacker.team.get(attacker.getpos()).getName() + " is exhausted");
-                    System.out.println("1 use a sub?/2 use a stamina potion?/3 continue");
-                    int selection = Integer.parseInt(System.console().readLine());
-                    if (selection == 1) {
-                        //attacker.team.get(attacker.getpos()).setStamina(attacker.team.get(attacker.getpos()).getStamina() + 20);
-                        //attacker.team.get(attacker.getpos()).setStamina(attacker.team.get(attacker.getpos()).getStamina() - 20);
-                        System.out.println("Sub used");
-                    } else if (selection == 2) {
-                        attacker.team.get(attacker.getpos()).setStamina(attacker.team.get(attacker.getpos()).getStamina() + 20);
-                        System.out.println("Stamina potion used");
-                    }
-                    
-                }
+                
             } else {
     
                 if (attacker.getpos() == 4) {
                     defender.addScore(1);
-                    System.out.println("Team2 score");
+                    System.out.println(defender.getname() +" score");
                     attacker.setpos(0);
                     defender.setpos(0);
                 } else {
@@ -197,6 +185,28 @@ public class Arena{
                     defender.setpos(temp.getpos());
                 }
             }
+            if (attacker.team.get(attacker.getpos()).getStamina() <= 20 && attacker.equals(Team_player)) {
+                System.out.println(attacker.team.get(attacker.getpos()).getName() + " is exhausted");
+                System.out.println("1 use a stamina potion?/2 continue");
+                int selection = Integer.parseInt(System.console().readLine());
+                if (selection == 1) {
+                    player.applyfrominventory();
+                    System.out.println("Stamina of " + attacker.team.get(attacker.getpos()).getName() + " is restored to" + attacker.team.get(attacker.getpos()).getStamina());
+                } else {
+                    System.out.println("Continue");
+                }
+                
+            }
+            if (defender.team.get(defender.getpos()).getStamina() <= 20 && defender.equals(Team_player)) {
+                System.out.println(defender.team.get(defender.getpos()).getName() + " is exhausted");
+                System.out.println("1 use a stamina potion?/2 continue");
+                int selection = Integer.parseInt(System.console().readLine());
+                if (selection == 1) {
+                    player.applyfrominventory();
+                    System.out.println("Stamina of " + defender.team.get(defender.getpos()).getName() + " is restored to" + defender.team.get(attacker.getpos()).getStamina());
+                } else {
+                    System.out.println("Continue");
+                }
             if (duration == 20) {
                 System.out.println("Game over");
                 break;
@@ -216,7 +226,7 @@ public class Arena{
         else {
             System.out.println("Draw");
             player.increasepoints(1);
-        }
+        }}
     }
 
     public static void main(String[] args) {

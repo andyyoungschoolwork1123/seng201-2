@@ -8,6 +8,7 @@ public class Player {
     private ArrayList<Item> inventory;
     private int Turn = 0;
     private String name;
+    private ArrayList<Athlete> subs;
 
     public Player(String difficulty,String name) {
         this.difficulty = difficulty;
@@ -37,6 +38,19 @@ public class Player {
     public void setDifficulty(String difficulty) {
         this.difficulty = difficulty;
     }
+    public ArrayList<Athlete> getsubs(){
+        return this.subs;
+    }
+    public void setsubs(ArrayList<Athlete> subs){
+        this.subs = subs;
+    }
+    public void addsubs(Athlete athlete){
+        this.subs.add(athlete);
+    }   
+    public void removesubs(Athlete athlete){
+        this.subs.remove(athlete);
+    }
+
 
     public int getGold() {
         return gold;
@@ -98,6 +112,9 @@ public class Player {
         for (int i = 0; i < inventory.size(); i++) {
             System.out.println(inventory.get(i).getName());
         }
+        if (inventory.size() == 0) {
+            System.out.println("No items in inventory");
+        }
     }
     public void displayteam() {
         for (int i = 0; i < team.size(); i++) {
@@ -118,6 +135,10 @@ public class Player {
     }
     public void applyfrominventory() {
         displayinventory();
+        if (inventory.size() == 0) {
+            System.out.println("action cancelled");
+            return;
+        }
         System.out.println("Please select item to apply");
         int selection = Integer.parseInt(System.console().readLine());
         System.out.println("Please select player to apply item to");
@@ -130,7 +151,7 @@ public class Player {
         inventory.get(selection - 1).applyToAthlete(team.get(selection2 - 1));
         inventory.remove(selection - 1);
     }
-    
+
     public void reduceGold(int storeValue) {
     }
 }
