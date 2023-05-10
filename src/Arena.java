@@ -225,7 +225,16 @@ public class Arena {
         else {
             System.out.println("Draw");
             player.increasepoints(1);
-        }}
+
+
+        }
+
+        player.addgold((int)(Team2.gettotalestpower()/10));
+        System.out.println("You get " + (int)(Team2.gettotalestpower()/1) + " gold");
+        return;
+
+
+    }
     }
 
     public static void main(String[] args) {
@@ -236,6 +245,7 @@ public class Arena {
         player.setTeam(arena.generate_AvailableTeamAthletes(1,"balance"));
         player.printteam();
         arena.pre_battle(player);
+        
     }
 
 }
