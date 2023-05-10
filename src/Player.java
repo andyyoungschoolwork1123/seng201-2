@@ -126,6 +126,11 @@ public class Player {
         inventory.get(selection - 1).applyToAthlete(team.get(selection2 - 1));
         inventory.remove(selection - 1);
     }
+    public void applyfrominventory(int selection, int selection2) {
+        inventory.get(selection - 1).applyToAthlete(team.get(selection2 - 1));
+        inventory.remove(selection - 1);
+    }
+    
     public void reduceGold(int storeValue) {
     }
 }

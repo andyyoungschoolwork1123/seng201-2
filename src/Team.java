@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class Team {
     public ArrayList<Athlete> team;
+    private ArrayList<Athlete> subs;
     public int score;
     public String name;
     private int pos = 0;
@@ -27,6 +28,47 @@ public class Team {
     public void setpos(int pos){
         this.pos = pos;
     }
+    public ArrayList<Athlete> getsubs(){
+        return this.subs;
+    }
+    public void setsubs(ArrayList<Athlete> subs){
+        this.subs = subs;
+    }
+    public void addsubs(Athlete athlete){
+        this.subs.add(athlete);
+    }
+    public void removesubs(Athlete athlete){
+        this.subs.remove(athlete);
+    }
+    public void printsubs(){
+        for (int i = 0; i < this.subs.size(); i++) {
+            Athlete athlete = this.subs.get(i);
+            System.out.println((i+1) + ". " + athlete.getName() + " (" + athlete.getRole() + ")");
+        }
+    }
+    public void subtite(Athlete onathlete, int off_pos){
+        //gui in mind
+        this.subs.add(this.team.get(off_pos));
+        this.team.set(off_pos, onathlete);
+    }
+    public void subtite(Athlete onathlete, Athlete offathlete){
+        //gui in mind
+        this.subs.add(offathlete);
+        this.team.set(this.team.indexOf(offathlete), onathlete);
+    }
+    public void subtite(int on_pos, int off_pos){
+        //grouping with the select_subon() and select_suboff()
+        System.out.println("Substituting " + this.team.get(off_pos).getName() + " with " + this.subs.get(on_pos).getName() + "comfirm? (y/n)");
+        String comfirm = System.console().readLine();
+        if (comfirm.equals("y")){
+            this.subs.add(this.team.get(off_pos));
+            this.team.set(off_pos, this.subs.get(on_pos));
+        }
+        else{
+            System.out.println("Substitution cancelled");
+        }   
+        
+    }
     public ArrayList<Athlete> getteam(){
         return this.team;
     }
@@ -35,6 +77,18 @@ public class Team {
             Athlete athlete = this.team.get(i);
             System.out.println((i+1) + ". " + athlete.getName() + " (" + athlete.getRole() + ")");
         }
+    }
+    public int select_subon(){
+        System.out.println("Select the athlete you want to sub on:");
+        this.printsubs();
+        int subon_pos = Integer.parseInt(System.console().readLine());
+        return subon_pos;
+    }
+    public int select_suboff(){
+        System.out.println("Select the athlete you want to sub off:");
+        this.printteam();
+        int suboff_pos = Integer.parseInt(System.console().readLine());
+        return suboff_pos;
     }
     public void setteam(ArrayList<Athlete> team){
         this.team = team;
