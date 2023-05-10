@@ -140,7 +140,7 @@ public class Arena{
     }
     
     public void battle_easy(Player player,Team opponent) {
-        Team Team_player = new Team(player.getname(),player.getTeam());
+        Team Team_player = new Team(player.getName(),player.getTeam());
         Team Team2 = opponent;
         
         int duration =0;
