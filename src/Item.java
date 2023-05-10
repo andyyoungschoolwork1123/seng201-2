@@ -116,7 +116,7 @@ public class Item implements purchaseable{
         if (type =="EquipmentItem" | type =="AttEquipment" | type =="DefEquipment"){
             return generate_Equipmentitem(turn, type = "EquipmentItem");
         }
-        else if (type =="ConsumableItem"){
+        else if (type =="ConsumableItem"| type =="staminapotion" | type =="offensepotion" | type =="defensepotion"){
             return generate_consumableitem(turn);
         }
         else{
@@ -124,8 +124,24 @@ public class Item implements purchaseable{
         }
     }
     private static Item generate_consumableitem(int turn) {
+        String[] consumableNames = {"staminapotion", "offensepotion", "defensepotion"};
+        String name = consumableNames[(int) (Math.random() * consumableNames.length)];
+        int staminaBoost = 0;
+        int offenseBoost = 0;
+        int defenseBoost = 0;
+        if (name == "staminapotion"){
+             staminaBoost = (int) (5) + 5*turn;
+        }
+        else if (name == "offensepotion"){
+             offenseBoost = (int) (5) + 5*turn;
+        }
+        else if (name == "defensepotion"){
+             defenseBoost = (int) (5) + 5*turn;
+        }
+        
+        Item item = new Item(name, "ConsumableItem",0, 0, 0, staminaBoost, offenseBoost, defenseBoost);
 
-        return null;
+        return item;
     }
     private static Item generate_Equipmentitem(int turn, String type) {
         String[] offenseNames = {"Sword", "Hammer", "Shiv"};
