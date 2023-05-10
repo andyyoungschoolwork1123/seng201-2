@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 public class PlayerTestTwo {
     public static void main(String[] args) {
-        Player player = new Player("Easy");
+        Player player = new Player("Easy","John Doe");
 
         // get difficulty
         System.out.println("Difficulty: " + player.getDifficulty());
@@ -21,9 +21,9 @@ public class PlayerTestTwo {
         System.out.println("Points: " + player.getpoints());
 
         // add and get inventory
-        ArrayList<EffectItem> inventory = new ArrayList<EffectItem>();
-        inventory.add(new EffectItem("Super Drink", "Consumable", 10, 5, 2));
-        inventory.add(new EffectItem("Revive", "Consumbale", 12, 4, 3));
+        ArrayList<Item> inventory = new ArrayList<Item>();
+        inventory.add(new Item("Super Drink", "Consumable", 10, 5, 2));
+        inventory.add(new Item("Revive", "Consumbale", 12, 4, 3));
         player.setInventory(inventory);
         System.out.println("Inventory: ");
         player.getInventory();
