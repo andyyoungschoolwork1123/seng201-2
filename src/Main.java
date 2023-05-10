@@ -61,11 +61,56 @@ public class Main {
             System.out.println("Thank you for playing! Now your stat are" + player.getpoints() + "points" + player.getGold() + "gold");
             System.out.println("Your inventory is: ");
             player.displayinventory();
-            System.out.println("You can now train the athletes in your team. Please select from inventory:");
-            player.applyfrominventory();
+            while (true){
+                System.out.println("You can now train the athletes in your team,or use item on them. Please select from inventory:");
+                player.applyfrominventory();
+                System.out.println("Do you want to continue? (Y/N)");
+                String cont = scanner.nextLine();
+                if (cont.equals("N") | (player.getInventory().size()) == 0){
+                    break;
+                }
+            }
+            System.out.println("Turn ends,next turn coming!");
+            while (player.getTurn() < 15){
+                player.inc_trun();
+                System.out.println("Turn " + player.getTurn() + " begins!");
+                System.out.println("Market time!");
+                //MarketTwo market = new MarketTwo();
+                //market.init_market();
+                //tongs's :)
+                
+                //System.out.println("You can now use item on athlete. Please select from inventory:");
+                player.applyfrominventory();
+                System.out.println("Do you want to continue? (Y/N)");
+                String cont = scanner.nextLine();
+                if (cont.equals("N") | (player.getInventory().size()) == 0){
+                    break;
+                }
+                System.out.println("The Arena is now calling! ");
+                Arena arena = new Arena();
+                arena.InitAvailableOpponents(player.getTurn());
+                player.printteam();
+                //System.out.println("You can now change the athletes in your team");
+                //System.out.println("your subs are:");
+                //player.printsubs();
+                //player.displayteam();
+                //System.out.println("Do you want to change your team? (Y/N)");
+                //String cont = scanner.nextLine();
+                //if (cont.equals("Y")){
+                    //System.out.println("Please select the athlete you want to change:");
+                    //int num = scanner.nextInt();
+                    //System.out.println("Please select the athlete you want to change to:");
+                    //int num2 = scanner.nextInt();
+                    //player.changeteam(num, num2);
+                //}
+                arena.pre_battle(player);
+                //market again?
+                //training
+                //end of turn
+
+            }
+            System.out.println("Game ends! Your stat are" + player.getpoints() + "points" + player.getGold() + "gold");
             
-
-
 
         }
     }
