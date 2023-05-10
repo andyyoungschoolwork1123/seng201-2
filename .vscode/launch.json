@@ -7,51 +7,41 @@
         {
             "type": "java",
 <<<<<<< Updated upstream
-            "name": "Athlete",
-            "request": "launch",
-            "mainClass": "Athlete",
-            "projectName": "JAVA_TEST_a897b0e1"
-        },
-        {
-            "type": "java",
-            "name": "Arena",
-            "request": "launch",
-            "mainClass": "Arena",
-            "projectName": "JAVA_TEST_a897b0e1"
-        },
-        {
-            "type": "java",
-            "name": "ArenaTest",
-            "request": "launch",
-            "mainClass": "ArenaTest",
-            "projectName": "JAVA_TEST_a897b0e1"
-        },
-        {
-            "type": "java",
-            "name": "TeamTest",
-            "request": "launch",
-            "mainClass": "TeamTest",
-            "projectName": "JAVA_TEST_a897b0e1"
-        },
-        {
-            "type": "java",
-            "name": "AthleteTest",
-            "request": "launch",
-            "mainClass": "AthleteTest",
-            "projectName": "JAVA_TEST_a897b0e1"
+            "name": "TeamBattleTest",
 =======
-            "name": "EffectItemTest",
+            "name": "AthleteTestTwo",
             "request": "launch",
-            "mainClass": "EffectItemTest",
+            "mainClass": "AthleteTestTwo",
             "projectName": "seng201-2_eb6a5720"
         },
         {
             "type": "java",
-            "name": "EffectItem",
-            "request": "launch",
-            "mainClass": "EffectItem",
-            "projectName": "seng201-2_eb6a5720"
+            "name": "Athlete",
 >>>>>>> Stashed changes
+            "request": "launch",
+            "mainClass": "TeamBattleTest",
+            "projectName": "JAVA_TEST_a897b0e1"
+        },
+        {
+            "type": "java",
+            "name": "TestMarket",
+            "request": "launch",
+            "mainClass": "TestMarket",
+            "projectName": "seng201-2_eb6a5720"
+        },
+        {
+            "type": "java",
+            "name": "PlayerTest",
+            "request": "launch",
+            "mainClass": "PlayerTest",
+            "projectName": "seng201-2_eb6a5720"
+        },
+        {
+            "type": "java",
+            "name": "ItemTest",
+            "request": "launch",
+            "mainClass": "ItemTest",
+            "projectName": "seng201-2_eb6a5720"
         },
         {
             "type": "java",

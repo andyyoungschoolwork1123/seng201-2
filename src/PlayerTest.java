@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class PlayerTest {
     public static void main(String[] args) {
         // Create a Player object with difficulty level "Easy"
-        Player player = new Player("Easy");
+        Player player = new Player("Easy", "Andy");
 
         // Get the difficulty level and print it
         String difficulty = player.getDifficulty();

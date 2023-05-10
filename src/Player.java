@@ -107,4 +107,6 @@ public class Player {
             team.remove(selection - 1);
         }
     }
+    public void reduceGold(int storeValue) {
+    }
 }
