@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;   
 //class contain setup information for player and team
 public class Player {
     private String difficulty;
@@ -122,19 +123,49 @@ public class Player {
         }
     }
     public void init_team_commandline() {
-        System.out.println("Please select 5 players for your team");
-        for (int i = 0; i < 5; i++) {
-            System.out.println("Please select player " + (i + 1));
-            for (int j = 0; j < team.size(); j++) {
-                System.out.println((j + 1) + ". " + team.get(j).getName());
+        System.out.println("Now please select your athletes:");
+            ArrayList<Athlete> selection = new ArrayList<Athlete>();
+            for (int i = 0; i < 10; i++) {
+                if (Math.random() >0.25){
+                    Athlete athlete = Athlete.generateAthlete(1, "Forward");
+                    selection.add(athlete);
+                }
+                else if (Math.random() >0.5){
+                    Athlete athlete = Athlete.generateAthlete(1, "Midfielder");
+                    selection.add(athlete);
+                }
+                else if (Math.random() >0.75){
+                    Athlete athlete = Athlete.generateAthlete(1, "Defender");
+                    selection.add(athlete);
+                }
+                else{
+                    Athlete athlete = Athlete.generateAthlete(1, "Goalkeeper");
+                    selection.add(athlete);
+                }
+                
             }
-            int selection = Integer.parseInt(System.console().readLine());
-            team.add(team.get(selection - 1));
-            team.remove(selection - 1);
-        }
+            for (int i = 0; i < selection.size(); i++) {
+                System.out.println(i + ". " + selection.get(i).getName());
+            }
+            System.out.println("Please select 5 athletes:");
+            ArrayList<Athlete> team = new ArrayList<Athlete>();
+            for (int i = 0; i < 5; i++) {
+                int index = Integer.parseInt(System.console().readLine());
+                team.add(selection.get(index));
+            }
+            this.setTeam(team);
     }
     public void applyfrominventory() {
         displayinventory();
+        System.out.println("do you want to apply an item? (y/n)");
+        String comfirm = System.console().readLine();
+        if (comfirm.equals("y")) {
+            applyfrominventory();
+        }
+        else{
+            System.out.println("action cancelled");
+            return;
+        }
         if (inventory.size() == 0) {
             System.out.println("action cancelled");
             return;
