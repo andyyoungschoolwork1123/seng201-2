@@ -287,7 +287,35 @@ public class MarketTwo {
     // 2.If as the attribute strength of a character increases, 
     //so does the attribute strength of things that can support that character and athletes.
     //By Andy's idea anything need change andy go on 
-
+    //Andy's suggestion:
+    //by using relvant function in Athlete and Item class to generate the item and athlete.
+    public void generatemarket(int turn){
+        for (int i = 0; i < 5; i++) {
+            if (Math.random() >0.25){
+                Athlete athlete = Athlete.generateAthlete(turn, "Forward");
+                addAthlete(athlete);
+            }
+            else if (Math.random() >0.5){
+                Athlete athlete = Athlete.generateAthlete(turn, "Midfielder");
+                addAthlete(athlete);
+            }
+            else if (Math.random() >0.75){
+                Athlete athlete = Athlete.generateAthlete(turn, "Defender");
+                addAthlete(athlete);
+            }
+            else{
+                Athlete athlete = Athlete.generateAthlete(turn, "Goalkeeper");
+                addAthlete(athlete);
+            }
+            
+        }
+        String[] itemNames = {"staminapotion", "offensepotion", "defensepotion","EquipmentItem"};
+        for (int i = 0; i < 5; i++) {
+            
+            Item item = Item.generate_item(turn, itemNames[(int) (Math.random() * itemNames.length)]);
+            addItem(item);
+        }
+    }
  
 }
 

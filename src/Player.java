@@ -94,7 +94,16 @@ public class Player {
             System.out.println(team.get(i).getName());
         }
     }
-
+    public void displayinventory() {
+        for (int i = 0; i < inventory.size(); i++) {
+            System.out.println(inventory.get(i).getName());
+        }
+    }
+    public void displayteam() {
+        for (int i = 0; i < team.size(); i++) {
+            System.out.println(team.get(i).getName());
+        }
+    }
     public void init_team_commandline() {
         System.out.println("Please select 5 players for your team");
         for (int i = 0; i < 5; i++) {

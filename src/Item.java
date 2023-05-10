@@ -129,13 +129,13 @@ public class Item implements purchaseable{
         int staminaBoost = 0;
         int offenseBoost = 0;
         int defenseBoost = 0;
-        if (name == "staminapotion"){
+        if (name == "stamina potion"){
              staminaBoost = (int) (5) + 5*turn;
         }
-        else if (name == "offensepotion"){
+        else if (name == "offense potion"){
              offenseBoost = (int) (5) + 5*turn;
         }
-        else if (name == "defensepotion"){
+        else if (name == "defense potion"){
              defenseBoost = (int) (5) + 5*turn;
         }
         
