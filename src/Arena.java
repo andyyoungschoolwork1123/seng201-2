@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Arena{
 public class Arena {
     private ArrayList<Team> availableOpponents;
     private ArrayList<String> availableOpponentsNames;
