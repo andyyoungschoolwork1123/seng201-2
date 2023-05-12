@@ -264,6 +264,9 @@ public class MarketTwo {
         }
 
     }
+
+    public void init_market() {
+    }
  
 }
 
