@@ -195,7 +195,7 @@ public class Athlete{
             this.injury = false;
         }
         return this.injury;
-        
+
     }
     
     public boolean personal_duel( Athlete j,int round){
@@ -211,15 +211,15 @@ public class Athlete{
         if (Math.random()*100 > chance_success){
             this.increaseStamina(-3);
             j.increaseStamina(-7);
-            injury_check(this);
-            injury_check(j);
+            this.injury_check();
+            j.injury_check();
             return false;
         }
         else{
             this.increaseStamina(-4);
             j.increaseStamina(-10);
-            injury_check(this);
-            injury_check(j);
+            this.injury_check();
+            j.injury_check();
         return true;
 
         }
