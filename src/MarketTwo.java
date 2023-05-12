@@ -158,7 +158,25 @@ public class MarketTwo {
         }
         return totalAmount;
     }
+    public void displaymarket() {
+        System.out.println("Athletes in market:");
+        for (int i = 0; i < this.athletes.size(); i++) {
+            System.out.println(this.athletes.get(i).getName()+ "   "
+            +(this.athletes.get(i).getStoreValue()));
+        }
 
+        if (this.athletes.size() == 0) {
+            System.out.println("No althele in market");
+        }
+        System.out.println("Items in market:");
+        for (int i = 0; i < this.items.size(); i++) {
+            System.out.println(this.items.get(i).getName()+ "   "
+            +(this.items.get(i).getStoreValue()));
+        }
+        if (this.items.size() == 0) {
+            System.out.println("No items in market");
+        }
+    }
     public boolean buyItem(Player player, Item item) {
         // check if the player has enough gold to buy the item
         if (player.getGold() < item.getStoreValue()) {

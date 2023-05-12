@@ -61,11 +61,13 @@ public class MarketTwoTest {
         System.out.println(item.getName()); // expected output: Basketball
 
         // test the getItemByStoreValue method
-        item = market.getItemByStoreValue(100);
+        int x =i2.getStoreValue();
+        item = market.getItemByStoreValue(x);
         System.out.println(item.getName()); // expected output: Running Shoes
 
         // test the getItemBySellbackPrice method
-        item = market.getItemBySellbackPrice(50);
+        int y =i3.getSellbackPrice();
+        item = market.getItemBySellbackPrice(y);
         System.out.println(item.getName()); // expected output: Water Bottle
 
         // test the getItemAmount method
@@ -94,14 +96,16 @@ public class MarketTwoTest {
             
         // Display the initial state of the player and the market
         System.out.println("Initial state:");
-        System.out.println(player);
-        System.out.println(market.getItems());
+        System.out.println(player.getGold() + " gold");
+        //market.displaymarket();        
             
         // Simulate the player buying an item from the market
+        player.addgold(1000);
         Item boughtItem = market.getItemByName("Basketball");
         if (boughtItem != null && player.getGold() >= boughtItem.getStoreValue()) {
             player.reduceGold(boughtItem.getStoreValue());
             market.removeItem(boughtItem);
+            player.addInventory(boughtItem);
             System.out.println("Item bought successfully!");
         } else {
             System.out.println("Unable to buy item!");
@@ -109,9 +113,17 @@ public class MarketTwoTest {
             
         // Display the updated state of the player and the market
         System.out.println("Updated state:");
-        System.out.println(player);
-        System.out.println(market.getItems());
+        player.displayinventory();
+        System.out.println(player.getGold());
+        market.displaymarket();        
+        MarketTwo market2= new MarketTwo();
+
+        market2.generateItems(1);
+
+        market2.displaymarket();        
         }
+
+        
 
         //for not sure the New change with Andy's idea cannot find a good obejct to test the second methods
     
