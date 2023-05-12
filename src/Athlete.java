@@ -190,7 +190,7 @@ public class Athlete{
         }
         return this.injury;
     }
-    private boolean heal_check(){
+    boolean heal_check(){
         if (this.injury_time == 0){
             this.injury = false;
         }
