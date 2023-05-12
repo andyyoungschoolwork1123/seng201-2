@@ -3,7 +3,6 @@ import java.util.ArrayList;
 public class MarketTwo {
     private ArrayList<Athlete> athletes;
     private ArrayList<Item> items;
-    private ArrayList<EffectItem> effectItems;
     
     
     public MarketTwo() {
@@ -19,9 +18,7 @@ public class MarketTwo {
         items.add(item);
     }
 
-    public void addEffectItem(EffectItem effectItem){
-        effectItems.add(effectItem);
-    }
+
     
     public ArrayList<Athlete> getAthletes() {
         return athletes;
@@ -148,51 +145,8 @@ public class MarketTwo {
         return null;
     }
   
-    public EffectItem getEffectItemByName(String name) {
-        for (EffectItem effectItem : effectItems) {
-            if (effectItem.getName().equals(name)) {
-                return effectItem;
-            }
-        }
-        return null;
-    }
 
-    public EffectItem getEffectItemBytype(String type){
-        for(EffectItem effectItem : effectItems){
-            if(effectItem.getType().equals(type)){
-                return effectItem;
-            }
-        }
-        return null;
-    }
 
-    public EffectItem getEffectItemByStaminaBoost(int staminaBoost){
-        for(EffectItem effectItem : effectItems){
-            if(effectItem.getStaminaBoost()==(staminaBoost)){
-                return effectItem;
-            }
-        }
-        return null;
-    }
-
-    public  EffectItem getEffectItemByOffenseBoost(int  offenseBoost){
-        for(EffectItem effectItem : effectItems){
-            if(effectItem.getOffenseBoost()==(offenseBoost)){
-                return effectItem;
-            }
-        }
-        return  null;
-    }
-
-    public EffectItem getEffectItemBydefenseBoost(int defenseBoost){
-        for(EffectItem effectItem : effectItems){
-            if(effectItem.getDefenseBoost()==(defenseBoost)){
-                return effectItem;
-            }
-        }
-        return null;
-
-    }
     
 
     public int getItemAmount(String itemName) {
@@ -257,32 +211,7 @@ public class MarketTwo {
         }
     }
     
-    public void generateEffectItems(int attributeStrength) {
-        String[] effectNames = {"Elixir", "Potion", "Tonic", "Serum", "Ointment"};
-        for (int i = 0; i < 10; i++) {
-            String name = effectNames[(int) (Math.random() * effectNames.length)];
-            int staminaBoost = (int) ((Math.random() * 20) + 10) * attributeStrength;
-            int offenseBoost = (int) ((Math.random() * 5) + 1) * attributeStrength;
-            int defenseBoost = (int) ((Math.random() * 5) + 1) * attributeStrength;
-            EffectItem effectItem = new EffectItem(name, "effect", staminaBoost, offenseBoost, defenseBoost);
-            addEffectItem(effectItem);
-        }
 
-        String[] athleteNames = {"John", "Jane", "Bob", "Alice", "Tom", "Jerry", "Mike", "Sarah"};
-        String[] roles = {"Forward", "Midfielder", "Defender", "Goalkeeper"};
-    
-        for (int i = 0; i < 5; i++) {
-            String name = athleteNames[(int) (Math.random() * athleteNames.length)];
-            int stamina = (int) (Math.random() * 50) + 50;
-            int offense = (int) (Math.random() * 10) + 10;
-            int defence = (int) (Math.random() * 10) + 10;
-            String role = roles[(int) (Math.random() * roles.length)];
-            int value = (int) (Math.random() * 500) + 500;
-            int amount = (int) (Math.random() * 2) + 1;
-            Athlete athlete = new Athlete(name, stamina, offense, defence, role, value, value / 2, amount);
-            addAthlete(athlete);;
-        }
-    }
 
     // 2.If as the attribute strength of a character increases, 
     //so does the attribute strength of things that can support that character and athletes.
@@ -315,6 +244,7 @@ public class MarketTwo {
             Item item = Item.generate_item(turn, itemNames[(int) (Math.random() * itemNames.length)]);
             addItem(item);
         }
+
     }
  
 }
