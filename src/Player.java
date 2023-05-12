@@ -1,15 +1,15 @@
 import java.util.ArrayList;
-import java.util.Scanner;   
 //class contain setup information for player and team
 public class Player {
     private String difficulty;
     private int gold;
     private ArrayList<Athlete> team;
     private int points;
-    private ArrayList<Item> inventory;
+    private ArrayList<Item> inventory = new ArrayList<Item>();
     private int Turn = 0;
     private String name;
     private ArrayList<Athlete> subs;
+    public int maxturn;
 
     public Player(String difficulty,String name) {
         this.difficulty = difficulty;
@@ -18,10 +18,13 @@ public class Player {
         // set starting gold based on difficulty
         if (difficulty.equals("Easy")) {
             this.gold = 50;
+            this.maxturn = 10;
         } else if (difficulty.equals("Medium")) {
             this.gold = 25;
+            this.maxturn = 15;
         } else if (difficulty.equals("Hard")) {
             this.gold = 10;
+            this.maxturn = 20;
         } else {
             System.out.println("ValueError:diffculty") ;  // default to 0 if difficulty level is unknown
             return;
@@ -119,9 +122,15 @@ public class Player {
             System.out.println(team.get(i).getName());
         }
     }
+    public void heal_injury() {
+        for (int i = 0; i < team.size(); i++) {
+            team.get(i).heal_check();
+        }
+    }
     public void displayinventory() {
         for (int i = 0; i < inventory.size(); i++) {
             System.out.println(inventory.get(i).getName());
+            System.out.println(inventory.get(i).getStoreValue());
         }
         if (inventory.size() == 0) {
             System.out.println("No items in inventory");
@@ -131,6 +140,9 @@ public class Player {
         for (int i = 0; i < team.size(); i++) {
             System.out.println(team.get(i).getName());
         }
+    }
+    public int getmaxTurns(){
+        return this.maxturn;
     }
     public void init_team_commandline() {
         System.out.println("Now please select your athletes:");
