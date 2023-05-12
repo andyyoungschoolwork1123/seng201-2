@@ -128,7 +128,12 @@ public class Arena {
             System.out.println("You need to have 5 players in your team to battle");
             return;
         }
-
+        System.out.println("Do you want to change your team? (Y/N)");
+                String decision_t = System.console().readLine();
+                if (decision_t.equals("Y")){
+                    this.subplayer(player.getTeam());
+                    
+                }
         int turn = player.getTurn();
         this.InitAvailableOpponents(turn);
         this.displayAvailableOpponents_cmd();
@@ -234,8 +239,33 @@ public class Arena {
         return;
 
 
+    }}
+    public void subplayer(Team team){
+        if (team.getsubs().size() == 0){
+            System.out.println("No subs available");
+            return;
+        }
+        System.out.println("Do you want to sub a player? (y/n)");
+        String comfirm = System.console().readLine();
+        if (comfirm.equals("n")|comfirm.equals("N")) {
+            System.out.println("action cancelled");
+            return;       
+        }
+        
+        System.out.println("Select the player you want to sub on:");
+        team.printsubs();
+        int subon_pos = Integer.parseInt(System.console().readLine());
+        System.out.println("Select the player you want to sub off:");
+        team.printteam();
+        int suboff_pos = Integer.parseInt(System.console().readLine());
+        Athlete subon = team.getsubs().get(subon_pos - 1);
+        Athlete suboff = team.team.get(suboff_pos - 1);
+        team.subtite(subon_pos, suboff_pos);
+        
+        System.out.println(suboff.getName() + " is subbed off");
+        System.out.println(subon.getName() + " is subbed on");
     }
-    }
+
 
     public static void main(String[] args) {
         Arena arena = new Arena();
