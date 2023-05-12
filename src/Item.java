@@ -1,4 +1,4 @@
-public class Item implements purchaseable{
+public class Item{
     //item class
     private String name;
     private String type;
@@ -82,12 +82,12 @@ public class Item implements purchaseable{
     public void setName(String name) {
         this.name = name;
     }
-    @Override
+
     public void setStoreValue(int storeValue) {
         this.storeValue = storeValue;
     }
 
-    @Override
+   
     public void setSellbackPrice(int sellbackPrice) {
         
         this.sellbackPrice = sellbackPrice;    }
@@ -96,7 +96,7 @@ public class Item implements purchaseable{
         this.amount = amount;    }
 
     public void applyToAthlete(Athlete athlete) {
-        if (this instanceof EffectItem) {
+        if (this instanceof Item) {
             Item Item = (Item) this;
             athlete.increaseStamina(Item.getStaminaBoost());
             athlete.increaseOffense(Item.getOffenseBoost());

@@ -1,4 +1,4 @@
-public class Athlete implements purchaseable{
+public class Athlete{
     private String name;
     private int stamina;
     private boolean injury;
@@ -85,14 +85,14 @@ public class Athlete implements purchaseable{
     public int esimatepower(){
         return (int) (this.stamina  + this.offence *2 + this.defence * 2);
     }
-    @Override
+    
     public int getStoreValue() {
         
         
         return this.storeValue;
     }
 
-    @Override
+   
     public void setStoreValue(int storeValue) {
         this.storeValue = storeValue;
     }
@@ -101,12 +101,12 @@ public class Athlete implements purchaseable{
         this.storeValue = (int) (this.stamina * 2 + this.offence * 5 + this.defence * 5);
     }
     
-    @Override
+    
     public int getSellbackPrice() {
         return this.sellbackPrice;
     }
 
-    @Override
+    
     public void setSellbackPrice(int sellbackPrice) {
         this.sellbackPrice = sellbackPrice;
     }
@@ -120,12 +120,12 @@ public class Athlete implements purchaseable{
     public void setAmount(int amount) {
         this.amount = amount;    }
 
-    @Override
+    
     public void increaseAmount(int amount) {
         this.amount += amount ;
     }
 
-    @Override
+    
     public void decreaseAmount(int amount) {
         this.amount -= amount;
         if (this.amount < 0){
