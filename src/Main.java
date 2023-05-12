@@ -71,7 +71,7 @@ public class Main {
                 }
             }
             System.out.println("Turn ends,next turn coming!");
-            while (player.getTurn() < 15){
+            while (player.getTurn() <= player.getmaxTurns()){
                 player.inc_trun();
                 System.out.println("Turn " + player.getTurn() + " begins!");
                 System.out.println("Market time!");
@@ -90,19 +90,11 @@ public class Main {
                 Arena arena = new Arena();
                 arena.InitAvailableOpponents(player.getTurn());
                 player.printteam();
-                //System.out.println("You can now change the athletes in your team");
-                //System.out.println("your subs are:");
-                //player.printsubs();
-                //player.displayteam();
-                //System.out.println("Do you want to change your team? (Y/N)");
-                //String cont = scanner.nextLine();
-                //if (cont.equals("Y")){
-                    //System.out.println("Please select the athlete you want to change:");
-                    //int num = scanner.nextInt();
-                    //System.out.println("Please select the athlete you want to change to:");
-                    //int num2 = scanner.nextInt();
-                    //player.changeteam(num, num2);
-                //}
+                System.out.println("You can now change the athletes in your team");
+                System.out.println("your subs are:");
+                player.printsubs();
+                player.displayteam();
+                
                 arena.pre_battle(player);
                 //market again?
                 //training
