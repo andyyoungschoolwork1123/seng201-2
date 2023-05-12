@@ -35,6 +35,9 @@ public class Athlete{
         this.amount = 1;
     }
     
+    public Athlete(String string, String string2, int i, int j, int k, int l) {
+    }
+
     public String getName() {
         return name;
     }
@@ -207,26 +210,7 @@ public class Athlete{
         String lastName = lastNames[(int) (Math.random() * lastNames.length)];
         return firstName + " " + lastName;
     }
-    public static void main(String[] args) {
-        Athlete j = new Athlete("jack", 100, 50, 50, "defender", 1000, 500, 1);
-        System.out.println(j.getStoreValue());
-        j.increaseStamina(10);
-        System.out.println(j.getStamina());
-        Athlete a1 = new Athlete("Alice", 100, 80, 30, "Attacker");
-        Athlete a2 = new Athlete("Bob",  100, 50, 80,"Defender");
-        int i = 0;
-        while ( i <20){
-            i++;
-            System.out.println("round " + i);
-            boolean result = a1.personal_duel(a2, i);
-            System.out.println(result);
-            System.out.println(a1.getStamina());
-            System.out.println(a2.getStamina());}
-        //boolean result = a1.personal_duel(a2, 1);
-
-        //System.out.println(result);
-
-    }
+    
 
     
 }
