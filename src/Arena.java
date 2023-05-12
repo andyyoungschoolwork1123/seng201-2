@@ -128,11 +128,12 @@ public class Arena {
             System.out.println("You need to have 5 players in your team to battle");
             return;
         }
+        Team Team_player = new Team(player.getName(),player.getTeam(),player.getsubs());
+
         System.out.println("Do you want to change your team? (Y/N)");
                 String decision_t = System.console().readLine();
                 if (decision_t.equals("Y")){
-                    this.subplayer(player.getTeam());
-                    
+                    subplayer(Team_player);
                 }
         int turn = player.getTurn();
         this.InitAvailableOpponents(turn);
@@ -141,11 +142,10 @@ public class Arena {
         int selection = Integer.parseInt(System.console().readLine());
         Team opponent = availableOpponents.get(selection - 1);
         opponent.printteam();
-        battle_easy(player,opponent);
+        battle_easy(Team_player,opponent,player);
     }
     
-    public void battle_easy(Player player,Team opponent) {
-        Team Team_player = new Team(player.getName(),player.getTeam());
+    public void battle_easy(Team Team_player,Team opponent,Player player) {
         Team Team2 = opponent;
         
         int duration =0;
