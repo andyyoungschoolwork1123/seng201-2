@@ -8,7 +8,7 @@ public class MainTestOne {
     
     public void testMain() {
         // Set up input for test
-        String input = "John\n1\n1\nN\n";
+   
        
         
         // Test Main method

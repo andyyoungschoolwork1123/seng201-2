@@ -207,4 +207,6 @@ public class Player {
 
     public void reduceGold(int storeValue) {
     }
+    public void train_athletes() {
+    }
 }
