@@ -8,6 +8,7 @@ public class Athlete{
     private int storeValue;
     private int sellbackPrice;
     private int amount;
+    private int injury_time = 0;
 
     public Athlete(String name, int stamina,  int offence, int defence, String role, int storeValue, int sellbackPrice, int amount) {
         this.name = name;
@@ -182,6 +183,21 @@ public class Athlete{
         }
         return defence;
     }
+    private boolean injury_check(){
+        if (this.stamina <= 0){
+            this.injury = true;
+            injury_time = 2;
+        }
+        return this.injury;
+    }
+    boolean heal_check(){
+        if (this.injury_time == 0){
+            this.injury = false;
+        }
+        return this.injury;
+
+    }
+    
     public boolean personal_duel( Athlete j,int round){
         double attackerluck = Math.random()*15;
         double temp_attack = this.getOffence() *round*attackerluck;
@@ -195,12 +211,17 @@ public class Athlete{
         if (Math.random()*100 > chance_success){
             this.increaseStamina(-3);
             j.increaseStamina(-7);
+            this.injury_check();
+            j.injury_check();
             return false;
         }
         else{
             this.increaseStamina(-4);
             j.increaseStamina(-10);
+            this.injury_check();
+            j.injury_check();
         return true;
+
         }
     }
     private static String generateName() {
