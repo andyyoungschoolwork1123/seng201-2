@@ -77,8 +77,8 @@ public class MarketTwoTest {
         // Create a player
         Player player = new Player("Easy", "Jack");
             
-        // Create a market
-        MarketTwo marketTwo= new MarketTwo();
+
+        
             
         // Add some athletes to the market
         Athlete a4 = new Athlete("James", 90, 90, 70, "Small Forward", 1000, 500,1);
@@ -100,7 +100,7 @@ public class MarketTwoTest {
         // Simulate the player buying an item from the market
         Item boughtItem = market.getItemByName("Basketball");
         if (boughtItem != null && player.getGold() >= boughtItem.getStoreValue()) {
-            player.reduceGold(boughtItem.getStoreValue());
+
             market.removeItem(boughtItem);
             System.out.println("Item bought successfully!");
         } else {

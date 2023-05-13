@@ -1,4 +1,8 @@
 import java.util.ArrayList;
+<<<<<<< Updated upstream
+=======
+  
+>>>>>>> Stashed changes
 //class contain setup information for player and team
 public class Player {
     private String difficulty;
@@ -94,6 +98,7 @@ public class Player {
             System.out.println(team.get(i).getName());
         }
     }
+<<<<<<< Updated upstream
 
     public void init_team_commandline() {
         System.out.println("Please select 5 players for your team");
@@ -108,5 +113,84 @@ public class Player {
         }
     }
     public void reduceGold(int storeValue) {
+=======
+    public void displayinventory() {
+        for (int i = 0; i < inventory.size(); i++) {
+            System.out.println(inventory.get(i).getName());
+        }
+        if (inventory.size() == 0) {
+            System.out.println("No items in inventory");
+        }
     }
+    public void displayteam() {
+        for (int i = 0; i < team.size(); i++) {
+            System.out.println(team.get(i).getName());
+        }
+    }
+    public void init_team_commandline() {
+        System.out.println("Now please select your athletes:");
+            ArrayList<Athlete> selection = new ArrayList<Athlete>();
+            for (int i = 0; i < 10; i++) {
+                if (Math.random() >0.25){
+                    Athlete athlete = Athlete.generateAthlete(1, "Forward");
+                    selection.add(athlete);
+                }
+                else if (Math.random() >0.5){
+                    Athlete athlete = Athlete.generateAthlete(1, "Midfielder");
+                    selection.add(athlete);
+                }
+                else if (Math.random() >0.75){
+                    Athlete athlete = Athlete.generateAthlete(1, "Defender");
+                    selection.add(athlete);
+                }
+                else{
+                    Athlete athlete = Athlete.generateAthlete(1, "Goalkeeper");
+                    selection.add(athlete);
+                }
+                
+            }
+            for (int i = 0; i < selection.size(); i++) {
+                System.out.println(i + ". " + selection.get(i).getName());
+            }
+            System.out.println("Please select 5 athletes:");
+            ArrayList<Athlete> team = new ArrayList<Athlete>();
+            for (int i = 0; i < 5; i++) {
+                int index = Integer.parseInt(System.console().readLine());
+                team.add(selection.get(index));
+            }
+            this.setTeam(team);
+    }
+    public void applyfrominventory() {
+        displayinventory();
+        if (inventory.size() == 0) {
+            System.out.println("NO ITEMS!");
+            return;
+        }
+        System.out.println("do you want to apply an item? (y/n)");
+        String comfirm = System.console().readLine();
+        if (comfirm.equals("y")) {
+            System.out.println("Please select item to apply");
+            int selection = Integer.parseInt(System.console().readLine());
+            System.out.println("Please select player to apply item to");
+            displayteam();
+            int selection2 = Integer.parseInt(System.console().readLine());
+            inventory.get(selection - 1).applyToAthlete(team.get(selection2 - 1));
+            inventory.remove(selection - 1);
+        }
+        else{
+            System.out.println("action cancelled");
+            return;
+        }
+      
+        
+    }
+    public void applyfrominventory(int selection, int selection2) {
+        inventory.get(selection - 1).applyToAthlete(team.get(selection2 - 1));
+        inventory.remove(selection - 1);
+    }
+    public void train_athletes() {
+>>>>>>> Stashed changes
+    }
+
+   
 }
