@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 //class contain setup information for player and team
 public class Player {
     private String difficulty;
@@ -147,7 +150,15 @@ public class Player {
     public void init_team_commandline() {
         System.out.println("Now please select your athletes:");
             ArrayList<Athlete> selection = new ArrayList<Athlete>();
-            for (int i = 0; i < 10; i++) {
+            Athlete athlete1 = Athlete.generateAthlete(1, "Forward");
+            selection.add(athlete1);
+            Athlete athlete2 = Athlete.generateAthlete(1, "Midfielder");
+            selection.add(athlete2);
+            Athlete athlete3 = Athlete.generateAthlete(1, "Defender");
+            selection.add(athlete3);
+            Athlete athlete4 = Athlete.generateAthlete(1, "Goalkeeper");
+            selection.add(athlete4);
+            for (int i = 0; i < 6; i++) {
                 if (Math.random() >0.25){
                     Athlete athlete = Athlete.generateAthlete(1, "Forward");
                     selection.add(athlete);
@@ -166,8 +177,10 @@ public class Player {
                 }
                 
             }
+            auto_sortteam(selection);
             for (int i = 0; i < selection.size(); i++) {
-                System.out.println(i + ". " + selection.get(i).getName());
+                System.out.println(i + ". " + selection.get(i).getName() + " (" + selection.get(i).getRole() + ")");
+                System.out.println(" Offense: " + selection.get(i).getOffence() + " Defense: " + selection.get(i).getDefence());
             }
             System.out.println("Please select 5 athletes:");
             ArrayList<Athlete> team = new ArrayList<Athlete>();
@@ -175,6 +188,8 @@ public class Player {
                 int index = Integer.parseInt(System.console().readLine());
                 team.add(selection.get(index));
             }
+            auto_sortteam(team);
+
             this.setTeam(team);
     }
     public void applyfrominventory() {
@@ -205,8 +220,30 @@ public class Player {
         inventory.remove(selection - 1);
     }
 
-    public void reduceGold(int storeValue) {
+    public ArrayList<Athlete> auto_sortteam(ArrayList<Athlete> team) {
+        List<String> predefinedOrder = List.of("Forward", "Midfielder", "Defender", "Goalkeeper");
+
+        Collections.sort(team, new Comparator<Athlete>() {
+            @Override
+            public int compare(Athlete o1, Athlete o2) {
+                int index1 = predefinedOrder.indexOf(o1.getRole());
+                int index2 = predefinedOrder.indexOf(o2.getRole());
+                return Integer.compare(index1, index2);
+            }
+        });
+        
+        
+    
+        return team;   
     }
     public void train_athletes() {
+        System.out.println("Select Training athletes...");
+        displayteam();
+        int selection = Integer.parseInt(System.console().readLine());
+        
+        team.get(selection-1).train();
+
+            
+        
     }
 }

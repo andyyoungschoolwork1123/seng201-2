@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Team {
     public ArrayList<Athlete> team;
-    private ArrayList<Athlete> subs;
+    private ArrayList<Athlete> subs = new ArrayList<Athlete>();
     public int score;
     public String name;
     private int pos = 0;
@@ -10,11 +10,13 @@ public class Team {
         this.name = team.name;
         this.team = team.team;
         this.score = team.score;
+        this.subs = team.subs;
     }
     public Team(String name) {
         this.name = name;
         this.team = new ArrayList<Athlete>();
         this.score = 0;
+        this.subs = new ArrayList<Athlete>();
     }
     public Team(String name, ArrayList<Athlete> team,ArrayList<Athlete> subs) {
         this.name = name;
@@ -84,6 +86,7 @@ public class Team {
         }   
         
     }
+    
     public ArrayList<Athlete> getteam(){
         return this.team;
     }
