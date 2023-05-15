@@ -103,7 +103,7 @@ public class MarketTwoTest {
         player.addgold(1000);
         Item boughtItem = market.getItemByName("Basketball");
         if (boughtItem != null && player.getGold() >= boughtItem.getStoreValue()) {
-            player.reduceGold(boughtItem.getStoreValue());
+            player.addgold(-(boughtItem.getStoreValue()));
             market.removeItem(boughtItem);
             player.addInventory(boughtItem);
             System.out.println("Item bought successfully!");

@@ -231,6 +231,19 @@ public class Athlete{
         String lastName = lastNames[(int) (Math.random() * lastNames.length)];
         return firstName + " " + lastName;
     }
+
+    public void train() {
+        if (this.getRole() == "forward"){
+            this.increaseOffense(5);
+        }
+        else if (this.getRole() == "midfielder"){
+            this.increaseOffense(3);
+            this.increaseDefense(3);
+        }
+        else if (this.getRole() == "defender"){
+            this.increaseDefense(5);
+        }
+    }
     
 
     
