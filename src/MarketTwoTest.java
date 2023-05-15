@@ -79,8 +79,8 @@ public class MarketTwoTest {
         // Create a player
         Player player = new Player("Easy", "Jack");
             
-        // Create a market
-        MarketTwo marketTwo= new MarketTwo();
+        
+       
             
         // Add some athletes to the market
         Athlete a4 = new Athlete("James", 90, 90, 70, "Small Forward", 1000, 500,1);

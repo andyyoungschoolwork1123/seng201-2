@@ -11,8 +11,7 @@ public class PlayerTestTwo {
 
         // set and get team
         ArrayList<Athlete> team = new ArrayList<Athlete>();
-        Athlete athlete1 = new Athlete("John Doe", 100, 70, 60, "Forward", 200, 100, 1);
-        Athlete athlete2 = new Athlete("Mike", 70, 50, 40, "Midfielder");
+        
         player.setTeam(team);
         System.out.println("Team: " + player.getTeam());
 
