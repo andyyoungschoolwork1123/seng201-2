@@ -64,17 +64,12 @@ public class Main {
             System.out.println(" Now your stat are" + player.getpoints() + " point " + player.getGold() + " gold ");
             System.out.println("Your inventory is: ");
             player.displayinventory();
-            while (true){
                 System.out.println("You can now train the athletes in your team,or use item on them. Please select from inventory:");
                 player.applyfrominventory();
-                System.out.println("Do you want to continue? (Y/N)");
-                String cont = scanner.nextLine();
-                if (cont.equals("N") | (player.getInventory().size()) == 0){
-                    break;
-                }
-            }
-            
+                player.train_athletes();
+                       
             System.out.println("Turn ends,next turn coming!");
+
             while (player.getTurn() <= player.getmaxTurns()){
                 player.inc_trun();
                 System.out.println("Turn " + player.getTurn() + " begins!");
@@ -83,9 +78,9 @@ public class Main {
                 market.init_market();
                 market.displaymarket();//5.15 By Tong
                 System.out.println("Do you want to buy an item? (y/n)");
-                String cont = scanner.nextLine();
+                String cont0 = scanner.nextLine();
         
-                if (cont.equals("y")) {
+                if (cont0.equals("y")) {
                     // Ask the player which item they want to buy
                     System.out.println("Which item do you want to buy? (enter the name)");
                     String itemName = scanner.nextLine();
