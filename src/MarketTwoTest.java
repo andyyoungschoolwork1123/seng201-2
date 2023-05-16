@@ -97,7 +97,7 @@ public class MarketTwoTest {
         // Display the initial state of the player and the market
         System.out.println("Initial state:");
         System.out.println(player.getGold() + " gold");
-        //market.displaymarket();        
+               
             
         // Simulate the player buying an item from the market
         player.addgold(1000);
@@ -119,10 +119,10 @@ public class MarketTwoTest {
         MarketTwo market2= new MarketTwo();
 
         market2.generateItems(1);
+    }
+}
 
-        market2.displaymarket();        
-        }
-
+   
         
 
         //for not sure the New change with Andy's idea cannot find a good obejct to test the second methods
@@ -132,7 +132,7 @@ public class MarketTwoTest {
        
         
 
-    }
+    
 
     
     
