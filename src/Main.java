@@ -61,7 +61,7 @@ public class Main {
             else{
                 System.out.println("Invalid input. Please try again.");
             }
-            System.out.println("Thank you for playing! Now your stat are" + player.getpoints() + "points" + player.getGold() + "gold");
+            System.out.println(" Now your stat are" + player.getpoints() + " point " + player.getGold() + " gold ");
             System.out.println("Your inventory is: ");
             player.displayinventory();
             while (true){
@@ -154,7 +154,7 @@ public class Main {
 
                 }
                 // call method to display current player stats
-                System.out.println("Thank you for playing! Now your stats are " + player.getpoints() + " points, " + player.getGold() + " gold.");
+                System.out.println(" Now your stats are " + player.getpoints() + "  points, " +  player.getGold() + "  gold. ");
                 System.out.println("Your inventory is: ");
                 player.displayinventory();
 
