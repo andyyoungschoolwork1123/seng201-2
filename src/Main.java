@@ -50,8 +50,8 @@ public class Main {
             else if (option == 2){
                 MarketTwo market = new MarketTwo();
                 market.init_market();
-
-                player.displayinventory();
+                market.displaymarket();
+                //5.17By Tong
                 System.out.println("The Arena is now calling! ");
                 Arena arena = new Arena();
                 arena.InitAvailableOpponents(1);
@@ -74,9 +74,10 @@ public class Main {
                 player.inc_trun();
                 System.out.println("Turn " + player.getTurn() + " begins!");
                 System.out.println("Market time!");
-                MarketTwo market = new MarketTwo();
-                market.init_market();
-                market.displaymarket();//5.15 By Tong
+                MarketTwo market1 = new MarketTwo();
+                market1.init_market();
+
+                market1.displaymarket();//5.17 By Tong
                 System.out.println("Do you want to buy an item? (y/n)");
                 String cont0 = scanner.nextLine();
         
@@ -84,11 +85,11 @@ public class Main {
                     // Ask the player which item they want to buy
                     System.out.println("Which item do you want to buy? (enter the name)");
                     String itemName = scanner.nextLine();
-                    Item item = market.getItemByName(itemName);
-        
+                    Item item = market1.getItemByName(itemName);
+                
                     if (item != null) {
                         // Attempt to buy the item
-                        boolean success = market.buyItem(player, item);
+                        boolean success = market1.buyItem(player, item);
                         if (success) {
                             // If the purchase is successful, add the item to the player's inventory
                             player.addInventory(item);
@@ -96,13 +97,20 @@ public class Main {
                     } else {
                         System.out.println("Item not found!");
                     }
+                } else if (cont.equals("n")) {
+                    System.out.println("No problem! Have a great day!");
+                } else {
+                    System.out.println("Invalid input!");
+                }//5.17 TONG
+                
                 
             
         
                 // Display current inventory and ask if the player wants to use any items
-                player.displayinventory();
+                
                 System.out.println("You can now use item on athlete. Please select from inventory:");
-                player.applyfrominventory();
+                player.InitInventory();
+                player.displayinventory();//5.17By Tong
                 System.out.println("Do you want to continue? (Y/N)");
                 String cont1 = scanner.nextLine();
                 if (cont1.equals("N") | (player.getInventory().size()) == 0){
@@ -177,6 +185,6 @@ public class Main {
 
         }
     }
-}
+
 
 

@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+
 //class contain setup information for player and team
 public class Player {
     private String difficulty;
@@ -136,6 +138,15 @@ public class Player {
             team.get(i).heal_check();
         }
     }
+    public void InitInventory(){
+        Item i1 = new Item("Basketball", "Equipment", 50, 25, 100);
+        Item i2 = new Item("Running Shoes", "Footwear", 100, 50, 200);
+        Item i3 = new Item("Water Bottle", "Accessories", 10, 5, 50);
+
+        inventory.add(i1);
+        inventory.add(i2);
+        inventory.add(i3);
+    }
     public void displayinventory() {
         for (int i = 0; i < inventory.size(); i++) {
             System.out.println(inventory.get(i).getName());
@@ -197,22 +208,26 @@ public class Player {
             auto_sortteam(team);
 
             this.setTeam(team);
-    }
-    public void applyfrominventory() {
-        displayinventory();
-        System.out.println("do you want to apply an item? (y/n)");
-        String comfirm = System.console().readLine();
-        if (comfirm.equals("y")) {
-            applyfrominventory();
         }
-        else{
-            System.out.println("action cancelled");
-            return;
-        }
-        if (inventory.size() == 0) {
-            System.out.println("action cancelled");
-            return;
-        }
+
+        
+        public void applyfrominventory(){
+            displayinventory();
+            System.out.println("do you want to apply an item? (y/n)");
+            String comfirm = System.console().readLine();
+            if (comfirm.equals("y")) {
+                applyfrominventory();
+            }
+            else{
+                System.out.println("action cancelled");
+                return;
+            }
+            if (inventory.size() == 0) {
+                System.out.println("action cancelled");
+                return;
+            }
+        
+
         System.out.println("Please select item to apply");
         int selection = Integer.parseInt(System.console().readLine());
         System.out.println("Please select player to apply item to");
@@ -221,6 +236,7 @@ public class Player {
         inventory.get(selection - 1).applyToAthlete(team.get(selection2 - 1));
         inventory.remove(selection - 1);
     }
+
     public void applyfrominventory(int selection, int selection2) {
         inventory.get(selection - 1).applyToAthlete(team.get(selection2 - 1));
         inventory.remove(selection - 1);
