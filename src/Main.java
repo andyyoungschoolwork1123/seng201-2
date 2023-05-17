@@ -41,15 +41,12 @@ public class Main {
             System.out.println("2. View market place");
             int option = scanner.nextInt();
             if (option == 1){
-                Arena arena = new Arena();
-                arena.InitAvailableOpponents(1);
-                player.printteam();
-                arena.pre_battle(player);
+                
 
             }
             else if (option == 2){
                 MarketTwo market = new MarketTwo();
-                market.init_market();
+                market.generatemarket(player.getTurn());
                 market.displaymarket();
                 System.out.println("Do you want to buy an item or Athletes? (1 for item, 2 for Athletes)");
                 int choice = scanner.nextInt();
@@ -115,7 +112,7 @@ public class Main {
                 System.out.println("Turn " + player.getTurn() + " begins!");
                 System.out.println("Market time!");
                 MarketTwo market1 = new MarketTwo();
-                market1.init_market();
+                market1.generatemarket(player.getTurn());
 
                 market1.displaymarket();//5.17 By Tong
                 System.out.println("Do you want to buy an item? (y/n)");
@@ -154,7 +151,7 @@ public class Main {
                 System.out.println("Do you want to continue? (Y/N)");
                 String cont1 = scanner.nextLine();
                 if (cont1.equals("N") | (player.getInventory().size()) == 0){
-                    System.out.println("skiped");
+                    System.out.println("skipped");
                 }
                 else{
                     player.applyfrominventory();
