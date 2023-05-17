@@ -22,13 +22,13 @@ public class Player {
         this.name = name;
         // set starting gold based on difficulty
         if (difficulty.equals("Easy")) {
-            this.gold = 50;
+            this.gold = 500;
             this.maxturn = 10;
         } else if (difficulty.equals("Medium")) {
-            this.gold = 25;
+            this.gold = 250;
             this.maxturn = 15;
         } else if (difficulty.equals("Hard")) {
-            this.gold = 10;
+            this.gold = 100;
             this.maxturn = 20;
         } else {
             System.out.println("ValueError:diffculty") ;  // default to 0 if difficulty level is unknown
@@ -231,16 +231,17 @@ public class Player {
                 int selection2 = Integer.parseInt(System.console().readLine());
                 inventory.get(selection - 1).applyToAthlete(team.get(selection2 - 1));
                 inventory.remove(selection - 1);
+                
             }
             else{
                 System.out.println("action cancelled");
                 return;
             }
-        }
+            
         
 
         
-    
+    }
 
     public void applyfrominventory(int selection, int selection2) {
         inventory.get(selection - 1).applyToAthlete(team.get(selection2 - 1));
