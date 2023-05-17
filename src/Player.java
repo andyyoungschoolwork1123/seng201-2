@@ -243,7 +243,7 @@ public class Player {
     
 
     public void applyfrominventory(int selection, int selection2) {
-        applyToAthlete(team.get(selection2 - 1)).inventory.get(selection - 1);
+        inventory.get(selection - 1).applyToAthlete(team.get(selection2 - 1));
         inventory.remove(selection - 1);
     }
 

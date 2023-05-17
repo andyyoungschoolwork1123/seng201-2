@@ -287,6 +287,30 @@ public class MarketTwo {
     }
 
 
+    public boolean buyAthlete(Player player, Athlete athlete) {
+        // Check if the player has enough gold to buy the athlete
+        if (player.getGold() < athlete.getStoreValue()) {
+            System.out.println("You don't have enough gold to buy this athlete!");
+            return false;
+        }
+    
+        // Check if the athlete is available in the market
+        if (!athletes.contains(athlete)) {
+            System.out.println("This athlete is not available in the market!");
+            return false;
+        }
+    
+        // Reduce the athlete's availability and update the player's gold
+        athlete.decreaseAmount(getAthleteAmount());;
+        player.setGold(player.getGold() - athlete.getStoreValue());
+    
+        System.out.println("You bought " + athlete.getName() + " for " + athlete.getStoreValue() + " gold!");
+        return true;
+    }
+    
+    
+
+
     
  
 }

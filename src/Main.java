@@ -51,13 +51,49 @@ public class Main {
                 MarketTwo market = new MarketTwo();
                 market.init_market();
                 market.displaymarket();
+                System.out.println("Do you want to buy an item or Athletes? (1 for item, 2 for Athletes)");
+                int choice = scanner.nextInt();
+                if (choice == 1){
+                    System.out.println("Enter the item you want to buy:");
+                    String itemName = scanner.nextLine();
+                    scanner.nextLine(); // Consume the newline character
+                    Item item=market.getItemByName(itemName);
+                    if(item != null){
+                        boolean success = market.buyItem(player, item);
+                        if(success){
+                            System.out.println("You have successfully bought the item: " + item.getName());
+                        }
+                        else{System.out.println("You do not have enough resources to buy this item.");}
+
+                    }
+                    else{
+                        System.out.println("The item you requested is not available.");
+                    }
+                }
+                    else if (choice ==2){
+                        System.out.println("Enter the ID of the athlete you want to buy:");
+                        String athleteName = scanner.nextLine();
+                        scanner.nextLine(); // Consume the newline character
+                        // Call the getAthlete method in the MarketTwo class to get the athlete
+                        Athlete athlete = market.getAthleteByName(athleteName);
+
+                        if(athlete !=null){
+                            boolean success = market.buyAthlete(player, athlete);
+                            if (success){
+                                System.out.println("You have successfully bought the athlete: " + athlete.getName());
+                            }
+                            else{System.out.println("You do not have enough resources to buy this athlete.");}}
+                            else{System.out.println("The athlete you requested is not available.");}}
+                            else{System.out.println("Invalid choice.");}}
+
+                scanner.nextLine(); // Consume the newline character
                 //5.17By Tong
                 System.out.println("The Arena is now calling! ");
                 Arena arena = new Arena();
                 arena.InitAvailableOpponents(1);
                 player.printteam();
                 arena.pre_battle(player);
-            }
+            
             else{
                 System.out.println("Invalid input. Please try again.");
             }
