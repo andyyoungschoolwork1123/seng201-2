@@ -1,6 +1,6 @@
 public class Item{
     //item class
-    private String name;
+    public String name;
     private String type;
     private int storeValue;
     private int sellbackPrice;
@@ -37,31 +37,31 @@ public class Item{
         this.staminaBoost = staminaBoost;
         this.offenseBoost = offenseBoost;
         this.defenseBoost = defenseBoost;
-        setStoreValue();
-        setSellbackPrice();
+        this.setStoreValue();
+        this.setSellbackPrice();
         
     }
     public int getStoreValue() {
-        return storeValue;
+        return this.storeValue;
     }
 
     public int getSellbackPrice() {
-        return sellbackPrice;
+        return this.sellbackPrice;
     }
 
     public int getAmount() {
-        return amount;
+        return this.amount;
     }
     public int getStaminaBoost() {
-        return staminaBoost;
+        return this.staminaBoost;
     }
    
     public int getOffenseBoost() {
-        return offenseBoost;
+        return this.offenseBoost;
     }
    
     public int getDefenseBoost() {
-        return defenseBoost;
+        return this.defenseBoost;
     }
 
     public void increaseAmount(int amount) {
@@ -121,6 +121,16 @@ public class Item{
             return null;
         }
     }
+    public void display(){
+        System.out.println("Item name: " + this.getName());
+        System.out.println("Item type: " + this.getType());
+        System.out.println("Item store value: " + this.getStoreValue());
+        System.out.println("Item sellback price: " + this.getSellbackPrice());
+        System.out.println("Item amount: " + this.getAmount());
+        System.out.println("Item stamina boost: " + this.getStaminaBoost());
+        System.out.println("Item offense boost: " + this.getOffenseBoost());
+        System.out.println("Item defense boost: " + this.getDefenseBoost());
+    }
     private static Item generate_consumableitem(int turn) {
         String[] consumableNames = {"staminapotion", "offensepotion", "defensepotion"};
         String name = consumableNames[(int) (Math.random() * consumableNames.length)];
@@ -136,9 +146,8 @@ public class Item{
         else if (name == "defense potion"){
              defenseBoost = (int) (5) + 5*turn;
         }
+        Item item = new Item(name, "ConsumableItem", staminaBoost, offenseBoost, defenseBoost);
         
-        Item item = new Item(name, "ConsumableItem",0, 0, 0, staminaBoost, offenseBoost, defenseBoost);
-
         return item;
     }
     private static Item generate_Equipmentitem(int turn, String type) {
@@ -173,4 +182,6 @@ public class Item{
         
         }
     }
+
+    
 }

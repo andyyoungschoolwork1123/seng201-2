@@ -4,9 +4,13 @@
     // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-
-
-        
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "Main",
+            "projectName": "JAVA_TEST_a897b0e1"
+        },
         {
             "type": "java",
             "name": "TeamBattleTest",
@@ -55,6 +59,5 @@
             "mainClass": "Athlete",
             "projectName": "seng201-2_eb6a5720"
         }
-        
     ]
 }

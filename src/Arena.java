@@ -224,24 +224,27 @@ public class Arena {
             }    
         }
         
-        
+        int getgold = 0;
         System.out.println("Team1 score: " + Team_player.getscore());
         System.out.println("Team2 score: " + Team2.getscore());
         if (Team_player.getscore() > Team2.getscore()){
             System.out.println("You win");
             player.increasepoints(3);
+             getgold = (int)(Team2.gettotalestpower()/5);
+
         }
         else if (Team_player.getscore() < Team2.getscore()){
             System.out.println("You lose");
+             getgold = (int)(Team2.gettotalestpower()/10);
         }
         else {
             System.out.println("Draw");
             player.increasepoints(1);
+             getgold = (int)(Team2.gettotalestpower()/8);
 
 
         }
-
-        player.addgold((int)(Team2.gettotalestpower()/10));
+        player.addgold(getgold);
         System.out.println("You get " + (int)(Team2.gettotalestpower()/10) + " gold");
         return;
 
