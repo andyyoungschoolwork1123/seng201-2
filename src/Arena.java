@@ -235,7 +235,7 @@ public class Arena {
         }
 
         player.addgold((int)(Team2.gettotalestpower()/10));
-        System.out.println("You get " + (int)(Team2.gettotalestpower()/1) + " gold");
+        System.out.println("You get " + (int)(Team2.gettotalestpower()/10) + " gold");
         return;
 
 

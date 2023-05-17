@@ -46,6 +46,9 @@ public class Team {
         this.pos = pos;
     }
     public ArrayList<Athlete> getsubs(){
+        if (this.subs == null){
+            this.subs = new ArrayList<Athlete>();
+        }
         return this.subs;
     }
     public void setsubs(ArrayList<Athlete> subs){

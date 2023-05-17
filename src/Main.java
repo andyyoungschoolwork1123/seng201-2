@@ -61,23 +61,15 @@ public class Main {
             else{
                 System.out.println("Invalid input. Please try again.");
             }
-
-            System.out.println("Thank you for playing! Now your stat are" + player.getpoints() + " points " + player.getGold() + " gold ");
+            System.out.println(" Now your stat are" + player.getpoints() + " point " + player.getGold() + " gold ");
             System.out.println("Your inventory is: ");
-            player.displayinventory();//5.17
-            
-           
-            while (true){
+            player.displayinventory();
                 System.out.println("You can now train the athletes in your team,or use item on them. Please select from inventory:");
                 player.applyfrominventory();
-                System.out.println("Do you want to continue? (Y/N)");
-                String cont = scanner.nextLine();
-                if (cont.equals("N") | (player.getInventory().size()) == 0){
-                    break;
-                }
-            }
-            
+                player.train_athletes();
+                       
             System.out.println("Turn ends,next turn coming!");
+
             while (player.getTurn() <= player.getmaxTurns()){
                 player.inc_trun();
                 System.out.println("Turn " + player.getTurn() + " begins!");
@@ -87,9 +79,9 @@ public class Main {
 
                 market1.displaymarket();//5.17 By Tong
                 System.out.println("Do you want to buy an item? (y/n)");
-                String cont = scanner.nextLine();
+                String cont0 = scanner.nextLine();
         
-                if (cont.equals("y")) {
+                if (cont0.equals("y")) {
                     // Ask the player which item they want to buy
                     System.out.println("Which item do you want to buy? (enter the name)");
                     String itemName = scanner.nextLine();
@@ -165,7 +157,7 @@ public class Main {
 
                 }
                 // call method to display current player stats
-                System.out.println("Thank you for playing! Now your stats are " + player.getpoints() + " points, " + player.getGold() + " gold.");
+                System.out.println(" Now your stats are " + player.getpoints() + "  points, " +  player.getGold() + "  gold. ");
                 System.out.println("Your inventory is: ");
                 player.displayinventory();
 
