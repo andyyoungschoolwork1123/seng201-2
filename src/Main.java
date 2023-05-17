@@ -97,7 +97,7 @@ public class Main {
                     } else {
                         System.out.println("Item not found!");
                     }
-                } else if (cont.equals("n")) {
+                } else if (cont0.equals("n")) {
                     System.out.println("No problem! Have a great day!");
                 } else {
                     System.out.println("Invalid input!");
@@ -110,11 +110,14 @@ public class Main {
                 
                 System.out.println("You can now use item on athlete. Please select from inventory:");
                 player.InitInventory();
-                player.displayinventory();//5.17By Tong
+                //player.displayinventory();//5.17By Tong
                 System.out.println("Do you want to continue? (Y/N)");
                 String cont1 = scanner.nextLine();
                 if (cont1.equals("N") | (player.getInventory().size()) == 0){
-                    break;
+                    System.out.println("skiped");
+                }
+                else{
+                    player.applyfrominventory();
                 }
                 System.out.println("The Arena is now calling! ");
                 Arena arena = new Arena();
@@ -127,12 +130,12 @@ public class Main {
                 
                 arena.pre_battle(player);
                 //TONG:implement random event in end 
-                System.out.println("Do you want to continue? (Y/N)");
-                String cont2 = scanner.nextLine();
-                if (cont2.equals("N") || (player.getInventory().size()) == 0){
-                    break;
+                //System.out.println("Do you want to continue? (Y/N)");
+                //String cont2 = scanner.nextLine();
+                //if (cont2.equals("N") || (player.getInventory().size()) == 0){
+                    //break;
 
-                }
+                //}
                 System.out.println("Training time! ");
                 // call method to train athletes
                 player.train_athletes();

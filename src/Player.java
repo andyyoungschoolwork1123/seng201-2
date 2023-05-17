@@ -69,6 +69,9 @@ public class Player {
         
     }
     public void printsubs(){
+        if (this.subs == null){
+            this.subs = new ArrayList<Athlete>();
+        }
         for (int i = 0; i < this.subs.size(); i++) {
             Athlete athlete = this.subs.get(i);
             System.out.println((i+1) + ". " + athlete.getName() + " (" + athlete.getRole() + ")");
@@ -148,13 +151,14 @@ public class Player {
         inventory.add(i3);
     }
     public void displayinventory() {
+        if (inventory.size() == 0) {
+            System.out.println("No items in inventory");
+        }
         for (int i = 0; i < inventory.size(); i++) {
             System.out.println(inventory.get(i).getName());
             System.out.println(inventory.get(i).getStoreValue());
         }
-        if (inventory.size() == 0) {
-            System.out.println("No items in inventory");
-        }
+        
     }
     public void displayteam() {
         for (int i = 0; i < team.size(); i++) {
@@ -213,28 +217,30 @@ public class Player {
         
         public void applyfrominventory(){
             displayinventory();
+            if (inventory.size() == 0) {
+                System.out.println("action cancelled");
+                return;
+            }
             System.out.println("do you want to apply an item? (y/n)");
             String comfirm = System.console().readLine();
             if (comfirm.equals("y")) {
-                applyfrominventory();
+                System.out.println("Please select item to apply");
+                int selection = Integer.parseInt(System.console().readLine());
+                System.out.println("Please select player to apply item to");
+                displayteam();
+                int selection2 = Integer.parseInt(System.console().readLine());
+                inventory.get(selection - 1).applyToAthlete(team.get(selection2 - 1));
+                inventory.remove(selection - 1);
+                
             }
             else{
                 System.out.println("action cancelled");
                 return;
             }
-            if (inventory.size() == 0) {
-                System.out.println("action cancelled");
-                return;
-            }
+            
         
 
-        System.out.println("Please select item to apply");
-        int selection = Integer.parseInt(System.console().readLine());
-        System.out.println("Please select player to apply item to");
-        displayteam();
-        int selection2 = Integer.parseInt(System.console().readLine());
-        inventory.get(selection - 1).applyToAthlete(team.get(selection2 - 1));
-        inventory.remove(selection - 1);
+        
     }
 
     public void applyfrominventory(int selection, int selection2) {

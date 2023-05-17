@@ -96,12 +96,10 @@ public class Item{
         this.amount = amount;    }
 
     public void applyToAthlete(Athlete athlete) {
-        if (this instanceof Item) {
-            Item Item = (Item) this;
-            athlete.increaseStamina(Item.getStaminaBoost());
-            athlete.increaseOffense(Item.getOffenseBoost());
-            athlete.increaseDefense(Item.getDefenseBoost());
-        }
+            athlete.increaseStamina(this.getStaminaBoost());
+            athlete.increaseOffense(this.getOffenseBoost());
+            athlete.increaseDefense(this.getDefenseBoost());
+        
     }
 
     public void setStoreValue() {
