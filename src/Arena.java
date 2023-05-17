@@ -145,6 +145,11 @@ public class Arena {
         battle_easy(Team_player,opponent,player);
     }
     
+    /**
+     * @param Team_player
+     * @param opponent
+     * @param player
+     */
     public void battle_easy(Team Team_player,Team opponent,Player player) {
         Team Team2 = opponent;
         
@@ -168,12 +173,14 @@ public class Arena {
                     System.out.println(attacker.getname() + " score!");
                     attacker.setpos(0);
                     defender.setpos(0);
-                } else {
+                } 
+                else {
                     defender.setpos(defender.getpos() + 1);
                     System.out.println(attacker.team.get(attacker.getpos()).getName() + " go past " + defender.team.get(defender.getpos()).getName());
                 }
+            }
                 
-            } else {
+             else {
     
                 if (attacker.getpos() == 4) {
                     defender.addScore(1);
@@ -211,11 +218,11 @@ public class Arena {
                 } else {
                     System.out.println("Continue");
                 }
-            if (duration == 20) {
-                System.out.println("Game over");
-                break;
-            }
-        }    
+            if (duration == player.getmaxTurns()) {
+                System.out.println("Match over");
+                break;}
+            }    
+        }
         
         
         System.out.println("Team1 score: " + Team_player.getscore());
@@ -239,7 +246,8 @@ public class Arena {
         return;
 
 
-    }}
+    }
+
     public void subplayer(Team team){
         if (team.getsubs().size() == 0){
             System.out.println("No subs available");
