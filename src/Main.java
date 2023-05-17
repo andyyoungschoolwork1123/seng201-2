@@ -82,9 +82,15 @@ public class Main {
                             if (success){
                                 System.out.println("You have successfully bought the athlete: " + athlete.getName());
                             }
-                            else{System.out.println("You do not have enough resources to buy this athlete.");}}
-                            else{System.out.println("The athlete you requested is not available.");}}
-                            else{System.out.println("Invalid choice.");}}
+                            else{
+                                System.out.println("You do not have enough resources to buy this athlete.");
+                            }
+                        }
+                            else{
+                                System.out.println("The athlete you requested is not available.");
+                            }
+                        }
+                        else{System.out.println("Invalid choice.");}}
 
                 scanner.nextLine(); // Consume the newline character
                 //5.17By Tong
@@ -94,9 +100,7 @@ public class Main {
                 player.printteam();
                 arena.pre_battle(player);
             
-            else{
-                System.out.println("Invalid input. Please try again.");
-            }
+            
             System.out.println(" Now your stat are" + player.getpoints() + " point " + player.getGold() + " gold ");
             System.out.println("Your inventory is: ");
             player.displayinventory();
@@ -156,7 +160,6 @@ public class Main {
                     player.applyfrominventory();
                 }
                 System.out.println("The Arena is now calling! ");
-                Arena arena = new Arena();
                 arena.InitAvailableOpponents(player.getTurn());
                 player.printteam();
                 System.out.println("You can now change the athletes in your team");
