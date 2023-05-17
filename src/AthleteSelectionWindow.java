@@ -61,6 +61,8 @@ public class AthleteSelectionWindow extends JFrame {
                 break;
             case 2:
                 role = "Defender";
+                break;
+            case 3:
                 role = "Goalkeeper";
                 break;
             default:
