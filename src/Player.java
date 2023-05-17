@@ -231,19 +231,20 @@ public class Player {
                 int selection2 = Integer.parseInt(System.console().readLine());
                 inventory.get(selection - 1).applyToAthlete(team.get(selection2 - 1));
                 inventory.remove(selection - 1);
+                
             }
             else{
                 System.out.println("action cancelled");
                 return;
             }
-        }
+            
         
 
         
-    
+    }
 
     public void applyfrominventory(int selection, int selection2) {
-        applyToAthlete(team.get(selection2 - 1)).inventory.get(selection - 1);
+        inventory.get(selection - 1).applyToAthlete(team.get(selection2 - 1));
         inventory.remove(selection - 1);
     }
 
