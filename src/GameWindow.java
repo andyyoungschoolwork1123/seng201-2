@@ -64,14 +64,18 @@ public class GameWindow {
     private void openAthleteSelectionWindow() {
         String playerName = playerNameField.getText();
         String difficulty = (String) difficultyComboBox.getSelectedItem();
-
+    
         // Close the player setup window
         frame.dispose();
-
-        // Open the athlete selection window
-        AthleteSelectionWindow selectionWindow = new AthleteSelectionWindow(playerName, difficulty);
+    
+        // Create the Player object
+        Player player = new Player(difficulty, playerName);
+    
+        // Open the athlete selection window and pass the Player object
+        AthleteSelectionWindow selectionWindow = new AthleteSelectionWindow(player);
         selectionWindow.setVisible(true);
     }
+    
 
 }
 

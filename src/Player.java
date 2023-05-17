@@ -168,6 +168,38 @@ public class Player {
     public int getmaxTurns(){
         return this.maxturn;
     }
+    public ArrayList<Athlete> init_team(){
+        ArrayList<Athlete> selection = new ArrayList<Athlete>();
+            Athlete athlete1 = Athlete.generateAthlete(1, "Forward");
+            selection.add(athlete1);
+            Athlete athlete2 = Athlete.generateAthlete(1, "Midfielder");
+            selection.add(athlete2);
+            Athlete athlete3 = Athlete.generateAthlete(1, "Defender");
+            selection.add(athlete3);
+            Athlete athlete4 = Athlete.generateAthlete(1, "Goalkeeper");
+            selection.add(athlete4);
+            for (int i = 0; i < 6; i++) {
+                if (Math.random() >0.25){
+                    Athlete athlete = Athlete.generateAthlete(1, "Forward");
+                    selection.add(athlete);
+                }
+                else if (Math.random() >0.5){
+                    Athlete athlete = Athlete.generateAthlete(1, "Midfielder");
+                    selection.add(athlete);
+                }
+                else if (Math.random() >0.75){
+                    Athlete athlete = Athlete.generateAthlete(1, "Defender");
+                    selection.add(athlete);
+                }
+                else{
+                    Athlete athlete = Athlete.generateAthlete(1, "Goalkeeper");
+                    selection.add(athlete);
+                }
+                
+            }
+            auto_sortteam(selection);
+            return selection;
+    }
     public void init_team_commandline() {
         System.out.println("Now please select your athletes:");
             ArrayList<Athlete> selection = new ArrayList<Athlete>();
