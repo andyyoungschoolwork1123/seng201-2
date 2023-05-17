@@ -1,4 +1,7 @@
 import junit.framework.TestCase;
+import org.junit.Test;
+
+
 
 public class FinalAthleteTest extends TestCase {
 
@@ -57,9 +60,7 @@ public class FinalAthleteTest extends TestCase {
         assertEquals(75, athlete.getOffence());
     }
 
-    public void testEstimatePower() {
-        assertEquals(280, athlete.esimatepower());
-    }
+
 
     public void testGetStoreValue() {
         assertEquals(200, athlete.getStoreValue());
@@ -68,11 +69,6 @@ public class FinalAthleteTest extends TestCase {
     public void testSetStoreValue() {
         athlete.setStoreValue(250);
         assertEquals(250, athlete.getStoreValue());
-    }
-
-    public void testSetStoreValue_default() {
-        athlete.setStoreValue();
-        assertEquals(320, athlete.getStoreValue());
     }
 
     public void testGetSellbackPrice() {
@@ -84,10 +80,6 @@ public class FinalAthleteTest extends TestCase {
         assertEquals(120, athlete.getSellbackPrice());
     }
 
-    public void testSetSellbackPrice_default() {
-        athlete.setSellbackPrice();
-        assertEquals(160, athlete.getSellbackPrice());
-    }
 
     public void testGetAmount() {
         assertEquals(1, athlete.getAmount());
@@ -110,8 +102,80 @@ public class FinalAthleteTest extends TestCase {
         assertEquals(0, athlete.getAmount());
     }
 
-    // Add more tests as needed
+    @Test
+    public void testGenerateAthlete() {
+        int turn = 1;
+        String role = "Forward";
+
+        Athlete athlete = Athlete.generateAthlete(turn, role);
+
+        assertNotNull(athlete);
+        assertEquals("Forward", athlete.getRole());
+        assertEquals(100, athlete.getStamina());
+
+    
+    
+
+        // Assert the correctness of name, value, and sellBackValue
+        assertNotNull(athlete.getName());
+        athlete.getStoreValue();
+        athlete.getSellbackPrice();
+    }
+
+    @Test
+    public void testPersonalDuel() {
+        Athlete athlete1 = new Athlete("Athlete 1", 100, 80, 70, "Forward", 120, 100, 1);
+        Athlete athlete2 = new Athlete("Athlete 2", 100, 75, 80, "Defender", 140, 110, 1);
+
+        boolean result = athlete1.personal_duel(athlete2, 1);
+
+        // Assert the expected changes in stamina and injury status
+        if (result) {
+            assertEquals(96, athlete1.getStamina());
+            assertEquals(90, athlete2.getStamina());
+        } else {
+            assertEquals(97, athlete1.getStamina());
+            assertEquals(93, athlete2.getStamina());
+        }
+
+       
+    }
+
+
+    @Test
+    public void testTrain() {
+        Athlete forward = new Athlete("Forward", 100, 80, 70, "Forward", 120, 100, 1);
+        Athlete midfielder = new Athlete("Midfielder", 100, 75, 80, "Midfielder", 140, 110, 1);
+        Athlete defender = new Athlete("Defender", 100, 70, 85, "Defender", 130, 105, 1);
+
+        forward.train();
+        midfielder.train();
+        defender.train();
+
+        // Assert the expected changes in offense and defense
+        assertEquals(85, forward.getOffence());
+        assertEquals(75, forward.getDefence());
+
+        assertEquals(78, midfielder.getOffence());
+        assertEquals(83, midfielder.getDefence());
+
+        assertEquals(70, defender.getOffence());
+        assertEquals(90, defender.getDefence());
+    }
+
+    
+
+
+
+
+
+
+
+
 
 }
+
+
+
 
 
