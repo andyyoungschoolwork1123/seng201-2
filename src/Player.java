@@ -216,7 +216,14 @@ public class Player {
             System.out.println("do you want to apply an item? (y/n)");
             String comfirm = System.console().readLine();
             if (comfirm.equals("y")) {
-                applyfrominventory();
+                
+                System.out.println("Please select item to apply");
+                int selection = Integer.parseInt(System.console().readLine());
+                System.out.println("Please select player to apply item to");
+                displayteam();
+                int selection2 = Integer.parseInt(System.console().readLine());
+                inventory.get(selection - 1).applyToAthlete(team.get(selection2 - 1));
+                inventory.remove(selection - 1);
             }
             else{
                 System.out.println("action cancelled");
@@ -228,17 +235,11 @@ public class Player {
             }
         
 
-        System.out.println("Please select item to apply");
-        int selection = Integer.parseInt(System.console().readLine());
-        System.out.println("Please select player to apply item to");
-        displayteam();
-        int selection2 = Integer.parseInt(System.console().readLine());
-        inventory.get(selection - 1).applyToAthlete(team.get(selection2 - 1));
-        inventory.remove(selection - 1);
+       
     }
 
     public void applyfrominventory(int selection, int selection2) {
-        inventory.get(selection - 1).applyToAthlete(team.get(selection2 - 1));
+        applyToAthlete(team.get(selection2 - 1)).inventory.get(selection - 1);
         inventory.remove(selection - 1);
     }
 
