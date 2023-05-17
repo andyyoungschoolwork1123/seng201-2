@@ -137,17 +137,14 @@ public class Item{
         int staminaBoost = 0;
         int offenseBoost = 0;
         int defenseBoost = 0;
-        if (name == "stamina potion"){
-             staminaBoost = (int) (5) + 5*turn;
-        }
-        else if (name == "offense potion"){
-             offenseBoost = (int) (5) + 5*turn;
-        }
-        else if (name == "defense potion"){
-             defenseBoost = (int) (5) + 5*turn;
+        if (name.equals("staminapotion")) {
+            staminaBoost = 5 + 5 * turn;
+        } else if (name.equals("offensepotion")) {
+            offenseBoost = 5 + 5 * turn;
+        } else if (name.equals("defensepotion")) {
+            defenseBoost = 5 + 5 * turn;
         }
         Item item = new Item(name, "ConsumableItem", staminaBoost, offenseBoost, defenseBoost);
-        
         return item;
     }
     private static Item generate_Equipmentitem(int turn, String type) {
