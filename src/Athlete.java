@@ -233,14 +233,14 @@ public class Athlete{
     }
 
     public void train() {
-        if (this.getRole() == "forward"){
+        if (this.getRole() == "Forward"){
             this.increaseOffense(5);
         }
-        else if (this.getRole() == "midfielder"){
+        else if (this.getRole() == "Midfielder"){
             this.increaseOffense(3);
             this.increaseDefense(3);
         }
-        else if (this.getRole() == "defender"){
+        else if (this.getRole() == "Defender"){
             this.increaseDefense(5);
         }
     }

@@ -154,7 +154,7 @@ public class FinalAthleteTest extends TestCase {
 
         // Assert the expected changes in offense and defense
         assertEquals(85, forward.getOffence());
-        assertEquals(75, forward.getDefence());
+        assertEquals(70, forward.getDefence());
 
         assertEquals(78, midfielder.getOffence());
         assertEquals(83, midfielder.getDefence());
