@@ -106,7 +106,7 @@ public class FinalItemTest {
         public void testGenerateItem() {
            
     
-            Item item1 = Item.generate_item(1, "offensepotion");
+            Item item1 = Item.generate_item(1, "Attack Potion");
             assertNotNull(item1);
             assertEquals("ConsumableItem", item1.getType());
     

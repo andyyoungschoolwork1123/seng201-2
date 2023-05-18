@@ -114,7 +114,7 @@ public class Item{
         if (type =="EquipmentItem" | type =="AttEquipment" | type =="DefEquipment"){
             return generate_Equipmentitem(turn, type = "EquipmentItem");
         }
-        else if (type =="ConsumableItem"| type =="staminapotion" | type =="offensepotion" | type =="defensepotion"){
+        else if (type =="ConsumableItem"| type =="Stamina Potion" | type =="Attack Potion" | type =="Defense Potion"){
             return generate_consumableitem(turn);
         }
         else{
@@ -132,33 +132,33 @@ public class Item{
         System.out.println("Item defense boost: " + this.getDefenseBoost());
     }
     private static Item generate_consumableitem(int turn) {
-        String[] consumableNames = {"staminapotion", "offensepotion", "defensepotion"};
+        String[] consumableNames = {"Stamina Potion", "Attack Potion", "Defense Potion"};
         String name = consumableNames[(int) (Math.random() * consumableNames.length)];
         int staminaBoost = 0;
         int offenseBoost = 0;
         int defenseBoost = 0;
-        if (name.equals("staminapotion")) {
+        if (name.equals("Stamina Potion")) {
             staminaBoost = 5 + 5 * turn;
-        } else if (name.equals("offensepotion")) {
+        } else if (name.equals("Attack Potion")) {
             offenseBoost = 5 + 5 * turn;
-        } else if (name.equals("defensepotion")) {
+        } else if (name.equals("Defense Potion")) {
             defenseBoost = 5 + 5 * turn;
         }
         Item item = new Item(name, "ConsumableItem", staminaBoost, offenseBoost, defenseBoost);
         return item;
     }
     private static Item generate_Equipmentitem(int turn, String type) {
-        String[] offenseNames = {"Sword", "Hammer", "Shiv"};
-        String[] defenseNames = {"Shield", "Chainmail", "Platemail"};
+        String[] offenseNames = {"Shoes", "Head Band", "Boots"};
+        String[] defenseNames = {"Gloves", "Book: Teamwork", "Pads"};
         if (type == "AttEquipment"){
             String name = offenseNames[(int) (Math.random() * offenseNames.length)];
-            int offenseBoost = (int) (5) + 5*turn;
+            int offenseBoost = 5 + 5*turn;
             
             Item item = new Item(name, "AttEquipment",0, offenseBoost, 0);
             return item;}
         else if (type == "DefEquipment"){
             String name = defenseNames[(int) (Math.random() * defenseNames.length)];
-            int defenseBoost = (int) (5) + 5*turn;
+            int defenseBoost =  5 + 5*turn;
             
             Item item = new Item(name, "DefEquipment",0, 0, defenseBoost);
             return item;

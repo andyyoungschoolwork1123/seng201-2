@@ -275,7 +275,7 @@ public class MarketTwo {
             }
             
         }
-        String[] itemNames = {"staminapotion", "offensepotion", "defensepotion","EquipmentItem"};
+        String[] itemNames = {"Stamina Potion", "Attack Potion", "Defense Potion","EquipmentItem"};
         for (int i = 0; i < 5; i++) {
             
             Item item = Item.generate_item(turn, itemNames[(int) (Math.random() * itemNames.length)]);

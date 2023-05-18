@@ -2,7 +2,7 @@ public class ItemFinalTest {
     public static void main(String[] args) {
         Item item1 = new Item("Sword", "AttEquipment", 100, 80, 1, 0, 10, 0);
         Item item2 = new Item("Shield", "DefEquipment", 120, 96, 1, 0, 0, 12);
-        Item item3 = new Item("staminapotion", "ConsumableItem", 0, 10, 0, 20, 0, 0);
+        Item item3 = new Item("Stamina Potion", "ConsumableItem", 0, 10, 0, 20, 0, 0);
 
         // Test the getters
         System.out.println("Item 1 name: " + item1.getName());
