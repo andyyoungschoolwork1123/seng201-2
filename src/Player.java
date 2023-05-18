@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+
 //class contain setup information for player and team
 public class Player {
     private String difficulty;
@@ -20,13 +22,13 @@ public class Player {
         this.name = name;
         // set starting gold based on difficulty
         if (difficulty.equals("Easy")) {
-            this.gold = 50;
+            this.gold = 500;
             this.maxturn = 10;
         } else if (difficulty.equals("Medium")) {
-            this.gold = 25;
+            this.gold = 250;
             this.maxturn = 15;
         } else if (difficulty.equals("Hard")) {
-            this.gold = 10;
+            this.gold = 100;
             this.maxturn = 20;
         } else {
             System.out.println("ValueError:diffculty") ;  // default to 0 if difficulty level is unknown
@@ -58,15 +60,26 @@ public class Player {
         this.subs.add(athlete);
     }   
     public void removesubs(Athlete athlete){
-        for(int i = 0; i < subs.size();i++){
-            if(athlete.getInjury()){
-                this.subs.remove(athlete);
-                i--;
-            }
-        }//5.15 By TONG
+        this.subs.remove(athlete);
+        //5.15 By TONG
         
     }
+    public void removefromteam(Athlete athlete){
+        this.team.remove(athlete);
+    }
+    public void addtoteam(Athlete athlete){
+        this.team.add(athlete);
+    }
+    public void removeInjury(){
+        for (int i = 0; i < this.team.size(); i++) {
+            Athlete athlete = this.team.get(i);
+            athlete.heal_check();
+        }
+    }
     public void printsubs(){
+        if (this.subs == null){
+            this.subs = new ArrayList<Athlete>();
+        }
         for (int i = 0; i < this.subs.size(); i++) {
             Athlete athlete = this.subs.get(i);
             System.out.println((i+1) + ". " + athlete.getName() + " (" + athlete.getRole() + ")");
@@ -136,14 +149,24 @@ public class Player {
             team.get(i).heal_check();
         }
     }
+    public void InitInventory(){
+        Item i1 = new Item("Basketball", "Equipment", 50, 25, 100);
+        Item i2 = new Item("Running Shoes", "Footwear", 100, 50, 200);
+        Item i3 = new Item("Water Bottle", "Accessories", 10, 5, 50);
+
+        inventory.add(i1);
+        inventory.add(i2);
+        inventory.add(i3);
+    }
     public void displayinventory() {
+        if (inventory.size() == 0) {
+            System.out.println("No items in inventory");
+        }
         for (int i = 0; i < inventory.size(); i++) {
             System.out.println(inventory.get(i).getName());
             System.out.println(inventory.get(i).getStoreValue());
         }
-        if (inventory.size() == 0) {
-            System.out.println("No items in inventory");
-        }
+        
     }
     public void displayteam() {
         for (int i = 0; i < team.size(); i++) {
@@ -152,6 +175,38 @@ public class Player {
     }
     public int getmaxTurns(){
         return this.maxturn;
+    }
+    public ArrayList<Athlete> init_team(){
+        ArrayList<Athlete> selection = new ArrayList<Athlete>();
+            Athlete athlete1 = Athlete.generateAthlete(1, "Forward");
+            selection.add(athlete1);
+            Athlete athlete2 = Athlete.generateAthlete(1, "Midfielder");
+            selection.add(athlete2);
+            Athlete athlete3 = Athlete.generateAthlete(1, "Defender");
+            selection.add(athlete3);
+            Athlete athlete4 = Athlete.generateAthlete(1, "Goalkeeper");
+            selection.add(athlete4);
+            for (int i = 0; i < 6; i++) {
+                if (Math.random() >0.25){
+                    Athlete athlete = Athlete.generateAthlete(1, "Forward");
+                    selection.add(athlete);
+                }
+                else if (Math.random() >0.5){
+                    Athlete athlete = Athlete.generateAthlete(1, "Midfielder");
+                    selection.add(athlete);
+                }
+                else if (Math.random() >0.75){
+                    Athlete athlete = Athlete.generateAthlete(1, "Defender");
+                    selection.add(athlete);
+                }
+                else{
+                    Athlete athlete = Athlete.generateAthlete(1, "Goalkeeper");
+                    selection.add(athlete);
+                }
+                
+            }
+            auto_sortteam(selection);
+            return selection;
     }
     public void init_team_commandline() {
         System.out.println("Now please select your athletes:");
@@ -197,30 +252,37 @@ public class Player {
             auto_sortteam(team);
 
             this.setTeam(team);
+        }
+
+        
+        public void applyfrominventory(){
+            displayinventory();
+            if (inventory.size() == 0) {
+                System.out.println("action cancelled");
+                return;
+            }
+            System.out.println("do you want to apply an item? (y/n)");
+            String comfirm = System.console().readLine();
+            if (comfirm.equals("y")) {
+                System.out.println("Please select item to apply");
+                int selection = Integer.parseInt(System.console().readLine());
+                System.out.println("Please select player to apply item to");
+                displayteam();
+                int selection2 = Integer.parseInt(System.console().readLine());
+                inventory.get(selection - 1).applyToAthlete(team.get(selection2 - 1));
+                inventory.remove(selection - 1);
+                
+            }
+            else{
+                System.out.println("action cancelled");
+                return;
+            }
+            
+        
+
+        
     }
-    public void applyfrominventory() {
-        displayinventory();
-        System.out.println("do you want to apply an item? (y/n)");
-        String comfirm = System.console().readLine();
-        if (comfirm.equals("y")) {
-            applyfrominventory();
-        }
-        else{
-            System.out.println("action cancelled");
-            return;
-        }
-        if (inventory.size() == 0) {
-            System.out.println("action cancelled");
-            return;
-        }
-        System.out.println("Please select item to apply");
-        int selection = Integer.parseInt(System.console().readLine());
-        System.out.println("Please select player to apply item to");
-        displayteam();
-        int selection2 = Integer.parseInt(System.console().readLine());
-        inventory.get(selection - 1).applyToAthlete(team.get(selection2 - 1));
-        inventory.remove(selection - 1);
-    }
+
     public void applyfrominventory(int selection, int selection2) {
         inventory.get(selection - 1).applyToAthlete(team.get(selection2 - 1));
         inventory.remove(selection - 1);
@@ -252,4 +314,78 @@ public class Player {
             
         
     }
+    //random events
+    
+
+
+    public void handleRandomEvents() {
+        // 1. Athlete's stat is increased
+        handleStatBoostEvent();
+
+        // 2. Athlete quits
+        handleAthleteQuitEvent();
+
+        // 3. Random new athlete joins
+        handleNewAthleteJoinEvent();
+    }
+
+    private void handleStatBoostEvent() {
+        double chance = calculateEventChance(0.05); // Adjust the chance as desired
+
+        for (Athlete athlete : team) {
+            // Check if the athlete is resting and eligible for a stat boost
+            if (chance > Math.random()) {
+                // Increase the athlete's stat (adjust as desired)
+                athlete.train();
+                System.out.println("Random Event: " + athlete.getName() + "'s stat has increased!");
+            }
+        }
+    }
+
+    private void handleAthleteQuitEvent() {
+        double chance = calculateEventChance(0.02); // Adjust the chance as desired
+
+        for (Athlete athlete : team) {
+            // Check if the athlete was injured in the previous weeks and eligible to quit
+            if (chance > Math.random()) {
+                // Remove the athlete from the team
+                team.remove(athlete);
+                System.out.println("Random Event: " + athlete.getName() + " has quit the team!");
+                break; // Exit the loop to handle only one quitting athlete at a time
+            }
+        }
+    }
+
+    private void handleNewAthleteJoinEvent() {
+        double chance = calculateEventChance(0.02); // Adjust the chance as desired
+        int freeSlots = calculateFreeSlots(); // Method to calculate the number of free slots in reserves
+
+        // Check if there are free slots and eligible for a new athlete to join
+        if (freeSlots > 0 && chance > Math.random()) {
+            Athlete newAthlete = Athlete.generateAthlete(Turn); // Method to generate a new random athlete
+            subs.add(newAthlete);
+            System.out.println("Random Event: A new athlete, " + newAthlete.getName() + ", has joined the team!");
+        }
+    }
+
+    private double calculateEventChance(double baseChance) {
+        // Adjust the baseChance based on the difficulty setting or other factors
+        // Return the adjusted chance value
+        if (difficulty.equals("Easy")) {
+            baseChance *= 1.5;
+        } else if (difficulty.equals("Hard")) {
+            baseChance *= 0.5;
+        }
+        return baseChance;
+    }
+
+    private int calculateFreeSlots() {
+        // Calculate the number of free slots in the reserves
+        // Return the number of free slots
+        int slots = 5 - this.subs.size();
+        return slots;
+    }
+
+    
 }
+

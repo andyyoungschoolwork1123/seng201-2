@@ -145,6 +145,11 @@ public class Arena {
         battle_easy(Team_player,opponent,player);
     }
     
+    /**
+     * @param Team_player
+     * @param opponent
+     * @param player
+     */
     public void battle_easy(Team Team_player,Team opponent,Player player) {
         Team Team2 = opponent;
         
@@ -153,7 +158,7 @@ public class Arena {
         Team attacker = Team_player;
         Team defender = Team2;
         while (duration <= 20) {
-
+            System.out.println("Turn " + (duration + 1));
             duration += 1;
             if (attacker.team.get(attacker.getpos()).personal_duel(defender.team.get(defender.getpos()), duration)) {
                 if (attacker.getpos() !=0){
@@ -168,12 +173,14 @@ public class Arena {
                     System.out.println(attacker.getname() + " score!");
                     attacker.setpos(0);
                     defender.setpos(0);
-                } else {
+                } 
+                else {
                     defender.setpos(defender.getpos() + 1);
                     System.out.println(attacker.team.get(attacker.getpos()).getName() + " go past " + defender.team.get(defender.getpos()).getName());
                 }
+            }
                 
-            } else {
+             else {
     
                 if (attacker.getpos() == 4) {
                     defender.addScore(1);
@@ -189,9 +196,35 @@ public class Arena {
                     defender.setpos(temp.getpos());
                 }
             }
-            if (attacker.team.get(attacker.getpos()).getStamina() <= 20 && attacker.equals(Team_player)) {
+            if (attacker.team.get(attacker.getpos()).injury_check()== true) {
+                
+                System.out.println(attacker.team.get(attacker.getpos()).getName() + " is injured");
+                attacker.team.remove(attacker.team.get(attacker.getpos()));
+                if (attacker.getpos() == 0){
+                }
+                else{
+                    attacker.setpos(attacker.getpos()-1);
+                    
+                }
+            }
+            if (defender.team.get(defender.getpos()).injury_check()== true) {
+                System.out.println(defender.team.get(defender.getpos()).getName() + " is injured");
+                defender.team.remove(defender.team.get(defender.getpos()));
+                if (defender.getpos() == 4){
+                    System.out.println("Goal is Empty!!");
+                    attacker.addScore(1);
+                    System.out.println(attacker.getname() + " score!");
+                    attacker.setpos(0);
+                    defender.setpos(0);
+                }
+                else{
+                    defender.setpos(defender.getpos()-1);
+
+                }
+            }
+            if (attacker.team.get(attacker.getpos()).getStamina() <= 30 && attacker.equals(Team_player)) {
                 System.out.println(attacker.team.get(attacker.getpos()).getName() + " is exhausted");
-                System.out.println("1 use a stamina potion?/2 continue");
+                System.out.println("1 use a potion?/2 continue");
                 int selection = Integer.parseInt(System.console().readLine());
                 if (selection == 1) {
                     player.applyfrominventory();
@@ -201,9 +234,9 @@ public class Arena {
                 }
                 
             }
-            if (defender.team.get(defender.getpos()).getStamina() <= 20 && defender.equals(Team_player)) {
+            if (defender.team.get(defender.getpos()).getStamina() <= 30 && defender.equals(Team_player)) {
                 System.out.println(defender.team.get(defender.getpos()).getName() + " is exhausted");
-                System.out.println("1 use a stamina potion?/2 continue");
+                System.out.println("1 use a potion?/2 continue");
                 int selection = Integer.parseInt(System.console().readLine());
                 if (selection == 1) {
                     player.applyfrominventory();
@@ -211,35 +244,40 @@ public class Arena {
                 } else {
                     System.out.println("Continue");
                 }
-            if (duration == 20) {
-                System.out.println("Game over");
-                break;
-            }
-        }    
+            
+            if (duration == player.getmaxTurns()) {
+                System.out.println("Match over");
+                break;}
+            }    
+        }
         
-        
+        int getgold = 0;
         System.out.println("Team1 score: " + Team_player.getscore());
         System.out.println("Team2 score: " + Team2.getscore());
         if (Team_player.getscore() > Team2.getscore()){
             System.out.println("You win");
             player.increasepoints(3);
+             getgold = (int)(Team2.gettotalestpower()/5);
+
         }
         else if (Team_player.getscore() < Team2.getscore()){
             System.out.println("You lose");
+             getgold = (int)(Team2.gettotalestpower()/10);
         }
         else {
             System.out.println("Draw");
             player.increasepoints(1);
+             getgold = (int)(Team2.gettotalestpower()/8);
 
 
         }
-
-        player.addgold((int)(Team2.gettotalestpower()/10));
+        player.addgold(getgold);
         System.out.println("You get " + (int)(Team2.gettotalestpower()/10) + " gold");
         return;
 
 
-    }}
+    }
+
     public void subplayer(Team team){
         if (team.getsubs().size() == 0){
             System.out.println("No subs available");

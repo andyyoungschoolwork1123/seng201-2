@@ -36,12 +36,11 @@ public class Athlete{
         this.amount = 1;
     }
     
-    public Athlete(String string, String string2, int i, int j, int k, int l) {
-    }
 
     public String getName() {
         return name;
     }
+
 
     public int getStamina() {
         return stamina;
@@ -96,6 +95,8 @@ public class Athlete{
         return this.storeValue;
     }
 
+    
+
    
     public void setStoreValue(int storeValue) {
         this.storeValue = storeValue;
@@ -147,6 +148,17 @@ public class Athlete{
         
         return new Athlete(name, stamina, offence, defence, role, value, sellBackValue,1);
     }
+    public static Athlete generateAthlete(int turn){
+        int stamina = 100;
+        int offence = (int)(Math.random()*100);
+        int defence = (int)(Math.random()*100);
+        String[] roles = {"Forward","Midfielder","Defender","Goalkeeper"};
+        String role = roles[(int)(Math.random()*4)];
+        String name = generateName();
+        int value = generateValue(offence, defence);
+        int sellBackValue = generateSellBackValue(value);
+        return new Athlete(name, stamina, offence, defence, role, value, sellBackValue,1);
+    }
     
     private static int generateSellBackValue(int value) {
         return (int) (value * 0.8);
@@ -183,7 +195,7 @@ public class Athlete{
         }
         return defence;
     }
-    private boolean injury_check(){
+     boolean injury_check(){
         if (this.stamina <= 0){
             this.injury = true;
             injury_time = 2;
@@ -233,16 +245,21 @@ public class Athlete{
     }
 
     public void train() {
-        if (this.getRole() == "forward"){
+        if (this.getRole() == "Forward"){
             this.increaseOffense(5);
         }
-        else if (this.getRole() == "midfielder"){
+        else if (this.getRole() == "Midfielder"){
             this.increaseOffense(3);
             this.increaseDefense(3);
         }
-        else if (this.getRole() == "defender"){
+        else if (this.getRole() == "Defender"){
             this.increaseDefense(5);
         }
+    }
+
+    public int getInjurtTime() {
+        injury_time=0;
+        return this.injury_time;
     }
     
 

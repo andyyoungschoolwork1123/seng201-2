@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+
 public class MarketTwo {
     private ArrayList<Athlete> athletes;
     private ArrayList<Item> items;
@@ -9,15 +10,6 @@ public class MarketTwo {
         this.athletes = new ArrayList<Athlete>();
         this.items = new ArrayList<Item>();
     }
-    
-    public void addAthlete(Athlete athlete) {
-        athletes.add(athlete);
-    }
-    
-    public void addItem(Item item) {
-        items.add(item);
-    }
-
 
     
     public ArrayList<Athlete> getAthletes() {
@@ -146,7 +138,13 @@ public class MarketTwo {
     }
   
 
-
+    public void addAthlete(Athlete athlete) {
+        athletes.add(athlete);
+    }
+    
+    public void addItem(Item item) {
+        items.add(item);
+    }
     
 
     public int getItemAmount(String itemName) {
@@ -158,6 +156,27 @@ public class MarketTwo {
         }
         return totalAmount;
     }
+
+    public void init_market() {//5.17
+        // Create and add some athletes to the market
+        Athlete a1 = new Athlete("LeBron James", 90, 80, 70, "Small Forward", 1000, 500,1);
+        Athlete a2 = new Athlete("Kobe Bryant", 85, 85, 75, "Shooting Guard", 800, 400,1);
+        Athlete a3 = new Athlete("Michael Jordan", 95, 90, 85, "Shooting Guard", 1500, 750,1);
+
+        athletes.add(a1);
+        athletes.add(a2);
+        athletes.add(a3);
+
+        // create and add items to the market
+        Item i1 = new Item("Basketball", "Equipment", 50, 25, 100);
+        Item i2 = new Item("Running Shoes", "Footwear", 100, 50, 200);
+        Item i3 = new Item("Water Bottle", "Accessories", 10, 5, 50);
+
+        items.add(i1);
+        items.add(i2);
+        items.add(i3);
+    }
+
     public void displaymarket() {
         System.out.println("Athletes in market:");
         for (int i = 0; i < this.athletes.size(); i++) {
@@ -256,17 +275,43 @@ public class MarketTwo {
             }
             
         }
-        String[] itemNames = {"staminapotion", "offensepotion", "defensepotion","EquipmentItem"};
+        String[] itemNames = {"Stamina Potion", "Attack Potion", "Defense Potion","EquipmentItem"};
         for (int i = 0; i < 5; i++) {
             
             Item item = Item.generate_item(turn, itemNames[(int) (Math.random() * itemNames.length)]);
             addItem(item);
         }
 
+       
+
     }
 
-    public void init_market() {
+
+    public boolean buyAthlete(Player player, Athlete athlete) {
+        // Check if the player has enough gold to buy the athlete
+        if (player.getGold() < athlete.getStoreValue()) {
+            System.out.println("You don't have enough gold to buy this athlete!");
+            return false;
+        }
+    
+        // Check if the athlete is available in the market
+        if (!athletes.contains(athlete)) {
+            System.out.println("This athlete is not available in the market!");
+            return false;
+        }
+    
+        // Reduce the athlete's availability and update the player's gold
+        athlete.decreaseAmount(getAthleteAmount());;
+        player.setGold(player.getGold() - athlete.getStoreValue());
+    
+        System.out.println("You bought " + athlete.getName() + " for " + athlete.getStoreValue() + " gold!");
+        return true;
     }
+    
+    
+
+
+    
  
 }
 
