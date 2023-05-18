@@ -15,12 +15,12 @@ public class FinalTeamTest {
     public void setup() {
         // Create a new Team instance for each test
         ArrayList<Athlete> teamMembers = new ArrayList<>();
-        teamMembers.add(new Athlete("Alex", 0, 0, 0, "Forward", 0, 0, 0));
-        teamMembers.add(new Athlete("Dee", 0, 0, 0, "Midfielder", 0, 0, 0));
-        teamMembers.add(new Athlete("Mike", 0, 0, 0, "Defender", 0, 0, 0));
+        teamMembers.add(new Athlete("Alex", 100, 90, 92, "Forward", 800, 700, 1));
+        teamMembers.add(new Athlete("Dee", 100, 98, 93, "Midfielder", 950, 800, 1));
+        teamMembers.add(new Athlete("Mike", 100, 97, 94, "Defender", 780, 890, 1));
         ArrayList<Athlete> subs = new ArrayList<>();
-        subs.add(new Athlete("Jack", 0, 0, 0, "Midfielder", 0, 0, 0));
-        subs.add(new Athlete("Mary", 0, 0, 0, "Defender", 0, 0, 0));
+        subs.add(new Athlete("Jack", 100, 96, 95, "Midfielder", 680, 500, 1));
+        subs.add(new Athlete("Mary", 100, 95, 96, "Defender", 876, 700, 1));
 
         team = new Team("Team 1", teamMembers, subs);
     }
@@ -42,8 +42,8 @@ public class FinalTeamTest {
     @Test
     public void testGetSubs() {
         ArrayList<Athlete> expectedSubs = new ArrayList<>();
-        expectedSubs.add(new Athlete("Jack", 0, 0, 0, "Midfielder", 0, 0, 0));
-        expectedSubs.add(new Athlete("Mary", 0, 0, 0, "Defender", 0, 0, 0));
+        expectedSubs.add(new Athlete("Jack", 100, 96, 95, "Midfielder", 680, 500, 1));
+        expectedSubs.add(new Athlete("Mary", 100, 95, 96, "Defender", 876, 700, 1));
         team.setsubs(expectedSubs);
     
         ArrayList<Athlete> actualSubs = team.getsubs();
@@ -59,8 +59,8 @@ public class FinalTeamTest {
     @Test
     public void testSetSubs() {
         ArrayList<Athlete> newSubs = new ArrayList<>();
-        newSubs.add(new Athlete("New Substitute 1", 0, 0, 0, "Midfielder", 0, 0, 0));
-        newSubs.add(new Athlete("New Substitute 2", 0, 0, 0, "Defender", 0, 0, 0));
+        newSubs.add(new Athlete("Jack", 100, 96, 95, "Midfielder", 680, 500, 1));
+        newSubs.add(new Athlete("Mary", 100, 95, 96, "Defender", 876, 700, 1));
 
         team.setsubs(newSubs);
         Assert.assertEquals(newSubs, team.getsubs());
@@ -71,8 +71,8 @@ public class FinalTeamTest {
     @Test
     public void testAddSubs() {
         team = new Team("Team A");
-        athlete1 = new Athlete("John", 0, 0, 0, "Forward", 0, 0, 0);
-        athlete2 = new Athlete("Mary", 0, 0, 0, "Midfielder", 0, 0, 0);
+        athlete1 = new Athlete("Jack", 100, 96, 95, "Midfielder", 680, 500, 1);
+        athlete2 = new Athlete("Mary", 100, 95, 96, "Defender", 876, 700, 1);
         team.addSubs(athlete1);
         Assert.assertTrue(team.getsubs().contains(athlete1));
     }
@@ -89,8 +89,8 @@ public class FinalTeamTest {
     @Test
     public void testInjuryRemove_InjuredAthlete() {
         team = new Team("Team A");
-        athlete1 = new Athlete("John", 0, 0, 0, "Forward", 0, 0, 0);
-        athlete2 = new Athlete("Mary", 0, 0, 0, "Midfielder", 0, 0, 0);
+        athlete1 = new Athlete("Jack", 100, 96, 95, "Midfielder", 680, 500, 1);
+        athlete2 = new Athlete("Mary", 100, 95, 96, "Defender", 876, 700, 1);
     
         athlete1.getInjury();
         team.addAthlete(athlete1);
@@ -101,23 +101,25 @@ public class FinalTeamTest {
     @Test
     public void testInjuryRemove_NonInjuredAthlete() {
         team = new Team("Team A");
-        athlete1 = new Athlete("John", 0, 0, 0, "Forward", 0, 0, 0);
-        athlete2 = new Athlete("Mary", 0, 0, 0, "Midfielder", 0, 0, 0);
-        Athlete athlete3 = new Athlete("Tom", 0, 0, 0, "Defender", 0, 0, 0);
+        team = new Team("Team A");
+        athlete1 = new Athlete("Jack", 100, 96, 95, "Midfielder", 680, 500, 1);
+        athlete2 = new Athlete("Mary", 100, 95, 96, "Defender", 876, 700, 1);
+    
+        Athlete athlete3 = new Athlete("Tom", 100, 80, 89, "Defender", 800, 807, 1);
         team.addAthlete(athlete1);
         team.addAthlete(athlete2);
         team.addAthlete(athlete3);
+        
         team = new Team("Team A");
-        athlete1 = new Athlete("John", 0, 0, 0, "Forward", 0, 0, 0);
-        athlete2 = new Athlete("Mary", 0, 0, 0, "Midfielder", 0, 0, 0);
-    
+        athlete1 = new Athlete("Jack", 100, 96, 95, "Midfielder", 680, 500, 1);
+        athlete2 = new Athlete("Mary", 100, 95, 96, "Defender", 876, 700, 1);
         team.addAthlete(athlete1);
         team.injuryremove(athlete1);
         Assert.assertFalse(team.getteam().contains(athlete1));
     }
 
     public void testSubtite_ByPosition() {
-        Athlete onAthlete = new Athlete("Jack", 0, 0, 0, "Forward", 0, 0, 0);
+        Athlete onAthlete =  new Athlete("Jack", 100, 96, 95, "Midfielder", 680, 500, 1);
         int offPos = 1;
 
         team.subtite(onAthlete, offPos);
@@ -129,8 +131,8 @@ public class FinalTeamTest {
     @Test
     public void testSubtite_ByAthlete() {
         team = new Team("Team A");
-        athlete1 = new Athlete("John", 0, 0, 0, "Forward", 0, 0, 0);
-        athlete2 = new Athlete("Mary", 0, 0, 0, "Midfielder", 0, 0, 0);
+        athlete1 = new Athlete("Jack", 100, 96, 95, "Midfielder", 680, 500, 1);
+        athlete2 = new Athlete("Mary", 100, 95, 96, "Defender", 876, 700, 1);
         team.addAthlete(athlete1);
         team.addAthlete(athlete2);
         Athlete onAthlete = new Athlete("Jack", 0, 0, 0, "Forward", 0, 0, 0);
@@ -144,8 +146,8 @@ public class FinalTeamTest {
     @Test
     public void testSubtite_Confirmation() {
         team = new Team("Team A");
-        athlete1 = new Athlete("John", 0, 0, 0, "Forward", 0, 0, 0);
-        athlete2 = new Athlete("Mary", 0, 0, 0, "Midfielder", 0, 0, 0);
+        athlete1 = new Athlete("Jack", 100, 96, 95, "Midfielder", 680, 500, 1);
+        athlete2 = new Athlete("Mary", 100, 95, 96, "Defender", 876, 700, 1);
         team.addAthlete(athlete1);
         team.addAthlete(athlete2);
         Athlete onAthlete = new Athlete("Jack", 0, 0, 0, "Forward", 0, 0, 0);
@@ -165,8 +167,8 @@ public class FinalTeamTest {
     @Test
     public void testSubtite_Cancelled() {
         team = new Team("Team A");
-        athlete1 = new Athlete("John", 0, 0, 0, "Forward", 0, 0, 0);
-        athlete2 = new Athlete("Mary", 0, 0, 0, "Midfielder", 0, 0, 0);
+        athlete1 = new Athlete("Jack", 100, 96, 95, "Midfielder", 680, 500, 1);
+        athlete2 = new Athlete("Mary", 100, 95, 96, "Defender", 876, 700, 1);
        
         team.addAthlete(athlete1);
         team.addAthlete(athlete2);
@@ -186,7 +188,9 @@ public class FinalTeamTest {
     @Test
     public void testSetTeam() {
         ArrayList<Athlete> newTeam = new ArrayList<>();
-        newTeam.add(new Athlete("Jack", 0, 0, 0, "Defender", 0, 0, 0));
+        team = new Team("Team A");
+        athlete1 = new Athlete("Jack", 100, 96, 95, "Midfielder", 680, 500, 1);
+        athlete2 = new Athlete("Mary", 100, 95, 96, "Defender", 876, 700, 1);
 
         team.setteam(newTeam);
 
@@ -213,8 +217,8 @@ public class FinalTeamTest {
     @Test
     public void testGetName() {
         team = new Team("Team A");
-        athlete1 = new Athlete("John", 0, 0, 0, "Forward", 0, 0, 0);
-        athlete2 = new Athlete("Mary", 0, 0, 0, "Midfielder", 0, 0, 0);
+        athlete1 = new Athlete("Jack", 100, 96, 95, "Midfielder", 680, 500, 1);
+        athlete2 = new Athlete("Mary", 100, 95, 96, "Defender", 876, 700, 1);
         team.addAthlete(athlete1);
         team.addAthlete(athlete2);
         String expectedName = "Team A";
@@ -252,8 +256,8 @@ public class FinalTeamTest {
     @Test
     public void testGetTotalEstPower() {
         team = new Team("Team A");
-        athlete1 = new Athlete("John", 0, 0, 0, "Forward", 0, 0, 0);
-        athlete2 = new Athlete("Mary", 0, 0, 0, "Midfielder", 0, 0, 0);
+        athlete1 = new Athlete("Jack", 100, 96, 95, "Midfielder", 680, 500, 1);
+        athlete2 = new Athlete("Mary", 100, 95, 96, "Defender", 876, 700, 1);
         team.addAthlete(athlete1);
         team.addAthlete(athlete2);
         int expectedTotalEstPower = athlete1.esimatepower() + athlete2.esimatepower();
@@ -265,8 +269,8 @@ public class FinalTeamTest {
     @Test
     public void testSize() {
         team = new Team("Team A");
-        athlete1 = new Athlete("John", 0, 0, 0, "Forward", 0, 0, 0);
-        athlete2 = new Athlete("Mary", 0, 0, 0, "Midfielder", 0, 0, 0);
+        athlete1 = new Athlete("Jack", 100, 96, 95, "Midfielder", 680, 500, 1);
+        athlete2 = new Athlete("Mary", 100, 95, 96, "Defender", 876, 700, 1);
         team.addAthlete(athlete1);
         team.addAthlete(athlete2);
         int expectedSize = 2;
