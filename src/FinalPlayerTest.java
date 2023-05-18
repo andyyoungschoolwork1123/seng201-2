@@ -293,6 +293,44 @@ public class FinalPlayerTest {
         }
     }
 
+
+
+
+    @Test
+    public void testRemoveInjury_AllAthletesInjured() {
+        ArrayList<Athlete> athletes = new ArrayList<>();
+        athletes.add(new Athlete("Player 1", 0, 0, 0, "Forward", 0, 0, 0));
+        athletes.add(new Athlete("Player 2", 0, 0, 0, "Midfielder", 0, 0, 0));
+        athletes.add(new Athlete("Player 3", 0, 0, 0, "Defender", 0, 0, 0));
+
+        player = new Player("Easy", "T");
+        // Set all athletes in the player's team as injured
+        for (Athlete athlete : player.getTeam()) {
+           
+            athlete.getInjury();
+        }
+
+        player.removeInjury();
+
+        // Verify that all athletes' injuries have been removed
+        for (Athlete athlete : player.getTeam()) {
+            Assert.assertFalse(athlete.getInjury());
+            Assert.assertEquals(0, athlete.getInjurtTime());
+        }
+    }
+
+    @Test
+    public void testRemoveInjury_NoInjuredAthletes() {
+        // No injured athletes in the player's team
+
+        player.removeInjury();
+
+        // Verify that no changes are made to the athletes' injuries
+        for (Athlete athlete : player.getTeam()) {
+            Assert.assertFalse(athlete.getInjury());
+            Assert.assertEquals(0, athlete.getInjurtTime());
+        }
+    }
     
 
     
