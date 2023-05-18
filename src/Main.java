@@ -30,10 +30,10 @@ public class Main {
 
             }
 
-            Player player = new Player(difficultys, name);
+            Player player = new Player(difficultys, name);//1.game window 
             player.init_team_commandline();
             System.out.println("You have selected the following athletes:");
-            player.displayteam();
+            player.displayteam();//2.select Athletes window.
             
             System.out.println("You have finished selecting your team. Now you cann battle against the computer, or view market place.");
             System.out.println("Please select an option:");
@@ -45,7 +45,7 @@ public class Main {
 
             }
             else if (option == 2){
-                MarketTwo market = new MarketTwo();
+                Market market = new Market();
                 market.generatemarket(player.getTurn());
                 market.displaymarket();
                 System.out.println("Do you want to buy an item or Athletes? (1 for item, 2 for Athletes)");
@@ -71,7 +71,7 @@ public class Main {
                         System.out.println("Enter the ID of the athlete you want to buy:");
                         String athleteName = scanner.nextLine();
                         scanner.nextLine(); // Consume the newline character
-                        // Call the getAthlete method in the MarketTwo class to get the athlete
+                        // Call the getAthlete method in the Market class to get the athlete
                         Athlete athlete = market.getAthleteByName(athleteName);
 
                         if(athlete !=null){
@@ -90,12 +90,12 @@ public class Main {
                         else{System.out.println("Invalid choice.");}}
 
                 scanner.nextLine(); // Consume the newline character
-                //5.17By Tong
+                //market.
                 System.out.println("The Arena is now calling! ");
                 Arena arena = new Arena();
                 arena.InitAvailableOpponents(1);
                 player.printteam();
-                arena.pre_battle(player);
+                arena.pre_battle(player);//Arena
             
             
             System.out.println(" Now your stat are" + player.getpoints() + " point " + player.getGold() + " gold ");
@@ -105,13 +105,13 @@ public class Main {
                 player.applyfrominventory();
                 player.train_athletes();
                        
-            System.out.println("Turn ends,next turn coming!");
+            System.out.println("Turn ends,next turn coming!");//end turn.
 
             while (player.getTurn() <= player.getmaxTurns()){
                 player.inc_trun();
                 System.out.println("Turn " + player.getTurn() + " begins!");
                 System.out.println("Market time!");
-                MarketTwo market1 = new MarketTwo();
+                Market market1 = new Market();
                 market1.generatemarket(player.getTurn());
 
                 market1.displaymarket();//5.17 By Tong

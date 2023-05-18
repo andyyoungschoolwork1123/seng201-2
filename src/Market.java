@@ -1,12 +1,12 @@
 import java.util.ArrayList;
 
 
-public class MarketTwo {
+public class Market {
     private ArrayList<Athlete> athletes;
     private ArrayList<Item> items;
     
     
-    public MarketTwo() {
+    public Market() {
         this.athletes = new ArrayList<Athlete>();
         this.items = new ArrayList<Item>();
     }
