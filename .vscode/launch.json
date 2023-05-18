@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "MarketGUI",
+            "request": "launch",
+            "mainClass": "MarketGUI",
+            "projectName": "seng201-2_eb6a5720"
+        },
+        {
+            "type": "java",
             "name": "ArenaTest",
             "request": "launch",
             "mainClass": "ArenaTest",
