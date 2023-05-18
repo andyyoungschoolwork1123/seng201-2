@@ -64,6 +64,18 @@ public class Player {
         //5.15 By TONG
         
     }
+    public void removefromteam(Athlete athlete){
+        this.team.remove(athlete);
+    }
+    public void addtoteam(Athlete athlete){
+        this.team.add(athlete);
+    }
+    public void removeInjury(){
+        for (int i = 0; i < this.team.size(); i++) {
+            Athlete athlete = this.team.get(i);
+            athlete.heal_check();
+        }
+    }
     public void printsubs(){
         if (this.subs == null){
             this.subs = new ArrayList<Athlete>();

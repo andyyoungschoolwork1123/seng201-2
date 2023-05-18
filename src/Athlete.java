@@ -183,7 +183,7 @@ public class Athlete{
         }
         return defence;
     }
-    private boolean injury_check(){
+     boolean injury_check(){
         if (this.stamina <= 0){
             this.injury = true;
             injury_time = 2;

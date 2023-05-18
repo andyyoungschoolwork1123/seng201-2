@@ -60,6 +60,12 @@ public class Team {
     public void removesubs(Athlete athlete){
         this.subs.remove(athlete);
     }
+    public void injuryremove(Athlete athlete){
+        if (athlete.getInjury() == true){
+            this.team.remove(athlete);
+        }
+        this.team.remove(athlete);
+    }
     public void printsubs(){
         for (int i = 0; i < this.subs.size(); i++) {
             Athlete athlete = this.subs.get(i);
