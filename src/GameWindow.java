@@ -4,7 +4,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-
+import javax.swing.JOptionPane;
 public class GameWindow {
 
     private JFrame frame;
@@ -54,28 +54,48 @@ public class GameWindow {
         difficultyComboBox.addItem("Hard");
         frame.getContentPane().add(difficultyComboBox);
 
+        // Add description labels
+        JLabel lblEasyDescription = new JLabel("Easy - More starting gold, fewer turns");
+        lblEasyDescription.setBounds(150, 130, 250, 20);
+        frame.getContentPane().add(lblEasyDescription);
+
+        JLabel lblMediumDescription = new JLabel("Medium - Moderate starting gold, average turns");
+        lblMediumDescription.setBounds(150, 155, 300, 20);
+        frame.getContentPane().add(lblMediumDescription);
+
+        JLabel lblHardDescription = new JLabel("Hard - Less starting gold, more turns");
+        lblHardDescription.setBounds(150, 180, 250, 20);
+        frame.getContentPane().add(lblHardDescription);
+
         JButton btnStartGame = new JButton("Start Game");
-        btnStartGame.setBounds(150, 150, 100, 30);
+        btnStartGame.setBounds(150, 220, 100, 30);
         frame.getContentPane().add(btnStartGame);
 
         btnStartGame.addActionListener(e -> openAthleteSelectionWindow());
     }
 
+
     private void openAthleteSelectionWindow() {
         String playerName = playerNameField.getText();
         String difficulty = (String) difficultyComboBox.getSelectedItem();
-    
+
+        // Validate player name
+        if (playerName.length() < 3 || playerName.length() > 15 || playerName.contains("[^a-zA-Z0-9 ]")) {
+            JOptionPane.showMessageDialog(frame, "Invalid player name. Player name must be between 3 and 15 characters and should not contain special characters.", "Invalid Player Name", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         // Close the player setup window
         frame.dispose();
-    
+
         // Create the Player object
         Player player = new Player(difficulty, playerName);
-    
+
         // Open the athlete selection window and pass the Player object
         AthleteSelectionWindow selectionWindow = new AthleteSelectionWindow(player);
         selectionWindow.setVisible(true);
     }
-    
 
 }
+
 
