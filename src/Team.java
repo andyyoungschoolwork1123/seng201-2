@@ -6,6 +6,7 @@ public class Team {
     public int score;
     public String name;
     private int pos = 0;
+    private int maxSize = 5;
     public Team(Team team) {
         this.name = team.name;
         this.team = team.team;
@@ -54,8 +55,21 @@ public class Team {
     public void setsubs(ArrayList<Athlete> subs){
         this.subs = subs;
     }
-    public void addsubs(Athlete athlete){
-        this.subs.add(athlete);
+    
+    public void addAthlete(Athlete athlete) {
+        if (team.size() < maxSize) {
+            team.add(athlete);
+        } else {
+            System.out.println("Maximum team size reached.");
+        }
+    }
+
+    public void addSubs(Athlete athlete) {
+        if (subs.size() < maxSize) {
+            subs.add(athlete);
+        } else {
+            System.out.println("Maximum subs size reached.");
+        }
     }
     public void removesubs(Athlete athlete){
         this.subs.remove(athlete);
@@ -132,9 +146,7 @@ public class Team {
     public void setname(String name){
         this.name = name;
     }
-    public void addAthlete(Athlete athlete) {
-        this.team.add(athlete);
-    }
+    
     public void removeAthlete(Athlete athlete) {
         this.team.remove(athlete);
     }
