@@ -52,6 +52,7 @@ public class Team {
         }
         return this.subs;
     }
+    
     public void setsubs(ArrayList<Athlete> subs){
         this.subs = subs;
     }
