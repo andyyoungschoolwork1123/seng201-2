@@ -1,6 +1,6 @@
 public class MarketTwoTest {
     public static void main(String[] args) {
-        MarketTwo market = new MarketTwo();
+        Market market = new Market();
 
         // create and add athletes to the market
         Athlete a1 = new Athlete("LeBron James", 90, 80, 70, "Small Forward", 1000, 500,1);
@@ -116,7 +116,7 @@ public class MarketTwoTest {
         player.displayinventory();
         System.out.println(player.getGold());
         market.displaymarket();        
-        MarketTwo market2= new MarketTwo();
+        Market market2= new Market();
 
         market2.generateItems(1);
     }

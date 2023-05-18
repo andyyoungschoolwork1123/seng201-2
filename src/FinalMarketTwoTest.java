@@ -8,13 +8,13 @@ import org.junit.Assert;
 import org.junit.Before;
 
 public class FinalMarketTwoTest {
-    private MarketTwo market;
+    private Market market;
     private Player player;
   
 
     @Test
     public void testGetAthletes() {
-        MarketTwo market = new MarketTwo();
+        Market market = new Market();
         assertEquals(0, market.getAthletes().size());
 
         // Add some athletes to the market
@@ -31,7 +31,7 @@ public class FinalMarketTwoTest {
 
     @Test
     public void testGetItems() {
-        MarketTwo market = new MarketTwo();
+        Market market = new Market();
         assertEquals(0, market.getItems().size());
 
         // Add some items to the market
@@ -49,7 +49,7 @@ public class FinalMarketTwoTest {
     @Test
     public void testGettersAndSetters(){
         // test the getAthleteByName method
-        MarketTwo market = new MarketTwo();
+        Market market = new Market();
         Athlete athlete1 = new Athlete("John", 100, 80, 70, "Forward", 100, 80, 1);
         market.addAthlete(athlete1);
       
@@ -117,7 +117,7 @@ public class FinalMarketTwoTest {
 
     @Before
     public void setup() {
-        market = new MarketTwo();
+        market = new Market();
         player = new Player("Easy", "t");
         Item item = new Item("Football", "Equipment", 50, 30, 1);
 
