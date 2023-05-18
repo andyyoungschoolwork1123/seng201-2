@@ -2,7 +2,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class AthleteSelectionWindow extends JFrame {
@@ -60,13 +63,31 @@ public class AthleteSelectionWindow extends JFrame {
         viewAthletesButton.setBounds(450, 500, 160, 30);
         getContentPane().add(viewAthletesButton);
         viewAthletesButton.addActionListener(e -> openSelectedAthletesWindow());
-
+        JButton checkButton = new JButton("Check Selection");
+        checkButton.setBounds(250, 500, 160, 30);
+        getContentPane().add(checkButton);
+        checkButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (team.size() == 5) {
+                    proceedToNextWindow();
+                } else {
+                    JOptionPane.showMessageDialog(AthleteSelectionWindow.this, "Please select exactly 5 athletes.", "Selection Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+        
         setVisible(true);
+        
     }
 
     private void openSelectedAthletesWindow() {
         SelectedAthletesWindow selectedAthletesWindow = new SelectedAthletesWindow(team);
         selectedAthletesWindow.setVisible(true);
+    }
+    
+
+    private void proceedToNextWindow() {
+        // Implement code to open the next window
     }
 }
 
