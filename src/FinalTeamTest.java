@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-public class TeamTest {
+public class FinalTeamTest {
     private Team team;
 
     @Before
@@ -54,3 +54,4 @@ public class TeamTest {
         team.setsubs(newSubs);
         Assert.assertEquals(newSubs, team.getsubs());
     }
+}
