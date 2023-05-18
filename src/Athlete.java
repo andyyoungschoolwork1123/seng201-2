@@ -1,4 +1,4 @@
-public class Athlete implements purchaseable{
+public class Athlete{
     private String name;
     private int stamina;
     private boolean injury;
@@ -8,6 +8,7 @@ public class Athlete implements purchaseable{
     private int storeValue;
     private int sellbackPrice;
     private int amount;
+    private int injury_time = 0;
 
     public Athlete(String name, int stamina,  int offence, int defence, String role, int storeValue, int sellbackPrice, int amount) {
         this.name = name;
@@ -35,9 +36,11 @@ public class Athlete implements purchaseable{
         this.amount = 1;
     }
     
+
     public String getName() {
         return name;
     }
+
 
     public int getStamina() {
         return stamina;
@@ -85,14 +88,16 @@ public class Athlete implements purchaseable{
     public int esimatepower(){
         return (int) (this.stamina  + this.offence *2 + this.defence * 2);
     }
-    @Override
+    
     public int getStoreValue() {
         
         
         return this.storeValue;
     }
 
-    @Override
+    
+
+   
     public void setStoreValue(int storeValue) {
         this.storeValue = storeValue;
     }
@@ -101,12 +106,12 @@ public class Athlete implements purchaseable{
         this.storeValue = (int) (this.stamina * 2 + this.offence * 5 + this.defence * 5);
     }
     
-    @Override
+    
     public int getSellbackPrice() {
         return this.sellbackPrice;
     }
 
-    @Override
+    
     public void setSellbackPrice(int sellbackPrice) {
         this.sellbackPrice = sellbackPrice;
     }
@@ -120,12 +125,12 @@ public class Athlete implements purchaseable{
     public void setAmount(int amount) {
         this.amount = amount;    }
 
-    @Override
+    
     public void increaseAmount(int amount) {
         this.amount += amount ;
     }
 
-    @Override
+    
     public void decreaseAmount(int amount) {
         this.amount -= amount;
         if (this.amount < 0){
@@ -141,6 +146,17 @@ public class Athlete implements purchaseable{
         int value = generateValue(offence, defence);
         int sellBackValue = generateSellBackValue(value);
         
+        return new Athlete(name, stamina, offence, defence, role, value, sellBackValue,1);
+    }
+    public static Athlete generateAthlete(int turn){
+        int stamina = 100;
+        int offence = (int)(Math.random()*100);
+        int defence = (int)(Math.random()*100);
+        String[] roles = {"Forward","Midfielder","Defender","Goalkeeper"};
+        String role = roles[(int)(Math.random()*4)];
+        String name = generateName();
+        int value = generateValue(offence, defence);
+        int sellBackValue = generateSellBackValue(value);
         return new Athlete(name, stamina, offence, defence, role, value, sellBackValue,1);
     }
     
@@ -179,6 +195,21 @@ public class Athlete implements purchaseable{
         }
         return defence;
     }
+     boolean injury_check(){
+        if (this.stamina <= 0){
+            this.injury = true;
+            injury_time = 2;
+        }
+        return this.injury;
+    }
+    boolean heal_check(){
+        if (this.injury_time == 0){
+            this.injury = false;
+        }
+        return this.injury;
+
+    }
+    
     public boolean personal_duel( Athlete j,int round){
         double attackerluck = Math.random()*15;
         double temp_attack = this.getOffence() *round*attackerluck;
@@ -192,12 +223,17 @@ public class Athlete implements purchaseable{
         if (Math.random()*100 > chance_success){
             this.increaseStamina(-3);
             j.increaseStamina(-7);
+            this.injury_check();
+            j.injury_check();
             return false;
         }
         else{
             this.increaseStamina(-4);
             j.increaseStamina(-10);
+            this.injury_check();
+            j.injury_check();
         return true;
+
         }
     }
     private static String generateName() {
@@ -207,26 +243,25 @@ public class Athlete implements purchaseable{
         String lastName = lastNames[(int) (Math.random() * lastNames.length)];
         return firstName + " " + lastName;
     }
-    public static void main(String[] args) {
-        Athlete j = new Athlete("jack", 100, 50, 50, "defender", 1000, 500, 1);
-        System.out.println(j.getStoreValue());
-        j.increaseStamina(10);
-        System.out.println(j.getStamina());
-        Athlete a1 = new Athlete("Alice", 100, 80, 30, "Attacker");
-        Athlete a2 = new Athlete("Bob",  100, 50, 80,"Defender");
-        int i = 0;
-        while ( i <20){
-            i++;
-            System.out.println("round " + i);
-            boolean result = a1.personal_duel(a2, i);
-            System.out.println(result);
-            System.out.println(a1.getStamina());
-            System.out.println(a2.getStamina());}
-        //boolean result = a1.personal_duel(a2, 1);
 
-        //System.out.println(result);
-
+    public void train() {
+        if (this.getRole() == "Forward"){
+            this.increaseOffense(5);
+        }
+        else if (this.getRole() == "Midfielder"){
+            this.increaseOffense(3);
+            this.increaseDefense(3);
+        }
+        else if (this.getRole() == "Defender"){
+            this.increaseDefense(5);
+        }
     }
+
+    public int getInjurtTime() {
+        injury_time=0;
+        return this.injury_time;
+    }
+    
 
     
 }

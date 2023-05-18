@@ -41,49 +41,63 @@ public class Main {
             System.out.println("2. View market place");
             int option = scanner.nextInt();
             if (option == 1){
-                Arena arena = new Arena();
-                arena.InitAvailableOpponents(1);
-                player.printteam();
-                arena.pre_battle(player);
+                
 
             }
             else if (option == 2){
                 MarketTwo market = new MarketTwo();
-                market.init_market();
+                market.generatemarket(player.getTurn());
                 market.displaymarket();
-                System.out.println("Do you want to buy an item? (y/n)");
-                String cont = scanner.nextLine();
-                if (cont.equals("y")) {
-                    // Ask the player which item they want to buy
-                    System.out.println("Which item do you want to buy? (enter the name)");
+                System.out.println("Do you want to buy an item or Athletes? (1 for item, 2 for Athletes)");
+                int choice = scanner.nextInt();
+                if (choice == 1){
+                    System.out.println("Enter the item you want to buy:");
                     String itemName = scanner.nextLine();
-                    Item item = market.getItemByName(itemName);
-                
-                    if (item != null) {
-                        // Attempt to buy the item
+                    scanner.nextLine(); // Consume the newline character
+                    Item item=market.getItemByName(itemName);
+                    if(item != null){
                         boolean success = market.buyItem(player, item);
-                        if (success) {
-                            // If the purchase is successful, add the item to the player's inventory
-                            player.addInventory(item);
+                        if(success){
+                            System.out.println("You have successfully bought the item: " + item.getName());
                         }
-                    } else {
-                        System.out.println("Item not found!");
+                        else{System.out.println("You do not have enough resources to buy this item.");}
+
                     }
-                } else if (cont.equals("n")) {
-                    System.out.println("No problem! Have a great day!");
-                } else {
-                    System.out.println("Invalid input!");
+                    else{
+                        System.out.println("The item you requested is not available.");
+                    }
                 }
-            
+                    else if (choice ==2){
+                        System.out.println("Enter the ID of the athlete you want to buy:");
+                        String athleteName = scanner.nextLine();
+                        scanner.nextLine(); // Consume the newline character
+                        // Call the getAthlete method in the MarketTwo class to get the athlete
+                        Athlete athlete = market.getAthleteByName(athleteName);
+
+                        if(athlete !=null){
+                            boolean success = market.buyAthlete(player, athlete);
+                            if (success){
+                                System.out.println("You have successfully bought the athlete: " + athlete.getName());
+                            }
+                            else{
+                                System.out.println("You do not have enough resources to buy this athlete.");
+                            }
+                        }
+                            else{
+                                System.out.println("The athlete you requested is not available.");
+                            }
+                        }
+                        else{System.out.println("Invalid choice.");}}
+
+                scanner.nextLine(); // Consume the newline character
+                //5.17By Tong
                 System.out.println("The Arena is now calling! ");
                 Arena arena = new Arena();
                 arena.InitAvailableOpponents(1);
                 player.printteam();
                 arena.pre_battle(player);
-            }
-            else{
-                System.out.println("Invalid input. Please try again.");
-            }
+            
+            
             System.out.println(" Now your stat are" + player.getpoints() + " point " + player.getGold() + " gold ");
             System.out.println("Your inventory is: ");
             player.displayinventory();
@@ -98,11 +112,13 @@ public class Main {
                 System.out.println("Turn " + player.getTurn() + " begins!");
                 System.out.println("Market time!");
                 MarketTwo market1 = new MarketTwo();
-                market1.init_market();
+                market1.generatemarket(player.getTurn());
+
                 market1.displaymarket();//5.17 By Tong
                 System.out.println("Do you want to buy an item? (y/n)");
-                String cont1 = scanner.nextLine();
-                if (cont1.equals("y")) {
+                String cont0 = scanner.nextLine();
+        
+                if (cont0.equals("y")) {
                     // Ask the player which item they want to buy
                     System.out.println("Which item do you want to buy? (enter the name)");
                     String itemName = scanner.nextLine();
@@ -118,25 +134,29 @@ public class Main {
                     } else {
                         System.out.println("Item not found!");
                     }
-                } else if (cont1.equals("n")) {
+                } else if (cont0.equals("n")) {
                     System.out.println("No problem! Have a great day!");
                 } else {
                     System.out.println("Invalid input!");
                 }//5.17 TONG
                 
+                
+            
         
                 // Display current inventory and ask if the player wants to use any items
                 
                 System.out.println("You can now use item on athlete. Please select from inventory:");
                 player.InitInventory();
-                player.displayinventory();//5.17By Tong
+                //player.displayinventory();//5.17By Tong
                 System.out.println("Do you want to continue? (Y/N)");
-                String cont2 = scanner.nextLine();
-                if (cont2.equals("N") | (player.getInventory().size()) == 0){
-                    break;
+                String cont1 = scanner.nextLine();
+                if (cont1.equals("N") | (player.getInventory().size()) == 0){
+                    System.out.println("skipped");
+                }
+                else{
+                    player.applyfrominventory();
                 }
                 System.out.println("The Arena is now calling! ");
-                Arena arena = new Arena();
                 arena.InitAvailableOpponents(player.getTurn());
                 player.printteam();
                 System.out.println("You can now change the athletes in your team");
@@ -146,12 +166,12 @@ public class Main {
                 
                 arena.pre_battle(player);
                 //TONG:implement random event in end 
-                System.out.println("Do you want to continue? (Y/N)");
-                String cont3 = scanner.nextLine();
-                if (cont3.equals("N") || (player.getInventory().size()) == 0){
-                    break;
+                //System.out.println("Do you want to continue? (Y/N)");
+                //String cont2 = scanner.nextLine();
+                //if (cont2.equals("N") || (player.getInventory().size()) == 0){
+                    //break;
 
-                }
+                //}
                 System.out.println("Training time! ");
                 // call method to train athletes
                 player.train_athletes();

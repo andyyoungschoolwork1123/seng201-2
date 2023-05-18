@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Arena{
+public class Arena {
     private ArrayList<Team> availableOpponents;
     private ArrayList<String> availableOpponentsNames;
 
@@ -128,7 +128,13 @@ public class Arena{
             System.out.println("You need to have 5 players in your team to battle");
             return;
         }
+        Team Team_player = new Team(player.getName(),player.getTeam(),player.getsubs());
 
+        System.out.println("Do you want to change your team? (Y/N)");
+                String decision_t = System.console().readLine();
+                if (decision_t.equals("Y")){
+                    subplayer(Team_player);
+                }
         int turn = player.getTurn();
         this.InitAvailableOpponents(turn);
         this.displayAvailableOpponents_cmd();
@@ -136,11 +142,15 @@ public class Arena{
         int selection = Integer.parseInt(System.console().readLine());
         Team opponent = availableOpponents.get(selection - 1);
         opponent.printteam();
-        battle_easy(player,opponent);
+        battle_easy(Team_player,opponent,player);
     }
     
-    public void battle_easy(Player player,Team opponent) {
-        Team Team_player = new Team(player.getName(),player.getTeam());
+    /**
+     * @param Team_player
+     * @param opponent
+     * @param player
+     */
+    public void battle_easy(Team Team_player,Team opponent,Player player) {
         Team Team2 = opponent;
         
         int duration =0;
@@ -148,7 +158,7 @@ public class Arena{
         Team attacker = Team_player;
         Team defender = Team2;
         while (duration <= 20) {
-
+            System.out.println("Turn " + (duration + 1));
             duration += 1;
             if (attacker.team.get(attacker.getpos()).personal_duel(defender.team.get(defender.getpos()), duration)) {
                 if (attacker.getpos() !=0){
@@ -160,32 +170,21 @@ public class Arena{
                 }
                 if (defender.getpos() == 4) {
                     attacker.addScore(1);
-                    System.out.println("Team1 score");
+                    System.out.println(attacker.getname() + " score!");
                     attacker.setpos(0);
                     defender.setpos(0);
-                } else {
+                } 
+                else {
                     defender.setpos(defender.getpos() + 1);
                     System.out.println(attacker.team.get(attacker.getpos()).getName() + " go past " + defender.team.get(defender.getpos()).getName());
                 }
-                if (attacker.team.get(attacker.getpos()).getStamina() <= 20) {
-                    System.out.println(attacker.team.get(attacker.getpos()).getName() + " is exhausted");
-                    System.out.println("1 use a sub?/2 use a stamina potion?/3 continue");
-                    int selection = Integer.parseInt(System.console().readLine());
-                    if (selection == 1) {
-                        //attacker.team.get(attacker.getpos()).setStamina(attacker.team.get(attacker.getpos()).getStamina() + 20);
-                        //attacker.team.get(attacker.getpos()).setStamina(attacker.team.get(attacker.getpos()).getStamina() - 20);
-                        System.out.println("Sub used");
-                    } else if (selection == 2) {
-                        attacker.team.get(attacker.getpos()).setStamina(attacker.team.get(attacker.getpos()).getStamina() + 20);
-                        System.out.println("Stamina potion used");
-                    }
-                    
-                }
-            } else {
+            }
+                
+             else {
     
                 if (attacker.getpos() == 4) {
                     defender.addScore(1);
-                    System.out.println("Team2 score");
+                    System.out.println(defender.getname() +" score");
                     attacker.setpos(0);
                     defender.setpos(0);
                 } else {
@@ -197,27 +196,114 @@ public class Arena{
                     defender.setpos(temp.getpos());
                 }
             }
-            if (duration == 20) {
-                System.out.println("Game over");
-                break;
+            if (attacker.team.get(attacker.getpos()).injury_check()== true) {
+                
+                System.out.println(attacker.team.get(attacker.getpos()).getName() + " is injured");
+                attacker.team.remove(attacker.team.get(attacker.getpos()));
+                if (attacker.getpos() == 0){
+                }
+                else{
+                    attacker.setpos(attacker.getpos()-1);
+                    
+                }
             }
-        }    
+            if (defender.team.get(defender.getpos()).injury_check()== true) {
+                System.out.println(defender.team.get(defender.getpos()).getName() + " is injured");
+                defender.team.remove(defender.team.get(defender.getpos()));
+                if (defender.getpos() == 4){
+                    System.out.println("Goal is Empty!!");
+                    attacker.addScore(1);
+                    System.out.println(attacker.getname() + " score!");
+                    attacker.setpos(0);
+                    defender.setpos(0);
+                }
+                else{
+                    defender.setpos(defender.getpos()-1);
+
+                }
+            }
+            if (attacker.team.get(attacker.getpos()).getStamina() <= 30 && attacker.equals(Team_player)) {
+                System.out.println(attacker.team.get(attacker.getpos()).getName() + " is exhausted");
+                System.out.println("1 use a potion?/2 continue");
+                int selection = Integer.parseInt(System.console().readLine());
+                if (selection == 1) {
+                    player.applyfrominventory();
+                    System.out.println("Stamina of " + attacker.team.get(attacker.getpos()).getName() + " is restored to" + attacker.team.get(attacker.getpos()).getStamina());
+                } else {
+                    System.out.println("Continue");
+                }
+                
+            }
+            if (defender.team.get(defender.getpos()).getStamina() <= 30 && defender.equals(Team_player)) {
+                System.out.println(defender.team.get(defender.getpos()).getName() + " is exhausted");
+                System.out.println("1 use a potion?/2 continue");
+                int selection = Integer.parseInt(System.console().readLine());
+                if (selection == 1) {
+                    player.applyfrominventory();
+                    System.out.println("Stamina of " + defender.team.get(defender.getpos()).getName() + " is restored to" + defender.team.get(attacker.getpos()).getStamina());
+                } else {
+                    System.out.println("Continue");
+                }
+            
+            if (duration == player.getmaxTurns()) {
+                System.out.println("Match over");
+                break;}
+            }    
+        }
         
-        
+        int getgold = 0;
         System.out.println("Team1 score: " + Team_player.getscore());
         System.out.println("Team2 score: " + Team2.getscore());
         if (Team_player.getscore() > Team2.getscore()){
             System.out.println("You win");
             player.increasepoints(3);
+             getgold = (int)(Team2.gettotalestpower()/5);
+
         }
         else if (Team_player.getscore() < Team2.getscore()){
             System.out.println("You lose");
+             getgold = (int)(Team2.gettotalestpower()/10);
         }
         else {
             System.out.println("Draw");
             player.increasepoints(1);
+             getgold = (int)(Team2.gettotalestpower()/8);
+
+
         }
+        player.addgold(getgold);
+        System.out.println("You get " + (int)(Team2.gettotalestpower()/10) + " gold");
+        return;
+
+
     }
+
+    public void subplayer(Team team){
+        if (team.getsubs().size() == 0){
+            System.out.println("No subs available");
+            return;
+        }
+        System.out.println("Do you want to sub a player? (y/n)");
+        String comfirm = System.console().readLine();
+        if (comfirm.equals("n")|comfirm.equals("N")) {
+            System.out.println("action cancelled");
+            return;       
+        }
+        
+        System.out.println("Select the player you want to sub on:");
+        team.printsubs();
+        int subon_pos = Integer.parseInt(System.console().readLine());
+        System.out.println("Select the player you want to sub off:");
+        team.printteam();
+        int suboff_pos = Integer.parseInt(System.console().readLine());
+        Athlete subon = team.getsubs().get(subon_pos - 1);
+        Athlete suboff = team.team.get(suboff_pos - 1);
+        team.subtite(subon_pos, suboff_pos);
+        
+        System.out.println(suboff.getName() + " is subbed off");
+        System.out.println(subon.getName() + " is subbed on");
+    }
+
 
     public static void main(String[] args) {
         Arena arena = new Arena();
@@ -227,6 +313,7 @@ public class Arena{
         player.setTeam(arena.generate_AvailableTeamAthletes(1,"balance"));
         player.printteam();
         arena.pre_battle(player);
+        
     }
 
 }

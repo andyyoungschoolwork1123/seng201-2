@@ -1,27 +1,16 @@
 import java.util.ArrayList;
 
+
 public class MarketTwo {
     private ArrayList<Athlete> athletes;
     private ArrayList<Item> items;
-    private ArrayList<EffectItem> effectItems;
     
     
     public MarketTwo() {
         this.athletes = new ArrayList<Athlete>();
         this.items = new ArrayList<Item>();
     }
-    
-    public void addAthlete(Athlete athlete) {
-        athletes.add(athlete);
-    }
-    
-    public void addItem(Item item) {
-        items.add(item);
-    }
 
-    public void addEffectItem(EffectItem effectItem){
-        effectItems.add(effectItem);
-    }
     
     public ArrayList<Athlete> getAthletes() {
         return athletes;
@@ -148,50 +137,13 @@ public class MarketTwo {
         return null;
     }
   
-    public EffectItem getEffectItemByName(String name) {
-        for (EffectItem effectItem : effectItems) {
-            if (effectItem.getName().equals(name)) {
-                return effectItem;
-            }
-        }
-        return null;
+
+    public void addAthlete(Athlete athlete) {
+        athletes.add(athlete);
     }
-
-    public EffectItem getEffectItemBytype(String type){
-        for(EffectItem effectItem : effectItems){
-            if(effectItem.getType().equals(type)){
-                return effectItem;
-            }
-        }
-        return null;
-    }
-
-    public EffectItem getEffectItemByStaminaBoost(int staminaBoost){
-        for(EffectItem effectItem : effectItems){
-            if(effectItem.getStaminaBoost()==(staminaBoost)){
-                return effectItem;
-            }
-        }
-        return null;
-    }
-
-    public  EffectItem getEffectItemByOffenseBoost(int  offenseBoost){
-        for(EffectItem effectItem : effectItems){
-            if(effectItem.getOffenseBoost()==(offenseBoost)){
-                return effectItem;
-            }
-        }
-        return  null;
-    }
-
-    public EffectItem getEffectItemBydefenseBoost(int defenseBoost){
-        for(EffectItem effectItem : effectItems){
-            if(effectItem.getDefenseBoost()==(defenseBoost)){
-                return effectItem;
-            }
-        }
-        return null;
-
+    
+    public void addItem(Item item) {
+        items.add(item);
     }
     
 
@@ -205,6 +157,45 @@ public class MarketTwo {
         return totalAmount;
     }
 
+    public void init_market() {//5.17
+        // Create and add some athletes to the market
+        Athlete a1 = new Athlete("LeBron James", 90, 80, 70, "Small Forward", 1000, 500,1);
+        Athlete a2 = new Athlete("Kobe Bryant", 85, 85, 75, "Shooting Guard", 800, 400,1);
+        Athlete a3 = new Athlete("Michael Jordan", 95, 90, 85, "Shooting Guard", 1500, 750,1);
+
+        athletes.add(a1);
+        athletes.add(a2);
+        athletes.add(a3);
+
+        // create and add items to the market
+        Item i1 = new Item("Basketball", "Equipment", 50, 25, 100);
+        Item i2 = new Item("Running Shoes", "Footwear", 100, 50, 200);
+        Item i3 = new Item("Water Bottle", "Accessories", 10, 5, 50);
+
+        items.add(i1);
+        items.add(i2);
+        items.add(i3);
+    }
+
+    public void displaymarket() {
+        System.out.println("Athletes in market:");
+        for (int i = 0; i < this.athletes.size(); i++) {
+            System.out.println(this.athletes.get(i).getName()+ "   "
+            +(this.athletes.get(i).getStoreValue()));
+        }
+
+        if (this.athletes.size() == 0) {
+            System.out.println("No althele in market");
+        }
+        System.out.println("Items in market:");
+        for (int i = 0; i < this.items.size(); i++) {
+            System.out.println(this.items.get(i).getName()+ "   "
+            +(this.items.get(i).getStoreValue()));
+        }
+        if (this.items.size() == 0) {
+            System.out.println("No items in market");
+        }
+    }
     public boolean buyItem(Player player, Item item) {
         // check if the player has enough gold to buy the item
         if (player.getGold() < item.getStoreValue()) {
@@ -257,37 +248,70 @@ public class MarketTwo {
         }
     }
     
-    public void generateEffectItems(int attributeStrength) {
-        String[] effectNames = {"Elixir", "Potion", "Tonic", "Serum", "Ointment"};
-        for (int i = 0; i < 10; i++) {
-            String name = effectNames[(int) (Math.random() * effectNames.length)];
-            int staminaBoost = (int) ((Math.random() * 20) + 10) * attributeStrength;
-            int offenseBoost = (int) ((Math.random() * 5) + 1) * attributeStrength;
-            int defenseBoost = (int) ((Math.random() * 5) + 1) * attributeStrength;
-            EffectItem effectItem = new EffectItem(name, "effect", staminaBoost, offenseBoost, defenseBoost);
-            addEffectItem(effectItem);
-        }
 
-        String[] athleteNames = {"John", "Jane", "Bob", "Alice", "Tom", "Jerry", "Mike", "Sarah"};
-        String[] roles = {"Forward", "Midfielder", "Defender", "Goalkeeper"};
-    
-        for (int i = 0; i < 5; i++) {
-            String name = athleteNames[(int) (Math.random() * athleteNames.length)];
-            int stamina = (int) (Math.random() * 50) + 50;
-            int offense = (int) (Math.random() * 10) + 10;
-            int defence = (int) (Math.random() * 10) + 10;
-            String role = roles[(int) (Math.random() * roles.length)];
-            int value = (int) (Math.random() * 500) + 500;
-            int amount = (int) (Math.random() * 2) + 1;
-            Athlete athlete = new Athlete(name, stamina, offense, defence, role, value, value / 2, amount);
-            addAthlete(athlete);;
-        }
-    }
 
     // 2.If as the attribute strength of a character increases, 
     //so does the attribute strength of things that can support that character and athletes.
     //By Andy's idea anything need change andy go on 
+    //Andy's suggestion:
+    //by using relvant function in Athlete and Item class to generate the item and athlete.
+    public void generatemarket(int turn){
+        for (int i = 0; i < 5; i++) {
+            if (Math.random() >0.25){
+                Athlete athlete = Athlete.generateAthlete(turn, "Forward");
+                addAthlete(athlete);
+            }
+            else if (Math.random() >0.5){
+                Athlete athlete = Athlete.generateAthlete(turn, "Midfielder");
+                addAthlete(athlete);
+            }
+            else if (Math.random() >0.75){
+                Athlete athlete = Athlete.generateAthlete(turn, "Defender");
+                addAthlete(athlete);
+            }
+            else{
+                Athlete athlete = Athlete.generateAthlete(turn, "Goalkeeper");
+                addAthlete(athlete);
+            }
+            
+        }
+        String[] itemNames = {"Stamina Potion", "Attack Potion", "Defense Potion","EquipmentItem"};
+        for (int i = 0; i < 5; i++) {
+            
+            Item item = Item.generate_item(turn, itemNames[(int) (Math.random() * itemNames.length)]);
+            addItem(item);
+        }
 
+       
+
+    }
+
+
+    public boolean buyAthlete(Player player, Athlete athlete) {
+        // Check if the player has enough gold to buy the athlete
+        if (player.getGold() < athlete.getStoreValue()) {
+            System.out.println("You don't have enough gold to buy this athlete!");
+            return false;
+        }
+    
+        // Check if the athlete is available in the market
+        if (!athletes.contains(athlete)) {
+            System.out.println("This athlete is not available in the market!");
+            return false;
+        }
+    
+        // Reduce the athlete's availability and update the player's gold
+        athlete.decreaseAmount(getAthleteAmount());;
+        player.setGold(player.getGold() - athlete.getStoreValue());
+    
+        System.out.println("You bought " + athlete.getName() + " for " + athlete.getStoreValue() + " gold!");
+        return true;
+    }
+    
+    
+
+
+    
  
 }
 
