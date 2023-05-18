@@ -1,7 +1,13 @@
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class FinalPlayerTest {
     private Player player;
@@ -37,7 +43,7 @@ public class FinalPlayerTest {
     @Test
     public void testGetSubs() {
         ArrayList<Athlete> subs = new ArrayList<>();
-        subs.add(new Athlete("Athlete 1", 0, 0, 0, "Forward", 0, 0, 0));
+        subs.add(new Athlete("John", 100, 80, 70, "Forward", 800, 700, 1));
         player.setsubs(subs);
         Assert.assertEquals(subs, player.getsubs());
     }
@@ -46,7 +52,7 @@ public class FinalPlayerTest {
     public void testAddSubs() {
         ArrayList<Athlete> subs = new ArrayList<>();
         
-        Athlete athlete = new Athlete("Athlete 1", 0, 0, 0, "Forward", 0, 0, 0);
+        Athlete athlete = new Athlete("Mike", 100, 80, 80, "Forward", 600, 589, 1);
         player.setsubs(subs);
         player.addsubs(athlete);
         subs.add(athlete);
@@ -67,9 +73,10 @@ public class FinalPlayerTest {
 
     @Test
     public void testRemoveSubs() {
+       
         ArrayList<Athlete> subs = new ArrayList<>();
-        Athlete athlete1 = new Athlete("Athlete 1", 0, 0, 0, "Forward", 0, 0, 0);
-        Athlete athlete2 = new Athlete("Athlete 2", 0, 0, 0, "Midfielder", 0, 0, 0);
+        Athlete athlete1 = new Athlete("Alex", 100, 80, 90, "Forward", 700, 600, 1);
+        Athlete athlete2 = new Athlete("Asher", 70, 80, 90, "Midfielder", 800, 780, 1);
         subs.add(athlete1);
         subs.add(athlete2);
         player.setsubs(subs);
@@ -84,8 +91,8 @@ public class FinalPlayerTest {
     @Test
     public void testPrintSubs() {
         ArrayList<Athlete> subs = new ArrayList<>();
-        Athlete athlete1 = new Athlete("Athlete 1", 0, 0, 0, "Forward", 0, 0, 0);
-        Athlete athlete2 = new Athlete("Athlete 2", 0, 0, 0, "Midfielder", 0, 0, 0);
+        Athlete athlete1 = new Athlete("Alexander", 100, 100, 90, "Forward", 100, 80, 1);
+        Athlete athlete2 = new Athlete("Aiden", 160, 100, 95, "Midfielder", 100, 80, 1);
         subs.add(athlete1);
         subs.add(athlete2);
         player.setsubs(subs);
@@ -95,7 +102,8 @@ public class FinalPlayerTest {
 
     @Test
     public void testGetGold() {
-        int expectedGold = 0;
+        Player player = new Player("Easy", "T");
+        int expectedGold = 500;
         int actualGold = player.getGold();
         Assert.assertEquals(expectedGold, actualGold);
     }
@@ -109,9 +117,10 @@ public class FinalPlayerTest {
 
     @Test
     public void testAddGold() {
-        int expectedGold = 100;
+        Player player = new Player("Easy", "T");
+        int expectedGold = 600;
         int actualGold = player.addgold(100);
-        int expectedGold = initialGold + goldToAdd;
+        
         Assert.assertEquals(expectedGold, actualGold);
     }
 
@@ -133,7 +142,7 @@ public class FinalPlayerTest {
     @Test
     public void testSetTeam() {
         ArrayList<Athlete> expectedTeam = new ArrayList<>();
-        Athlete athlete = new Athlete("Athlete 1", 0, 0, 0, "Forward", 0, 0, 0);
+        Athlete athlete = new Athlete("James", 180, 100, 98, "Forward", 900, 780, 1);
         expectedTeam.add(athlete);
         player.setTeam(expectedTeam);
         ArrayList<Athlete> actualTeam = player.getTeam();
@@ -144,12 +153,157 @@ public class FinalPlayerTest {
     @Test
     public void testPrintTeam() {
         ArrayList<Athlete> team = new ArrayList<>();
-        team.add(new Athlete("Athlete 1", 0, 0, 0, "Forward", 0, 0, 0));
-        team.add(new Athlete("Athlete 2", 0, 0, 0, "Midfielder", 0, 0, 0));
-        team.add(new Athlete("Athlete 3", 0, 0, 0, "Defender", 0, 0, 0));
+        team.add(new Athlete("James", 180, 100, 98, "Forward", 900, 780, 1));
+        team.add(new Athlete("Daniel", 130, 150, 90, "Midfielder", 980, 800, 1));
+        team.add(new Athlete("Oliver", 150, 200, 80, "Defender", 800, 780, 1));
         player.setTeam(team);
         player.printteam();
+
     }
+    @Test
+    public void testGetPoints() {
+        int expectedPoints = 0;
+        int actualPoints = player.getpoints();
+        Assert.assertEquals(expectedPoints, actualPoints);
+    }
+
+    @Test
+    public void testSetPoints() {
+        int expectedPoints = 100;
+        player.setpoints(expectedPoints);
+        int actualPoints = player.getpoints();
+        Assert.assertEquals(expectedPoints, actualPoints);
+    }
+
+    public void testIncreasePoints() {
+        int expectedPoints = 100;
+        player.increasepoints(100);
+        int actualPoints = player.getpoints();
+        Assert.assertEquals(expectedPoints, actualPoints);
+    }
+
+
+    @Test
+    public void testGetInventory() {
+        Assert.assertNotNull(player.getInventory());
+    }
+
+    @Test
+    public void testSetInventory() {
+        ArrayList<Item> inventory = new ArrayList<>();
+        inventory.add(new Item("Ball", "DefEquipment", 10, 20, 30));
+
+        player.setInventory(inventory);
+
+        Assert.assertEquals(inventory, player.getInventory());
+    }
+
+    @Test
+    public void testAddInventory() {
+        Item item = new Item("Nets", "DefEquipment", 10, 20, 30);
+
+        player.addInventory(item);
+
+        Assert.assertTrue(player.getInventory().contains(item));
+    }
+
+    @Test
+    public void testRemoveInventory() {
+        Item item = new Item("Sticks", "DefEquipment", 10, 20, 30);
+        player.addInventory(item);
+
+        player.removeInventory(item);
+
+        Assert.assertFalse(player.getInventory().contains(item));
+    }
+
+    @Test
+    public void testGetTeamanmes() {
+        // Set up the player's team
+        Athlete athlete1 = new Athlete("Athlete 1", 0, 0, 0, "Forward", 0, 0, 0);
+        Athlete athlete2 = new Athlete("Athlete 2", 0, 0, 0, "Midfielder", 0, 0, 0);
+        player.getTeam().add(athlete1);
+        player.getTeam().add(athlete2);
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(outputStream);
+        System.setOut(printStream);
+
+        player.getTeamanmes();
+
+        String expectedOutput = "Athlete 1\nAthlete 2\n";
+        Assert.assertEquals(expectedOutput, outputStream.toString());
+    }
+
+    @Test
+    public void testHealInjury() {
+        // Set up the player's team with injured athletes
+        Athlete athlete1 = new Athlete("Athlete 1", 0, 0, 0, "Forward", 0, 0, 0);
+        Athlete athlete2 = new Athlete("Athlete 2", 0, 0, 0, "Midfielder", 0, 0, 0);
+        athlete1.heal_check();
+        athlete2.heal_check();
+        player.getTeam().add(athlete1);
+        player.getTeam().add(athlete2);
+
+        player.heal_injury();
+    }
+
+    @Test
+    public void testDisplayInventory_Empty() {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(outputStream);
+        System.setOut(printStream);
+
+        player.displayinventory();
+
+        String expectedOutput = "No items in inventory\n";
+        Assert.assertEquals(expectedOutput, outputStream.toString());
+    }
+
+    @Test
+    public void testApplyFromInventory_EmptyInventory() {
+        ByteArrayInputStream inputStream = new ByteArrayInputStream("n\n".getBytes());
+        System.setIn(inputStream);
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(outputStream);
+        System.setOut(printStream);
+
+        player.applyfrominventory();
+
+        String expectedOutput = "No items in inventory\naction cancelled\n";
+        Assert.assertEquals(expectedOutput, outputStream.toString());
+    }
+
+
+
+    @Test
+    public void testAutoSortTeam() {
+        Athlete athlete1 = new Athlete("Athlete 1", 0, 0, 0, "Defender", 0, 0, 0);
+        Athlete athlete2 = new Athlete("Athlete 2", 0, 0, 0, "Forward", 0, 0, 0);
+        Athlete athlete3 = new Athlete("Athlete 3", 0, 0, 0, "Goalkeeper", 0, 0, 0);
+        Athlete athlete4 = new Athlete("Athlete 4", 0, 0, 0, "Midfielder", 0, 0, 0);
+        ArrayList<Athlete> team = new ArrayList<>(Arrays.asList(athlete1, athlete2, athlete3, athlete4));
+
+        ArrayList<Athlete> sortedTeam = player.auto_sortteam(team);
+
+        List<String> expectedOrder = List.of("Forward", "Midfielder", "Defender", "Goalkeeper");
+        for (int i = 0; i < sortedTeam.size(); i++) {
+            Assert.assertEquals(expectedOrder.get(i), sortedTeam.get(i).getRole());
+        }
+    }
+
+    
+
+    
 }
+
+    
+
+
+       
+
+
+
 
 
