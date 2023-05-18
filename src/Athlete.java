@@ -36,12 +36,11 @@ public class Athlete{
         this.amount = 1;
     }
     
-    public Athlete(String string, String string2, int i, int j, int k, int l) {
-    }
 
     public String getName() {
         return name;
     }
+
 
     public int getStamina() {
         return stamina;
@@ -95,6 +94,8 @@ public class Athlete{
         
         return this.storeValue;
     }
+
+    
 
    
     public void setStoreValue(int storeValue) {
@@ -243,6 +244,11 @@ public class Athlete{
         else if (this.getRole() == "Defender"){
             this.increaseDefense(5);
         }
+    }
+
+    public int getInjurtTime() {
+        injury_time=0;
+        return this.injury_time;
     }
     
 

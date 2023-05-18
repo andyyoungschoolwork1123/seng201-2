@@ -1,3 +1,5 @@
+
+import org.junit.Assert;
 import junit.framework.TestCase;
 import org.junit.Test;
 
@@ -162,6 +164,47 @@ public class FinalAthleteTest extends TestCase {
         assertEquals(70, defender.getOffence());
         assertEquals(90, defender.getDefence());
     }
+
+    @Test
+    public void testInjuryCheck_StaminaZero() {
+        athlete.setStamina(0);
+
+        boolean expectedInjury = true;
+        boolean actualInjury = athlete.injury_check();
+
+        Assert.assertEquals(expectedInjury, actualInjury);
+        Assert.assertEquals(true, athlete.getInjury()); // Verify injury time value
+    }
+
+    @Test
+    public void testInjuryCheck_StaminaPositive() {
+        athlete.setStamina(50);
+
+        boolean expectedInjury = false;
+        boolean actualInjury = athlete.injury_check();
+
+        Assert.assertEquals(expectedInjury, actualInjury);
+        Assert.assertEquals(false, athlete.getInjury()); // Verify injury time value
+    }
+
+    @Test
+    public void testHealCheck_InjuryTimeZero() {
+       athlete.getInjurtTime();
+
+        boolean expectedInjury = false;
+        boolean actualInjury = athlete.heal_check();
+
+        Assert.assertEquals(expectedInjury, actualInjury);
+    }
+
+
+
+  
+
+
+
+
+
 
     
 
