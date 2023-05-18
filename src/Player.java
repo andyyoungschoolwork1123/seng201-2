@@ -60,12 +60,8 @@ public class Player {
         this.subs.add(athlete);
     }   
     public void removesubs(Athlete athlete){
-        for(int i = 0; i < subs.size();i++){
-            if(athlete.getInjury()){
-                this.subs.remove(athlete);
-                i--;
-            }
-        }//5.15 By TONG
+        this.subs.remove(athlete);
+        //5.15 By TONG
         
     }
     public void printsubs(){
