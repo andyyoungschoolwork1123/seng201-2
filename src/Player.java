@@ -314,4 +314,78 @@ public class Player {
             
         
     }
+    //random events
+    
+
+
+    public void handleRandomEvents() {
+        // 1. Athlete's stat is increased
+        handleStatBoostEvent();
+
+        // 2. Athlete quits
+        handleAthleteQuitEvent();
+
+        // 3. Random new athlete joins
+        handleNewAthleteJoinEvent();
+    }
+
+    private void handleStatBoostEvent() {
+        double chance = calculateEventChance(0.05); // Adjust the chance as desired
+
+        for (Athlete athlete : team) {
+            // Check if the athlete is resting and eligible for a stat boost
+            if (chance > Math.random()) {
+                // Increase the athlete's stat (adjust as desired)
+                athlete.train();
+                System.out.println("Random Event: " + athlete.getName() + "'s stat has increased!");
+            }
+        }
+    }
+
+    private void handleAthleteQuitEvent() {
+        double chance = calculateEventChance(0.02); // Adjust the chance as desired
+
+        for (Athlete athlete : team) {
+            // Check if the athlete was injured in the previous weeks and eligible to quit
+            if (chance > Math.random()) {
+                // Remove the athlete from the team
+                team.remove(athlete);
+                System.out.println("Random Event: " + athlete.getName() + " has quit the team!");
+                break; // Exit the loop to handle only one quitting athlete at a time
+            }
+        }
+    }
+
+    private void handleNewAthleteJoinEvent() {
+        double chance = calculateEventChance(0.02); // Adjust the chance as desired
+        int freeSlots = calculateFreeSlots(); // Method to calculate the number of free slots in reserves
+
+        // Check if there are free slots and eligible for a new athlete to join
+        if (freeSlots > 0 && chance > Math.random()) {
+            Athlete newAthlete = Athlete.generateAthlete(Turn); // Method to generate a new random athlete
+            subs.add(newAthlete);
+            System.out.println("Random Event: A new athlete, " + newAthlete.getName() + ", has joined the team!");
+        }
+    }
+
+    private double calculateEventChance(double baseChance) {
+        // Adjust the baseChance based on the difficulty setting or other factors
+        // Return the adjusted chance value
+        if (difficulty.equals("Easy")) {
+            baseChance *= 1.5;
+        } else if (difficulty.equals("Hard")) {
+            baseChance *= 0.5;
+        }
+        return baseChance;
+    }
+
+    private int calculateFreeSlots() {
+        // Calculate the number of free slots in the reserves
+        // Return the number of free slots
+        int slots = 5 - this.subs.size();
+        return slots;
+    }
+
+    
 }
+

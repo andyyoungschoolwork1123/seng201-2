@@ -148,6 +148,17 @@ public class Athlete{
         
         return new Athlete(name, stamina, offence, defence, role, value, sellBackValue,1);
     }
+    public static Athlete generateAthlete(int turn){
+        int stamina = 100;
+        int offence = (int)(Math.random()*100);
+        int defence = (int)(Math.random()*100);
+        String[] roles = {"Forward","Midfielder","Defender","Goalkeeper"};
+        String role = roles[(int)(Math.random()*4)];
+        String name = generateName();
+        int value = generateValue(offence, defence);
+        int sellBackValue = generateSellBackValue(value);
+        return new Athlete(name, stamina, offence, defence, role, value, sellBackValue,1);
+    }
     
     private static int generateSellBackValue(int value) {
         return (int) (value * 0.8);
