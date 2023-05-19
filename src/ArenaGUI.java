@@ -24,14 +24,28 @@ public class ArenaGUI {
         panel.setLayout(null); // We'll handle component positioning manually
 
         // Example buttons for actions
-        JButton btnStartTurn = new JButton("Start Turn");
-        btnStartTurn.setBounds(10, 10, 80, 25); // setBounds(x, y, width, height)
-        panel.add(btnStartTurn);
+        JButton btnStartBattle = new JButton("Start Battle");
+        btnStartBattle.setBounds(10, 10, 120, 25); // setBounds(x, y, width, height)
+        panel.add(btnStartBattle);
 
         JButton btnEndTurn = new JButton("End Turn");
-        btnEndTurn.setBounds(100, 10, 80, 25);
+        btnEndTurn.setBounds(100, 10, 120, 25);
         panel.add(btnEndTurn);
+        
+        JButton btnUseItem = new JButton("Use Item");
+        btnUseItem.setBounds(190, 10, 120, 25);
+        panel.add(btnUseItem);
 
+        JButton btnQuit = new JButton("Quit");
+        btnQuit.setBounds(280, 10, 120, 25);
+        panel.add(btnQuit);
+
+        // Example text field for displaying game state
+        JTextField txtGameState = new JTextField();
+        txtGameState.setBounds(10, 50, 390, 25);
+        txtGameState.setEditable(false);
+        panel.add(txtGameState);
+        
         // Add more components as needed, such as labels for displaying game state
     }
 }

@@ -6,6 +6,34 @@
     "configurations": [
         {
             "type": "java",
+            "name": "GameGUI",
+            "request": "launch",
+            "mainClass": "GameGUI",
+            "projectName": "JAVA_TEST_a897b0e1"
+        },
+        {
+            "type": "java",
+            "name": "ArenaGUI",
+            "request": "launch",
+            "mainClass": "ArenaGUI",
+            "projectName": "JAVA_TEST_a897b0e1"
+        },
+        {
+            "type": "java",
+            "name": "GameWindow",
+            "request": "launch",
+            "mainClass": "GameWindow",
+            "projectName": "JAVA_TEST_a897b0e1"
+        },
+        {
+            "type": "java",
+            "name": "ArenaTest",
+            "request": "launch",
+            "mainClass": "ArenaTest",
+            "projectName": "JAVA_TEST_a897b0e1"
+        },
+        {
+            "type": "java",
             "name": "ArenaTest",
             "request": "launch",
             "mainClass": "ArenaTest",
