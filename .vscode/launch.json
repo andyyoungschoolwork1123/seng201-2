@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Arena",
+            "request": "launch",
+            "mainClass": "Arena",
+            "projectName": "JAVA_TEST_a897b0e1"
+        },
+        {
+            "type": "java",
             "name": "GameGUI",
             "request": "launch",
             "mainClass": "GameGUI",

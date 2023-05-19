@@ -290,25 +290,25 @@ public class Arena {
         Team defender = Team2;
        
         while (duration <= 20) {
-            output.append("Turn " + (duration + 1));
+            output.append("Turn " + (duration + 1)+"\n");
             duration += 1;
             if (attacker.team.get(attacker.getpos()).personal_duel(defender.team.get(defender.getpos()), duration)) {
                 if (attacker.getpos() !=0){
-                    output.append(attacker.team.get(attacker.getpos()).getName() + " passes to " + attacker.team.get(attacker.getpos()-1).getName());
-                    attacker.setpos(attacker.getpos()-1);
+                    output.append(attacker.team.get(attacker.getpos()).getName() + " passes to " + attacker.team.get(attacker.getpos()-1).getName()+"\n");
+                    attacker.setpos(attacker.getpos()-1 );
                     attacker.team.get(attacker.getpos()).setStamina(attacker.team.get(attacker.getpos()).getStamina()-1);
                     defender.setpos(defender.getpos() + 1);
-                    output.append(attacker.team.get(attacker.getpos()).getName() + " pass though " + defender.team.get(defender.getpos()).getName());
+                    output.append(attacker.team.get(attacker.getpos()).getName() + " pass though " + defender.team.get(defender.getpos()).getName()+"\n");
                 }
                 if (defender.getpos() == 4) {
                     attacker.addScore(1);
-                    output.append(attacker.getname() + " score!");
+                    output.append(attacker.getname() + " score!"+"\n");
                     attacker.setpos(0);
                     defender.setpos(0);
                 } 
                 else {
                     defender.setpos(defender.getpos() + 1);
-                    output.append(attacker.team.get(attacker.getpos()).getName() + " go past " + defender.team.get(defender.getpos()).getName());
+                    output.append(attacker.team.get(attacker.getpos()).getName() + " go past " + defender.team.get(defender.getpos()).getName()+"\n");
                 }
             }
                 
@@ -316,11 +316,11 @@ public class Arena {
     
                 if (attacker.getpos() == 4) {
                     defender.addScore(1);
-                    output.append(defender.getname() +" score");
+                    output.append(defender.getname() +" score"+"\n");
                     attacker.setpos(0);
                     defender.setpos(0);
                 } else {
-                    output.append(attacker.team.get(attacker.getpos()).getName() + " loses the ball to " + defender.team.get(defender.getpos()).getName());
+                    output.append(attacker.team.get(attacker.getpos()).getName() + " loses the ball to " + defender.team.get(defender.getpos()).getName()+"\n");
                     Team temp = attacker;
                     attacker = defender;
                     defender = temp;
@@ -330,7 +330,7 @@ public class Arena {
             }
             if (attacker.team.get(attacker.getpos()).injury_check()== true) {
                 
-                output.append(attacker.team.get(attacker.getpos()).getName() + " is injured");
+                output.append(attacker.team.get(attacker.getpos()).getName() + " is injured"+"\n");
                 attacker.team.remove(attacker.team.get(attacker.getpos()));
                 if (attacker.getpos() == 0){
                 }
@@ -340,12 +340,12 @@ public class Arena {
                 }
             }
             if (defender.team.get(defender.getpos()).injury_check()== true) {
-                output.append(defender.team.get(defender.getpos()).getName() + " is injured");
+                output.append(defender.team.get(defender.getpos()).getName() + " is injured"+"\n");
                 defender.team.remove(defender.team.get(defender.getpos()));
                 if (defender.getpos() == 4){
-                    output.append("Goal is Empty!!");
+                    output.append("Goal is Empty!!"+"\n");
                     attacker.addScore(1);
-                    output.append(attacker.getname() + " score!");
+                    output.append(attacker.getname() + " score!"+"\n");
                     attacker.setpos(0);
                     defender.setpos(0);
                 }
@@ -355,15 +355,15 @@ public class Arena {
                 }
             }
             if (attacker.team.get(attacker.getpos()).getStamina() <= 30 && attacker.equals(Team_player)) {
-                output.append(attacker.team.get(attacker.getpos()).getName() + " is exhausted");
-                output.append("hint: use a potion");
+                output.append(attacker.team.get(attacker.getpos()).getName() + " is exhausted"+"\n");
+                output.append("hint: use a potion"+"\n");
                 
                 }
                 
             }
             if (defender.team.get(defender.getpos()).getStamina() <= 30 && defender.equals(Team_player)) {
-                output.append(defender.team.get(defender.getpos()).getName() + " is exhausted");
-                output.append("hint: use a potion");
+                output.append(defender.team.get(defender.getpos()).getName() + " is exhausted"+"\n");
+                output.append("hint: use a potion"+"\n");
 
             
             

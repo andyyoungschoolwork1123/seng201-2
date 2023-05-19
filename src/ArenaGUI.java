@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
 public class ArenaGUI {
 
     private Arena arena;
@@ -44,6 +43,12 @@ public class ArenaGUI {
             }
         });
         panel.add(subButton);
+        JTextArea textArea = new JTextArea();
+        textArea.setBounds(10, 40, 500, 500);
+        panel.add(textArea);
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setBounds(10, 40, 500, 500);
+        panel.add(scrollPane);
 
         // Create the opponent selection dropdown
         opponentSelect = new JComboBox<>();
@@ -60,7 +65,6 @@ public class ArenaGUI {
                 if (selectedOpponent != null) {
                     //arena.battle(playerTeam,selectedOpponent,player);
                     String battleResult = arena.battle(playerTeam, selectedOpponent, player); // call the function
-                    JTextArea textArea = new JTextArea();
                     textArea.setText(battleResult); // set the text
 
                     // Update the UI to reflect the new game state
