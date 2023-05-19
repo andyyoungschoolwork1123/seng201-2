@@ -1,52 +1,93 @@
-
-
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class ArenaGUI {
 
-    public static void main(String[] args) {
-        // Create and set up the window.
+    private Arena arena;
+    private Player player;
+    private Team playerTeam;
+    private JComboBox<Team> opponentSelect; 
+    private JButton subButton;
+    private JButton startBattleButton;
+
+    public ArenaGUI(Player player) {
+        this.arena =new Arena();
+        this.player = player;
+        this.playerTeam = arena.createPlayerTeam(player);
+    }
+
+    public void createAndShowGUI() {
         JFrame frame = new JFrame("Arena Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 600); // Set window size
+        frame.setSize(800, 600);
 
-        // Create a panel to hold buttons and other components
         JPanel panel = new JPanel();
         frame.add(panel);
         placeComponents(panel);
 
-        // Display the window.
         frame.setVisible(true);
     }
 
-    private static void placeComponents(JPanel panel) {
+    private void placeComponents(JPanel panel) {
+        panel.setLayout(null);
 
-        panel.setLayout(null); // We'll handle component positioning manually
+        // Create the substitute player button
+        subButton = new JButton("Substitute Player");
+        subButton.setBounds(10, 10, 150, 25);
+        subButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                arena.subplayer(playerTeam);
+                // Update the UI to reflect the new player state
+            }
+        });
+        panel.add(subButton);
 
-        // Example buttons for actions
-        JButton btnStartBattle = new JButton("Start Battle");
-        btnStartBattle.setBounds(10, 10, 120, 25); // setBounds(x, y, width, height)
-        panel.add(btnStartBattle);
+        // Create the opponent selection dropdown
+        opponentSelect = new JComboBox<>();
+        opponentSelect.setBounds(170, 10, 150, 25);
+        panel.add(opponentSelect);
 
-        JButton btnEndTurn = new JButton("End Turn");
-        btnEndTurn.setBounds(100, 10, 120, 25);
-        panel.add(btnEndTurn);
-        
-        JButton btnUseItem = new JButton("Use Item");
-        btnUseItem.setBounds(190, 10, 120, 25);
-        panel.add(btnUseItem);
+        // Create the start battle button
+        startBattleButton = new JButton("Start Battle");
+        startBattleButton.setBounds(330, 10, 150, 25);
+        startBattleButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Team selectedOpponent = (Team) opponentSelect.getSelectedItem();
+                if (selectedOpponent != null) {
+                    //arena.battle(playerTeam,selectedOpponent,player);
+                    String battleResult = arena.battle(playerTeam, selectedOpponent, player); // call the function
+                    JTextArea textArea = new JTextArea();
+                    textArea.setText(battleResult); // set the text
 
-        JButton btnQuit = new JButton("Quit");
-        btnQuit.setBounds(280, 10, 120, 25);
-        panel.add(btnQuit);
+                    // Update the UI to reflect the new game state
+                }
+            }
+        });
+        panel.add(startBattleButton);
+    }
 
-        // Example text field for displaying game state
-        JTextField txtGameState = new JTextField();
-        txtGameState.setBounds(10, 50, 390, 25);
-        txtGameState.setEditable(false);
-        panel.add(txtGameState);
-        
-        // Add more components as needed, such as labels for displaying game state
+    public void updateOpponents() {
+        // Clear the current items
+        opponentSelect.removeAllItems();
+        arena.InitAvailableOpponents(player.getTurn());
+        // Add the new items
+        ArrayList<Team> opponents = arena.getAvailableOpponents();
+        for (Team opponent : opponents) {
+            opponentSelect.addItem(opponent);
+        }
+    }
+
+    public static void main(String[] args) {
+        Player player = new Player("Easy", "testing");
+        Team team = new Team();
+        player.setteam(team);
+
+        ArenaGUI arenaGUI = new ArenaGUI(player);
+        arenaGUI.createAndShowGUI();
+        arenaGUI.updateOpponents();
     }
 }
-
