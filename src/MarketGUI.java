@@ -14,8 +14,11 @@ public class MarketGUI extends JFrame {
 
     public MarketGUI() {
         // Create the market
-        market = new Market();
-
+        this.market = new Market();
+        
+        
+        //market.init_market();
+        market.generatemarket(1); //andy's mod ,make use of random generator to generate market
         // Create UI controls
         athleteListModel = new DefaultListModel<>();
         itemListModel = new DefaultListModel<>();
