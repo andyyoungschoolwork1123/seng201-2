@@ -81,13 +81,14 @@ public class AthleteSelectionWindow extends JFrame {
     }
 
     private void openSelectedAthletesWindow() {
-        player.setTeam(team);
         SelectedAthletesWindow selectedAthletesWindow = new SelectedAthletesWindow(team);
         selectedAthletesWindow.setVisible(true);
     }
     
                                                                                   
     private void proceedToNextWindow() {
+        player.setTeam(team);
+
         // Implement code to open the next window
         GameGUI gameGUI = new GameGUI(player);
         this.dispose();

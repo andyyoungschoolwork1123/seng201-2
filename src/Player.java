@@ -11,7 +11,7 @@ public class Player {
     private ArrayList<Athlete> team;
     private int points;
     private ArrayList<Item> inventory = new ArrayList<Item>();
-    private int Turn = 0;
+    private int Turn = 1;
     private String name;
     private ArrayList<Athlete> subs;
     public int maxturn;
@@ -51,6 +51,9 @@ public class Player {
         this.difficulty = difficulty;
     }
     public ArrayList<Athlete> getsubs(){
+        if (this.subs == null){
+            this.subs = new ArrayList<Athlete>();
+        }
         return this.subs;
     }
     public void setsubs(ArrayList<Athlete> subs){
@@ -62,6 +65,11 @@ public class Player {
     public void removesubs(Athlete athlete){
         this.subs.remove(athlete);
         //5.15 By TONG
+        
+    }
+    public void setteam(Team team){
+        this.team = team.getteam();
+        this.subs = team.getsubs();
         
     }
     public void removefromteam(Athlete athlete){
@@ -104,7 +112,10 @@ public class Player {
     }
 
     public ArrayList<Athlete> getTeam() {
-        return team;
+        if (this.team == null){
+            this.team = new ArrayList<Athlete>();
+        }
+        return this.team;
     }
 
     public void setTeam(ArrayList<Athlete> team) {
@@ -117,7 +128,7 @@ public class Player {
         }
     }
     public int getpoints() {
-        return points;
+        return this.points;
     }
     public void setpoints(int points) {
         this.points = points;

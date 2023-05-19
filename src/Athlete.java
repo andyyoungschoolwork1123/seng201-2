@@ -35,7 +35,12 @@ public class Athlete{
         this.sellbackPrice = (int) (storeValue *0.8);
         this.amount = 1;
     }
-    
+    public String toString() {
+        return "Name: " + name + ", Stamina: " + stamina + ", Injury: " + injury +
+                ", Offence: " + offence + ", Defence: " + defence + ", Role: " + role +
+                ", Store Value: " + storeValue + ", Sellback Price: " + sellbackPrice +
+                ", Amount: " + amount + ", Injury time: " + injury_time + "\n";
+    }
 
     public String getName() {
         return name;
