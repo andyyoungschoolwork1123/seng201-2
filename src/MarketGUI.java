@@ -1,36 +1,38 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class MarketGUI extends JFrame {
 
     private Market market;
+    private Player player;
+    
     private DefaultListModel<Athlete> athleteListModel;
     private DefaultListModel<Item> itemListModel;
     private JList<Athlete> athleteList;
     private JList<Item> itemList;
-    private JButton removeAthleteButton;
-    private JButton removeItemButton;
-    private JButton addAthleteButton;
-    private JButton addItemButton;
-    private JButton showAthleteAttributionButton;
-    private JButton showItemAttributionButton;
+    private JButton showAthletesButton;
+    private JButton showItemsButton;
+    private JButton addButton;
+
 
     public MarketGUI() {
         // Create the market
         market = new Market();
+        
+        
+        market.init_market();
 
         // Create UI controls
         athleteListModel = new DefaultListModel<>();
         itemListModel = new DefaultListModel<>();
         athleteList = new JList<>(athleteListModel);
         itemList = new JList<>(itemListModel);
-        removeAthleteButton = new JButton("Remove Athlete");
-        removeItemButton = new JButton("Remove Item");
-        addAthleteButton = new JButton("Add Athlete");
-        addItemButton = new JButton("Add Item");
-        showAthleteAttributionButton = new JButton("Show Athlete");
-        showItemAttributionButton = new JButton("Show Item");
+        showAthletesButton = new JButton("Show Athletes");
+        showItemsButton = new JButton("Show Items");
+        addButton = new JButton("Add");
 
         // Set up layout
         JPanel panel = new JPanel(new GridLayout(1, 2));
@@ -38,12 +40,9 @@ public class MarketGUI extends JFrame {
         panel.add(new JScrollPane(itemList));
 
         JPanel buttonPanel = new JPanel();
-        buttonPanel.add(removeAthleteButton);
-        buttonPanel.add(removeItemButton);
-        buttonPanel.add(addAthleteButton);
-        buttonPanel.add(addItemButton);
-        buttonPanel.add(showAthleteAttributionButton);
-        buttonPanel.add(showItemAttributionButton);
+        buttonPanel.add(showAthletesButton);
+        buttonPanel.add(showItemsButton);
+        buttonPanel.add(addButton);
 
         setLayout(new BorderLayout());
         add(panel, BorderLayout.CENTER);
@@ -61,92 +60,119 @@ public class MarketGUI extends JFrame {
         updateItemList();
 
         // Register button listeners
-        removeAthleteButton.addActionListener(e -> {
-            Athlete selectedAthlete = athleteList.getSelectedValue();
-            if (selectedAthlete != null) {
-                market.removeAthlete(selectedAthlete);
-                updateAthleteList();
+        showAthletesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                displayAthletes();
             }
         });
 
-        removeItemButton.addActionListener(e -> {
-            Item selectedItem = itemList.getSelectedValue();
-            if (selectedItem != null) {
-                market.removeItem(selectedItem);
-                updateItemList();
+        showItemsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                displayItems();
             }
         });
 
-        addAthleteButton.addActionListener(e -> {
-            String name = JOptionPane.showInputDialog(this, "Enter the athlete's name:", "Add Athlete", JOptionPane.PLAIN_MESSAGE);
-            if (name != null && !name.isEmpty()) {
-                int stamina = Integer.parseInt(JOptionPane.showInputDialog(this, "Enter the athlete's stamina:", "Add Athlete", JOptionPane.PLAIN_MESSAGE));
-                int offence = Integer.parseInt(JOptionPane.showInputDialog(this, "Enter the athlete's offence:", "Add Athlete", JOptionPane.PLAIN_MESSAGE));
-                int defence = Integer.parseInt(JOptionPane.showInputDialog(this, "Enter the athlete's defence:", "Add Athlete", JOptionPane.PLAIN_MESSAGE));
-                String role = JOptionPane.showInputDialog(this, "Enter the athlete's role:", "Add Athlete", JOptionPane.PLAIN_MESSAGE);
+        addButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (athleteList.isSelectionEmpty() && itemList.isSelectionEmpty()) {
+                    // Neither athlete nor item is selected
+                    JOptionPane.showMessageDialog(MarketGUI.this, "Please select an athlete or an item to purchase.", "Selection Required", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                
+                if (!athleteList.isSelectionEmpty()) {
+                    // Buy athlete
+                    Athlete selectedAthlete = athleteList.getSelectedValue();
+                    boolean athleteSuccess = market.buyAthlete(player, selectedAthlete);
+                    
+                    if (athleteSuccess) {
+                        player.addsubs(selectedAthlete);
+                        player.setGold(player.getGold() - selectedAthlete.getStoreValue());
+                        JOptionPane.showMessageDialog(MarketGUI.this, "You bought " + selectedAthlete.getName() + " for " + selectedAthlete.getStoreValue() + " gold!", "Purchase Successful", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(MarketGUI.this, "Purchase failed.", "Purchase Failed", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+                
+                if (!itemList.isSelectionEmpty()) {
+                    // Buy item
+                    Item selectedItem = itemList.getSelectedValue();
+                    boolean itemSuccess = market.buyItem(player, selectedItem);
+                    
+                    if (itemSuccess) {
+                        player.addInventory(selectedItem);
+                        player.setGold(player.getGold() - selectedItem.getStoreValue());
+                        JOptionPane.showMessageDialog(MarketGUI.this, "You bought " + selectedItem.getName() + " for " + selectedItem.getStoreValue() + " gold!", "Purchase Successful", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(MarketGUI.this, "Purchase failed.", "Purchase Failed", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        });
         
-                int storeValue = stamina * 2 + offence * 5 + defence * 5;
-                int sellbackPrice = (int) (storeValue * 0.8);
-                int amount = 1;
-        
-                Athlete newAthlete = new Athlete(name, stamina, offence, defence, role, storeValue, sellbackPrice, amount);
-                market.addAthlete(newAthlete);
-                updateAthleteList();
-            }
-        });
-
-        addItemButton.addActionListener(e -> {
-            String name = JOptionPane.showInputDialog(this, "Enter the item's name:", "Add Item", JOptionPane.PLAIN_MESSAGE);
-            if (name != null && !name.isEmpty()) {
-                String type = JOptionPane.showInputDialog(this, "Enter the item's type:", "Add Item", JOptionPane.PLAIN_MESSAGE);
-                int storeValue = Integer.parseInt(JOptionPane.showInputDialog(this, "Enter the item's store value:", "Add Item", JOptionPane.PLAIN_MESSAGE));
-                int sellbackPrice = Integer.parseInt(JOptionPane.showInputDialog(this, "Enter the item's sellback price:", "Add Item", JOptionPane.PLAIN_MESSAGE));
-                int amount = Integer.parseInt(JOptionPane.showInputDialog(this, "Enter the item's amount:", "Add Item", JOptionPane.PLAIN_MESSAGE));
-                int staminaBoost = Integer.parseInt(JOptionPane.showInputDialog(this, "Enter the item's stamina boost:", "Add Item", JOptionPane.PLAIN_MESSAGE));
-                int offenseBoost = Integer.parseInt(JOptionPane.showInputDialog(this, "Enter the item's offense boost:", "Add Item", JOptionPane.PLAIN_MESSAGE));
-                int defenseBoost = Integer.parseInt(JOptionPane.showInputDialog(this, "Enter the item's defense boost:", "Add Item", JOptionPane.PLAIN_MESSAGE));
-        
-                Item newItem = new Item(name, type, storeValue, sellbackPrice, amount, staminaBoost, offenseBoost, defenseBoost);
-                market.addItem(newItem);
-                updateItemList();
-            }
-        });
-
-        showAthleteAttributionButton.addActionListener(e -> {
-            Athlete selectedAthlete = athleteList.getSelectedValue();
-            if (selectedAthlete != null) {
-                String athleteInfo = "Name: " + selectedAthlete.getName() + "\n"
-                        + "Stamina: " + selectedAthlete.getStamina() + "\n"
-                        + "Offence: " + selectedAthlete.getOffence() + "\n"
-                        + "Defence: " + selectedAthlete.getDefence() + "\n"
-                        + "Role: " + selectedAthlete.getRole() + "\n"
-                        + "Store Value: " + selectedAthlete.getStoreValue() + "\n"
-                        + "Sellback Price: " + selectedAthlete.getSellbackPrice() + "\n"
-                        + "Amount: " + selectedAthlete.getAmount();
-                JOptionPane.showMessageDialog(this, athleteInfo, "Athlete Information", JOptionPane.INFORMATION_MESSAGE);
-            }
-        });
-
-        showItemAttributionButton.addActionListener(e -> {
-            Item selectedItem = itemList.getSelectedValue();
-            if (selectedItem != null) {
-                String itemInfo = "Name: " + selectedItem.getName() + "\n"
-                        + "Type: " + selectedItem.getType() + "\n"
-                        + "Store Value: " + selectedItem.getStoreValue() + "\n"
-                        + "Sellback Price: " + selectedItem.getSellbackPrice() + "\n"
-                        + "Amount: " + selectedItem.getAmount() + "\n"
-                        + "Stamina Boost: " + selectedItem.getStaminaBoost() + "\n"
-                        + "Offense Boost: " + selectedItem.getOffenseBoost() + "\n"
-                        + "Defense Boost: " + selectedItem.getDefenseBoost();
-                JOptionPane.showMessageDialog(this, itemInfo, "Item Information", JOptionPane.INFORMATION_MESSAGE);
-            }
-        });
     }
 
+    private void updateAthleteList() {
+        athleteListModel.clear();
+        ArrayList<Athlete> athletes = market.getAthletes();
+        for (Athlete athlete : athletes) {
+            athleteListModel.addElement(athlete);
+        }
+    }
+
+    private void updateItemList() {
+        itemListModel.clear();
+        ArrayList<Item> items = market.getItems();
+        for (Item item : items) {
+            itemListModel.addElement(item);
+        }
+    }
+
+    private void displayAthletes() {
+        StringBuilder athleteInfo = new StringBuilder();
+        ArrayList<Athlete> athletes = market.getAthletes();
+        for (Athlete athlete : athletes) {
+            athleteInfo.append("Name: ").append(athlete.getName()).append("\n")
+                    .append("Stamina: ").append(athlete.getStamina()).append("\n")
+                    .append("Offence: ").append(athlete.getOffence()).append("\n")
+                    .append("Defence: ").append(athlete.getDefence()).append("\n")
+                    .append("Role: ").append(athlete.getRole()).append("\n")
+                    .append("Store Value: ").append(athlete.getStoreValue()).append("\n")
+                    .append("Sellback Price: ").append(athlete.getSellbackPrice()).append("\n")
+                    .append("Amount: ").append(athlete.getAmount()).append("\n\n");
+        }
+        JOptionPane.showMessageDialog(this, athleteInfo.toString(), "Athletes Information", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void displayItems() {
+        StringBuilder itemInfo = new StringBuilder();
+        ArrayList<Item> items = market.getItems();
+        for (Item item : items) {
+            itemInfo.append("Name: ").append(item.getName()).append("\n")
+                    .append("Type: ").append(item.getType()).append("\n")
+                    .append("Buy Price: ").append(item.getStoreValue()).append("\n")
+                    .append("Sell Price: ").append(item.getSellbackPrice()).append("\n")
+                    .append("Stock: ").append(item.getAmount()).append("\n\n");
+        }
+        JOptionPane.showMessageDialog(this, itemInfo.toString(), "Items Information", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+
+
+    
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new MarketGUI());
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new MarketGUI();
+            }
+        });
     }
 }
+
+
+
 
 
 
