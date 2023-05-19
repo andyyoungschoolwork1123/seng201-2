@@ -8,7 +8,6 @@ public class MarketGUI extends JFrame {
 
     private Market market;
     private Player player;
-    
     private DefaultListModel<Athlete> athleteListModel;
     private DefaultListModel<Item> itemListModel;
     private JList<Athlete> athleteList;
@@ -16,23 +15,28 @@ public class MarketGUI extends JFrame {
     private JButton showAthletesButton;
     private JButton showItemsButton;
     private JButton addButton;
+    private JButton playerStatsButton;
+    private JButton inventoryTextArea;
+    private AbstractButton statsLabel;
+    
 
 
     public MarketGUI() {
         // Create the market
-        market = new Market();
+        this.market = new Market();
         
         
         market.init_market();
 
         // Create UI controls
-        athleteListModel = new DefaultListModel<>();
-        itemListModel = new DefaultListModel<>();
-        athleteList = new JList<>(athleteListModel);
-        itemList = new JList<>(itemListModel);
-        showAthletesButton = new JButton("Show Athletes");
-        showItemsButton = new JButton("Show Items");
-        addButton = new JButton("Add");
+        this.athleteListModel = new DefaultListModel<>();
+        this.itemListModel = new DefaultListModel<>();
+        this.athleteList = new JList<>(athleteListModel);
+        this.itemList = new JList<>(itemListModel);
+        this.showAthletesButton = new JButton("Show Athletes");
+        this.showItemsButton = new JButton("Show Items");
+        this.addButton = new JButton("Add");
+        this.playerStatsButton = new JButton("Player Stats");
 
         // Set up layout
         JPanel panel = new JPanel(new GridLayout(1, 2));
@@ -43,6 +47,7 @@ public class MarketGUI extends JFrame {
         buttonPanel.add(showAthletesButton);
         buttonPanel.add(showItemsButton);
         buttonPanel.add(addButton);
+        buttonPanel.add(playerStatsButton);
 
         setLayout(new BorderLayout());
         add(panel, BorderLayout.CENTER);
@@ -109,8 +114,34 @@ public class MarketGUI extends JFrame {
                         JOptionPane.showMessageDialog(MarketGUI.this, "Purchase failed.", "Purchase Failed", JOptionPane.ERROR_MESSAGE);
                     }
                 }
+
+                
+                
+            
             }
         });
+
+        playerStatsButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Display player's inventory and gold
+                StringBuilder inventoryInfo = new StringBuilder();
+                inventoryInfo.append("Gold: ").append(player.getGold()).append("\n\n");
+                inventoryInfo.append("Inventory:\n").append(player.getInventory().toString());
+                
+                // Update the inventoryTextArea and statsLabel
+                inventoryTextArea.setText(inventoryInfo.toString());
+                statsLabel.setText("Gold: " + player.getGold());
+                
+                // Show a message dialog with player's stats
+                JOptionPane.showMessageDialog(MarketGUI.this, "Gold: " + player.getGold() + "\n\nInventory:\n" + player.getInventory().toString(), "Player Stats", JOptionPane.INFORMATION_MESSAGE);
+                
+                // Display player's statistics in the console
+                System.out.println("Now your stats are " + player.getpoints() + " points " + player.getGold() + " gold");
+                System.out.println("Your inventory is: ");
+                player.displayinventory();
+            }
+        });
+        
         
     }
 
