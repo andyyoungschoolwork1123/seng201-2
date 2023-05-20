@@ -39,7 +39,7 @@ public class Athlete{
         return "Name: " + name + ", Stamina: " + stamina + ", Injury: " + injury +
                 ", Offence: " + offence + ", Defence: " + defence + ", Role: " + role +
                 ", Store Value: " + storeValue + ", Sellback Price: " + sellbackPrice +
-                ", Amount: " + amount + ", Injury time: " + injury_time + "\n";
+                ", Injury time: " + injury_time + "\n";
     }
 
     public String getName() {
@@ -224,7 +224,6 @@ public class Athlete{
         if (chance_success > 100){
             chance_success = 100;
         }
-        System.out.println(chance_success);
         if (Math.random()*100 > chance_success){
             this.increaseStamina(-3);
             j.increaseStamina(-7);
