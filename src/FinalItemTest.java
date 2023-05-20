@@ -33,7 +33,7 @@ public class FinalItemTest {
 
     @Test
     public void testDecreaseAmount() {
-        Item item = new Item("Potion", "Consumable", 50, 0, 0);
+        Item item = new Item("Sword", "Weapon", 100, 80, 70, 5, 10, 5);
 
         // Set the initial amount to 5
         item.setAmount(5);

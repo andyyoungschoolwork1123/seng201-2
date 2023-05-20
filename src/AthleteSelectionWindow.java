@@ -1,5 +1,6 @@
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
 
@@ -68,6 +69,8 @@ public class AthleteSelectionWindow extends JFrame {
         SelectedAthletesWindow selectedAthletesWindow = new SelectedAthletesWindow(team);
         selectedAthletesWindow.setVisible(true);
     }
+
+    
 }
 
 
