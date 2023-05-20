@@ -36,6 +36,10 @@ public class Team {
         this.team.add(new Athlete("c", 100, 100, 100, "default"));
         this.team.add(new Athlete("d", 100, 100, 100, "default"));
         this.team.add(new Athlete("e", 100, 100, 100, "default"));
+        this.subs.add(new Athlete("f", 100, 100, 100, "default"));
+        this.subs.add(new Athlete("g", 100, 100, 100, "default"));
+        this.subs.add(new Athlete("h", 100, 100, 100, "default"));
+
     }
     public Team(String name, ArrayList<Athlete> team) {
         this.name = name;
@@ -50,6 +54,9 @@ public class Team {
         this.score = 0;
         this.subs = player.getsubs();
 
+    }
+    public String toString() {
+        return "Name: " + name + ", stregth " + this.gettotalestpower() + "\n";
     }
     public int getpos(){
         return this.pos;
@@ -107,6 +114,7 @@ public class Team {
         //gui in mind
         this.subs.add(offathlete);
         this.team.set(this.team.indexOf(offathlete), onathlete);
+        this.subs.remove(onathlete);
     }
     public void subtite(int on_pos, int off_pos){
         //grouping with the select_subon() and select_suboff()
