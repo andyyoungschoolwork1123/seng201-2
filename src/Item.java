@@ -1,3 +1,8 @@
+/**
+ * Represents an item in the game.
+ */
+
+
 public class Item{
     //item class
     public String name;
@@ -9,6 +14,19 @@ public class Item{
     private int offenseBoost;
     private int defenseBoost;
    
+    /**
+     * Constructs an Item object with the specified properties.
+     *
+     * @param name           The name of the item.
+     * @param type           The type of the item.
+     * @param storeValue     The value of the item when purchased from a store.
+     * @param sellbackPrice  The price at which the item can be sold back to a store.
+     * @param amount         The quantity of the item.
+     * @param staminaBoost   The amount of stamina boost provided by the item.
+     * @param offenseBoost   The amount of offense boost provided by the item.
+     * @param defenseBoost   The amount of defense boost provided by the item.
+     */
+
     public Item(String name, String type, int storeValue, int sellbackPrice, int amount,int staminaBoost, int offenseBoost, int defenseBoost) {
         this.name = name;
         this.type = type;
@@ -20,16 +38,16 @@ public class Item{
         this.defenseBoost = defenseBoost;
 
     }
-    public Item(String name, String type) {
-        this.name = name;
-        this.type = type;
-        this.storeValue = 0;
-        this.sellbackPrice = 0;
-        this.amount = 0;
-        this.staminaBoost = 0;
-        this.offenseBoost = 0;
-        this.defenseBoost = 0;
-    }
+
+  /**
+     * for generate Item.
+     *
+     * @param name           The name of the item.
+     * @param type           The type of the item.
+     * @param staminaBoost   The amount of stamina boost provided by the item.
+     * @param offenseBoost   The amount of offense boost provided by the item.
+     * @param defenseBoost   The amount of defense boost provided by the item.
+     */
     public Item(String name, String type, int staminaBoost, int offenseBoost, int defenseBoost) {
         this.name = name;
         this.type = type;
@@ -41,75 +59,163 @@ public class Item{
         this.setSellbackPrice();
         
     }
+
+    // ... constructor and other methods
+    
+    /**
+     * Returns the store value of the item.
+     *
+     * @return The store value of the item.
+     */  
     public int getStoreValue() {
         return this.storeValue;
     }
-
+    /**
+     * Returns the sellback price of the item.
+     *
+     * @return The sellback price of the item.
+     */
     public int getSellbackPrice() {
         return this.sellbackPrice;
     }
 
+    /**
+     * Returns the amount of the item.
+     *
+     * @return The amount of the item.
+     */
+
     public int getAmount() {
         return this.amount;
     }
+
+    /**
+     * Returns the stamina boost provided by the item.
+     *
+     * @return The stamina boost provided by the item.
+     */
+
     public int getStaminaBoost() {
         return this.staminaBoost;
     }
-   
+    /**
+     * Returns the offense boost provided by the item.
+     *
+     * @return The offense boost provided by the item.
+     */
+
     public int getOffenseBoost() {
         return this.offenseBoost;
     }
-   
+     /**
+     * Returns the defense boost provided by the item.
+     *
+     * @return The defense boost provided by the item.
+     */  
     public int getDefenseBoost() {
         return this.defenseBoost;
     }
-
+    /**
+     * Increases the amount of the item by the specified value.
+     *
+     * @param amount The value by which to increase the item amount.
+     */
     public void increaseAmount(int amount) {
         this.amount += amount;
     }
-
+    /**
+     * Decreases the amount of the item by the specified value.
+     *
+     * @param amount The value by which to decrease the item amount.
+     */
     public void decreaseAmount(int amount) {
         this.amount -= amount;
     }
+
+    /**
+     * Returns the name of the item.
+     *
+     * @return The name of the item.
+     */
     public String getName() {
         return name;
     }
-   
+  
+    /**
+     * Returns the type of the item.
+     *
+     * @return The type of the item.
+     */
     public String getType() {
         return type;
     }
-   
+       /**
+     * Sets the name of the item.
+     *
+     * @param name The name to set for the item.
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Sets the store value of the item.
+     *
+     * @param storeValue The store value to set for the item.
+     */
     public void setStoreValue(int storeValue) {
         this.storeValue = storeValue;
     }
 
-   
+     /**
+     * Sets the sellback price of the item.
+     *
+     * @param sellbackPrice The sellback price to set for the item.
+     */
     public void setSellbackPrice(int sellbackPrice) {
         
         this.sellbackPrice = sellbackPrice;    }
-
+ /**
+     * Sets the amount of the item.
+     *
+     * @param amount The amount to set for the item.
+     */
     public void setAmount(int amount) {
         this.amount = amount;    }
 
+    /**
+     * Applies the item's boosts to the specified athlete.
+     *
+     * @param athlete The athlete to apply the item's boosts to.
+     */
     public void applyToAthlete(Athlete athlete) {
             athlete.increaseStamina(this.getStaminaBoost());
             athlete.increaseOffense(this.getOffenseBoost());
             athlete.increaseDefense(this.getDefenseBoost());
         
     }
-
+    /**
+     * Sets the store value of the item based on its boosts.
+     * The store value is calculated using a formula.
+     */
     public void setStoreValue() {
         this.storeValue = (int) (this.staminaBoost * 2 + this.offenseBoost * 5 + this.defenseBoost * 5);
     }
+    /**
+     * Sets the sellback price of the item based on its store value.
+     * The sellback price is calculated as 80% of the store value.
+     */
     public void setSellbackPrice() {
         this.sellbackPrice = (int) (this.storeValue * 0.8);
     }
 
-    
+    /**
+     * Generates an item based on the specified turn and type.
+     *
+     * @param turn The turn number.
+     * @param type The type of item to generate.
+     * @return The generated item.
+     */
     public static Item generate_item(int turn,String type){
         if (type =="EquipmentItem" | type =="AttEquipment" | type =="DefEquipment"){
             return generate_Equipmentitem(turn, type = "EquipmentItem");
@@ -121,6 +227,12 @@ public class Item{
             return null;
         }
     }
+
+/**
+ * Displays the details of the item.
+ * Prints the item's name, type, store value, sellback price, amount,
+ * stamina boost, offense boost, and defense boost.
+ */
     public void display(){
         System.out.println("Item name: " + this.getName());
         System.out.println("Item type: " + this.getType());
@@ -131,6 +243,12 @@ public class Item{
         System.out.println("Item offense boost: " + this.getOffenseBoost());
         System.out.println("Item defense boost: " + this.getDefenseBoost());
     }
+/**
+ * Generates a consumable item based on the given turn.
+ *
+ * @param turn The current turn.
+ * @return The generated consumable item.
+ */
     private static Item generate_consumableitem(int turn) {
         String[] consumableNames = {"Stamina Potion", "Attack Potion", "Defense Potion"};
         String name = consumableNames[(int) (Math.random() * consumableNames.length)];
@@ -147,6 +265,14 @@ public class Item{
         Item item = new Item(name, "ConsumableItem", staminaBoost, offenseBoost, defenseBoost);
         return item;
     }
+
+/**
+ * Generates an equipment item based on the given turn and type.
+ *
+ * @param turn The current turn.
+ * @param type The type of equipment item to generate.
+ * @return The generated equipment item.
+ */
     private static Item generate_Equipmentitem(int turn, String type) {
         String[] offenseNames = {"Shoes", "Head Band", "Boots"};
         String[] defenseNames = {"Gloves", "Book: Teamwork", "Pads"};
