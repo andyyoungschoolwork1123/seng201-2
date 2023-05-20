@@ -122,18 +122,22 @@ public class Arena {
         return ava;
         
     }
+    public Team createPlayerTeam(Player player){
+        Team Team_player = new Team(player.getName(),player.getTeam(),player.getsubs());
+        return Team_player;
 
+    }
+    
     public void pre_battle(Player player) {
         if (player.getTeam().size() < 5) {
             System.out.println("You need to have 5 players in your team to battle");
             return;
         }
-        Team Team_player = new Team(player.getName(),player.getTeam(),player.getsubs());
-
+        Team playerTeam = createPlayerTeam( player);
         System.out.println("Do you want to change your team? (Y/N)");
                 String decision_t = System.console().readLine();
                 if (decision_t.equals("Y")){
-                    subplayer(Team_player);
+                    subplayer(playerTeam);
                 }
         int turn = player.getTurn();
         this.InitAvailableOpponents(turn);
@@ -142,7 +146,7 @@ public class Arena {
         int selection = Integer.parseInt(System.console().readLine());
         Team opponent = availableOpponents.get(selection - 1);
         opponent.printteam();
-        battle_easy(Team_player,opponent,player);
+        battle_easy(playerTeam,opponent,player);
     }
     
     /**
@@ -277,7 +281,119 @@ public class Arena {
 
 
     }
+    public String battle(Team Team_player,Team opponent,Player player) {
+        StringBuilder output = new StringBuilder();
+    
+        Team Team2 = opponent;
+        int duration =0;
+        Team attacker = Team_player;
+        Team defender = Team2;
+       
+        while (duration <= 20) {
+            output.append("Turn " + (duration + 1)+"\n");
+            duration += 1;
+            if (attacker.team.get(attacker.getpos()).personal_duel(defender.team.get(defender.getpos()), duration)) {
+                if (attacker.getpos() !=0){
+                    output.append(attacker.team.get(attacker.getpos()).getName() + " passes to " + attacker.team.get(attacker.getpos()-1).getName()+"\n");
+                    attacker.setpos(attacker.getpos()-1 );
+                    attacker.team.get(attacker.getpos()).setStamina(attacker.team.get(attacker.getpos()).getStamina()-1);
+                    defender.setpos(defender.getpos() + 1);
+                    output.append(attacker.team.get(attacker.getpos()).getName() + " pass though " + defender.team.get(defender.getpos()).getName()+"\n");
+                }
+                if (defender.getpos() == 4) {
+                    attacker.addScore(1);
+                    output.append(attacker.getname() + " score!"+"\n");
+                    attacker.setpos(0);
+                    defender.setpos(0);
+                } 
+                else {
+                    defender.setpos(defender.getpos() + 1);
+                    output.append(attacker.team.get(attacker.getpos()).getName() + " go past " + defender.team.get(defender.getpos()).getName()+"\n");
+                }
+            }
+                
+             else {
+    
+                if (attacker.getpos() == 4) {
+                    defender.addScore(1);
+                    output.append(defender.getname() +" score"+"\n");
+                    attacker.setpos(0);
+                    defender.setpos(0);
+                } else {
+                    output.append(attacker.team.get(attacker.getpos()).getName() + " loses the ball to " + defender.team.get(defender.getpos()).getName()+"\n");
+                    Team temp = attacker;
+                    attacker = defender;
+                    defender = temp;
+                    attacker.setpos(defender.getpos());
+                    defender.setpos(temp.getpos());
+                }
+            }
+            if (attacker.team.get(attacker.getpos()).injury_check()== true) {
+                
+                output.append(attacker.team.get(attacker.getpos()).getName() + " is injured"+"\n");
+                attacker.team.remove(attacker.team.get(attacker.getpos()));
+                if (attacker.getpos() == 0){
+                }
+                else{
+                    attacker.setpos(attacker.getpos()-1);
+                    
+                }
+            }
+            if (defender.team.get(defender.getpos()).injury_check()== true) {
+                output.append(defender.team.get(defender.getpos()).getName() + " is injured"+"\n");
+                defender.team.remove(defender.team.get(defender.getpos()));
+                if (defender.getpos() == 4){
+                    output.append("Goal is Empty!!"+"\n");
+                    attacker.addScore(1);
+                    output.append(attacker.getname() + " score!"+"\n");
+                    attacker.setpos(0);
+                    defender.setpos(0);
+                }
+                else{
+                    defender.setpos(defender.getpos()-1);
 
+                }
+            }
+            if (attacker.team.get(attacker.getpos()).getStamina() <= 30 && attacker.equals(Team_player)) {
+                output.append(attacker.team.get(attacker.getpos()).getName() + " is exhausted"+"\n");
+                output.append("hint: use a potion"+"\n");
+                
+                }
+                
+            }
+            if (defender.team.get(defender.getpos()).getStamina() <= 30 && defender.equals(Team_player)) {
+                output.append(defender.team.get(defender.getpos()).getName() + " is exhausted"+"\n");
+                output.append("hint: use a potion"+"\n");
+
+            
+            
+        }             
+        // Rest of your function with all System.out.println replaced with output.append
+    
+        output.append("Team1 score: ").append(Team_player.getscore()).append("\n");
+        output.append("Team2 score: ").append(Team2.getscore()).append("\n");
+        
+        int getgold = 0;
+        if (Team_player.getscore() > Team2.getscore()){
+            output.append("You win\n");
+            player.increasepoints(3);
+            getgold = (int)(Team2.gettotalestpower()/5);
+        }
+        else if (Team_player.getscore() < Team2.getscore()){
+            output.append("You lose\n");
+            getgold = (int)(Team2.gettotalestpower()/10);
+        }
+        else {
+            output.append("Draw\n");
+            player.increasepoints(1);
+            getgold = (int)(Team2.gettotalestpower()/8);
+        }
+        
+        player.addgold(getgold);
+        output.append("You get ").append((int)(Team2.gettotalestpower()/10)).append(" gold\n");
+        return output.toString();
+    }
+    
     public void subplayer(Team team){
         if (team.getsubs().size() == 0){
             System.out.println("No subs available");

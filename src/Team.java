@@ -26,6 +26,17 @@ public class Team {
         this.subs = subs;
 
     }
+    public Team(){
+        this.name = "default";
+        this.team = new ArrayList<Athlete>();
+        this.score = 0;
+        this.subs = new ArrayList<Athlete>();
+        this.team.add(new Athlete("a", 100, 100, 100, "default"));
+        this.team.add(new Athlete("b", 100, 100, 100, "default"));
+        this.team.add(new Athlete("c", 100, 100, 100, "default"));
+        this.team.add(new Athlete("d", 100, 100, 100, "default"));
+        this.team.add(new Athlete("e", 100, 100, 100, "default"));
+    }
     public Team(String name, ArrayList<Athlete> team) {
         this.name = name;
         this.team = team;

@@ -1,3 +1,4 @@
+
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -95,7 +96,6 @@ public class GameWindow {
         AthleteSelectionWindow selectionWindow = new AthleteSelectionWindow(player);
         selectionWindow.setVisible(true);
     }
-
 }
 
 
