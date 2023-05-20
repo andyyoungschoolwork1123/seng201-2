@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -298,6 +299,8 @@ public class Player {
         inventory.get(selection - 1).applyToAthlete(team.get(selection2 - 1));
         inventory.remove(selection - 1);
     }
+
+    
 
     public ArrayList<Athlete> auto_sortteam(ArrayList<Athlete> team) {
         List<String> predefinedOrder = List.of("Forward", "Midfielder", "Defender", "Goalkeeper");

@@ -41,6 +41,9 @@ public class Item{
         this.setSellbackPrice();
         
     }
+    public String toString() {
+        return this.name;
+    }
     public int getStoreValue() {
         return this.storeValue;
     }
@@ -179,6 +182,7 @@ public class Item{
         
         }
     }
+    
 
     
 }

@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+
 public class GameGUI {
     private JFrame frame;
     private JPanel leftPanel, centerPanel, rightPanel;
@@ -26,7 +27,7 @@ public class GameGUI {
 
         inventoryButton = new JButton("View Inventory");
         inventoryButton.setMaximumSize(buttonDimension);
-        inventoryButton.addActionListener(e -> viewinventory(player.getInventory()));
+        inventoryButton.addActionListener(e -> viewInventory(player));
         leftPanel.add(infoText);
         leftPanel.add(teamButton);
         leftPanel.add(subButton);
@@ -106,20 +107,18 @@ public class GameGUI {
 
     
     
-    private void viewinventory(ArrayList<Item> inventory) {
-        JFrame inventoryFrame = new JFrame("Inventory View");
-        inventoryFrame.setLayout(new BorderLayout());
-    
-        JTextArea inventoryArea = new JTextArea();
-        for (Item item : inventory) {
-            inventoryArea.append(item.toString());
-        }
-        inventoryFrame.add(new JScrollPane(inventoryArea), BorderLayout.CENTER);
-    
-        inventoryFrame.setSize(500, 400); 
-        inventoryFrame.setLocationRelativeTo(null); // center the frame
-        inventoryFrame.setVisible(true);
+    private void viewInventory(Player player) {
+        ArrayList<Athlete> allAthletes = new ArrayList<>();
+        allAthletes.addAll(player.getTeam());
+        allAthletes.addAll(player.getsubs());        
+        InventoryGUI inventoryGUI = new InventoryGUI(player.getInventory(), allAthletes);
+        inventoryGUI.viewInventory();
+
     }
+        
+    
+    
+    
     private void viewsub(ArrayList<Athlete> subs) {
         JFrame subFrame = new JFrame("Sub View");
         subFrame.setLayout(new BorderLayout());
@@ -134,6 +133,7 @@ public class GameGUI {
         subFrame.setLocationRelativeTo(null); // center the frame
         subFrame.setVisible(true);
     }
+    
     private void openMarket(Player player) {
         //MarketGUI marketGUI = new MarketGUI(player);
     }
@@ -146,6 +146,9 @@ public class GameGUI {
 
     public static void main(String[] args) {
         Player player = new Player("Easy", "testing");
+        Item item = new Item("Potion", "Consumable", 50, 0, 0);
+
+        player.addInventory(item);
         //player.init_team()
         new GameGUI(player);
 
