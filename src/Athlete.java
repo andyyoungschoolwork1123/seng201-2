@@ -259,6 +259,10 @@ public class Athlete{
         else if (this.getRole() == "Defender"){
             this.increaseDefense(5);
         }
+        else if (this.getRole() == "Goalkeeper"){
+            this.increaseDefense(5);
+        }
+        this.increaseStamina(-5);
     }
 
     public int getInjurtTime() {
