@@ -148,6 +148,10 @@ public class GameGUI {
         JFrame teamFrame = new JFrame("Team View");
         JPanel panel = new JPanel();
         teamFrame.add(panel,BorderLayout.SOUTH);
+        JTextArea team1Area = new JTextArea();
+        for (Athlete athlete : team1) {
+            team1Area.append(athlete.toString());
+        }
         athleteSelect = new JComboBox<>();
         athleteSelect.setBounds(10, 50, 200, 25);
         panel.add(athleteSelect);
@@ -173,14 +177,14 @@ public class GameGUI {
                 JDialog dialog = new JDialog();
                 dialog.setAlwaysOnTop(true);
                 JOptionPane.showMessageDialog(dialog, "Athlete trained!" + selectedAthlete.toString());
-
+                team1Area.setText("");
+                for (Athlete athlete : team1) {
+                    team1Area.append(athlete.toString());
+                }
             }
         });
         panel.add(trainButton);
-        JTextArea team1Area = new JTextArea();
-        for (Athlete athlete : team1) {
-            team1Area.append(athlete.toString());
-        }
+        
         teamFrame.add(new JScrollPane(team1Area), BorderLayout.NORTH);
     
         teamFrame.setSize(500, 400); 
