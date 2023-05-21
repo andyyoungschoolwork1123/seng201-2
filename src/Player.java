@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.List;
 
 
+
 //class contain setup information for player and team
 public class Player {
     private String difficulty;
@@ -38,6 +39,9 @@ public class Player {
     
         this.points = 0;
     }
+    public String toString() {
+        return "Name: " + name + ", point " + (points) + "\n" + "gold: " + gold;
+    }
     public String getName(){
         return this.name;
     }
@@ -67,6 +71,14 @@ public class Player {
         this.subs.remove(athlete);
         //5.15 By TONG
         
+    }
+    public void restoreStamina() {
+        for (Athlete athlete : team) {
+            athlete.setStamina(100);
+        }
+        for (Athlete athlete : subs) {
+            athlete.setStamina(100);
+        }
     }
     public void setteam(Team team){
         this.team = team.getteam();
@@ -332,18 +344,16 @@ public class Player {
     
 
 
-    public void handleRandomEvents() {
-        // 1. Athlete's stat is increased
-        handleStatBoostEvent();
-
-        // 2. Athlete quits
-        handleAthleteQuitEvent();
-
-        // 3. Random new athlete joins
-        handleNewAthleteJoinEvent();
+    public String handleRandomEvents() {
+        String statBoostEvents = handleStatBoostEvent();
+        String quitEvents = handleAthleteQuitEvent();
+        String newAthleteEvents = handleNewAthleteJoinEvent();
+    
+        return statBoostEvents+ "\n" + quitEvents+"\n" + newAthleteEvents+"\n";
     }
+    
 
-    private void handleStatBoostEvent() {
+    private void handleStatBoostEvent_cmd() {
         double chance = calculateEventChance(0.05); // Adjust the chance as desired
 
         for (Athlete athlete : team) {
@@ -351,12 +361,12 @@ public class Player {
             if (chance > Math.random()) {
                 // Increase the athlete's stat (adjust as desired)
                 athlete.train();
-                System.out.println("Random Event: " + athlete.getName() + "'s stat has increased!");
+                System.out.println("Random Event: " + athlete.getName() + "'s stat has increased!\n");
             }
         }
     }
 
-    private void handleAthleteQuitEvent() {
+    private void handleAthleteQuitEvent_cmd() {
         double chance = calculateEventChance(0.02); // Adjust the chance as desired
 
         for (Athlete athlete : team) {
@@ -364,13 +374,13 @@ public class Player {
             if (chance > Math.random()) {
                 // Remove the athlete from the team
                 team.remove(athlete);
-                System.out.println("Random Event: " + athlete.getName() + " has quit the team!");
+                System.out.println("Random Event: " + athlete.getName() + " has quit the team!\n");
                 break; // Exit the loop to handle only one quitting athlete at a time
             }
         }
     }
 
-    private void handleNewAthleteJoinEvent() {
+    private void handleNewAthleteJoinEvent_cmd() {
         double chance = calculateEventChance(0.02); // Adjust the chance as desired
         int freeSlots = calculateFreeSlots(); // Method to calculate the number of free slots in reserves
 
@@ -378,7 +388,7 @@ public class Player {
         if (freeSlots > 0 && chance > Math.random()) {
             Athlete newAthlete = Athlete.generateAthlete(Turn); // Method to generate a new random athlete
             subs.add(newAthlete);
-            System.out.println("Random Event: A new athlete, " + newAthlete.getName() + ", has joined the team!");
+            System.out.println("Random Event: A new athlete, " + newAthlete.getName() + ", has joined the team!\n");
         }
     }
 
@@ -399,7 +409,53 @@ public class Player {
         int slots = 5 - this.subs.size();
         return slots;
     }
-
+    
+    
+    private String handleStatBoostEvent() {
+        StringBuilder sb = new StringBuilder();
+        double chance = calculateEventChance(0.05); // Adjust the chance as desired
+    
+        for (Athlete athlete : team) {
+            // Check if the athlete is resting and eligible for a stat boost
+            if (chance > Math.random()) {
+                // Increase the athlete's stat (adjust as desired)
+                athlete.train();
+                sb.append("Random Event: ").append(athlete.getName()).append("'s stat has increased!\n");
+            }
+        }
+        return sb.toString();
+    }
+    
+    private String handleAthleteQuitEvent() {
+        StringBuilder sb = new StringBuilder();
+        double chance = calculateEventChance(0.02); // Adjust the chance as desired
+    
+        for (Athlete athlete : team) {
+            // Check if the athlete was injured in the previous weeks and eligible to quit
+            if (chance > Math.random()) {
+                // Remove the athlete from the team
+                team.remove(athlete);
+                sb.append("Random Event: ").append(athlete.getName()).append(" has quit the team!\n");
+                break; // Exit the loop to handle only one quitting athlete at a time
+            }
+        }
+        return sb.toString();
+    }
+    
+    private String handleNewAthleteJoinEvent() {
+        StringBuilder sb = new StringBuilder();
+        double chance = calculateEventChance(0.02); // Adjust the chance as desired
+        int freeSlots = calculateFreeSlots(); // Method to calculate the number of free slots in reserves
+    
+        // Check if there are free slots and eligible for a new athlete to join
+        if (freeSlots > 0 && chance > Math.random()) {
+            Athlete newAthlete = Athlete.generateAthlete(Turn); // Method to generate a new random athlete
+            subs.add(newAthlete);
+            sb.append("Random Event: A new athlete, ").append(newAthlete.getName()).append(", has joined the team!\n");
+        }
+        return sb.toString();
+    }
+    
     
 }
 
