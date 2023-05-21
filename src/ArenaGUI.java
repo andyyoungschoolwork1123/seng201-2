@@ -21,7 +21,7 @@ public class ArenaGUI {
 
     public void createAndShowGUI() {
         JFrame frame = new JFrame("Arena Game");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(1000, 600);
 
         JPanel panel = new JPanel();
@@ -29,15 +29,8 @@ public class ArenaGUI {
         placeComponents(panel);
         frame.setVisible(true);
 
-        frame.addWindowListener(new WindowAdapter() {
-        @Override
-        public void windowClosed(WindowEvent e) {
-            updateplayerTeams();
-            // your additional code here, e.g., reopening the GameGUI
-            GameGUI gameGUI = new GameGUI(player);
-            //...
-        }
-    });
+        
+    
     }
 
     private void placeComponents(JPanel panel) {
@@ -110,10 +103,13 @@ public class ArenaGUI {
                 //arena.battle(playerTeam,selectedOpponent,player);
                 //String battleResult = playerTeam.su(playerTeam, player); // call the function
                 //textArea.setText(battleResult); // set the text
+                InventoryGUI inventoryGUI = new InventoryGUI(player.getInventory(), playerTeam.getteam());
+                inventoryGUI.viewInventory();
 
                 // Update the UI to reflect the new game state
             }
         });
+        panel.add(btnUseitemButton);
     }
     public void subButton(JFrame frame) {
         SubstitutionDialog dialog = new SubstitutionDialog(frame, playerTeam);

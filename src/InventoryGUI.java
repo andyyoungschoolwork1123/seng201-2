@@ -32,7 +32,7 @@ public class InventoryGUI {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     // Handle button click
-                    JOptionPane.showMessageDialog(null, displayitem(item));
+                    JOptionPane.showMessageDialog(null, item.displayitem(item));
                 }
             });
 
@@ -88,15 +88,7 @@ public class InventoryGUI {
     }
 
     // Assuming this method is already defined elsewhere
-    private String displayitem(Item item){
-        StringBuilder itemInfo = new StringBuilder();
-        itemInfo.append("Name: ").append(item.getName()).append("\n");
-        itemInfo.append("Type: ").append(item.getType()).append("\n");
-        itemInfo.append("Price: ").append(item.getStoreValue()).append("\n");
-        itemInfo.append("Offence: ").append(item.getOffenseBoost()).append("\n");
-        itemInfo.append("Defence: ").append(item.getDefenseBoost()).append("\n");
-        return itemInfo.toString();
-    }
+    
     public static void main(String[] args) {
         ArrayList<Item> inventory = new ArrayList<>();
         inventory.add(new Item("Sword", "Weapon", 100, 10, 0));

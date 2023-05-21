@@ -104,7 +104,15 @@ public class Item{
             athlete.increaseDefense(this.getDefenseBoost());
         
     }
-
+    public String displayitem(Item item){
+        StringBuilder itemInfo = new StringBuilder();
+        itemInfo.append("Name: ").append(item.getName()).append("\n");
+        itemInfo.append("Type: ").append(item.getType()).append("\n");
+        itemInfo.append("Price: ").append(item.getStoreValue()).append("\n");
+        itemInfo.append("Offence: ").append(item.getOffenseBoost()).append("\n");
+        itemInfo.append("Defence: ").append(item.getDefenseBoost()).append("\n");
+        return itemInfo.toString();
+    }
     public void setStoreValue() {
         this.storeValue = (int) (this.staminaBoost * 2 + this.offenseBoost * 5 + this.defenseBoost * 5);
     }
