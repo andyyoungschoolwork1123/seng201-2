@@ -15,19 +15,20 @@ public class MarketGUI extends JFrame {
     private JButton showAthletesButton;
     private JButton showItemsButton;
     private JButton addButton;
-    private JButton playerStatsButton;
-    private JButton inventoryTextArea;
+    private JButton playerInventoryButton;
+    private JLabel playegold;
     private AbstractButton statsLabel;
     
 
 
-    public MarketGUI() {
+    public MarketGUI(Player player) {
         // Create the market
         this.market = new Market();
+        this.player = player;
         
         
-        market.init_market();
-
+        //Andy : update the market
+        updateMarket(player);
         // Create UI controls
         this.athleteListModel = new DefaultListModel<>();
         this.itemListModel = new DefaultListModel<>();
@@ -36,7 +37,7 @@ public class MarketGUI extends JFrame {
         this.showAthletesButton = new JButton("Show Athletes");
         this.showItemsButton = new JButton("Show Items");
         this.addButton = new JButton("Add");
-        this.playerStatsButton = new JButton("Player Stats");
+        this.playerInventoryButton = new JButton("Player Inventory");
 
         // Set up layout
         JPanel panel = new JPanel(new GridLayout(1, 2));
@@ -47,7 +48,10 @@ public class MarketGUI extends JFrame {
         buttonPanel.add(showAthletesButton);
         buttonPanel.add(showItemsButton);
         buttonPanel.add(addButton);
-        buttonPanel.add(playerStatsButton);
+        buttonPanel.add(playerInventoryButton);
+        //show player gold 
+        playegold = new JLabel("Player Gold: " + player.getGold());
+        buttonPanel.add(playegold);
 
         setLayout(new BorderLayout());
         add(panel, BorderLayout.CENTER);
@@ -55,8 +59,8 @@ public class MarketGUI extends JFrame {
 
         // Set up the frame
         setTitle("Market");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setSize(600, 400);
         setLocationRelativeTo(null);
         setVisible(true);
 
@@ -94,7 +98,7 @@ public class MarketGUI extends JFrame {
                     
                     if (athleteSuccess) {
                         player.addsubs(selectedAthlete);
-                        player.setGold(player.getGold() - selectedAthlete.getStoreValue());
+                        playegold.setText("Player Gold: " + player.getGold());
                         JOptionPane.showMessageDialog(MarketGUI.this, "You bought " + selectedAthlete.getName() + " for " + selectedAthlete.getStoreValue() + " gold!", "Purchase Successful", JOptionPane.INFORMATION_MESSAGE);
                     } else {
                         JOptionPane.showMessageDialog(MarketGUI.this, "Purchase failed.", "Purchase Failed", JOptionPane.ERROR_MESSAGE);
@@ -108,7 +112,7 @@ public class MarketGUI extends JFrame {
                     
                     if (itemSuccess) {
                         player.addInventory(selectedItem);
-                        player.setGold(player.getGold() - selectedItem.getStoreValue());
+                        playegold.setText("Player Gold: " + player.getGold());
                         JOptionPane.showMessageDialog(MarketGUI.this, "You bought " + selectedItem.getName() + " for " + selectedItem.getStoreValue() + " gold!", "Purchase Successful", JOptionPane.INFORMATION_MESSAGE);
                     } else {
                         JOptionPane.showMessageDialog(MarketGUI.this, "Purchase failed.", "Purchase Failed", JOptionPane.ERROR_MESSAGE);
@@ -121,24 +125,11 @@ public class MarketGUI extends JFrame {
             }
         });
 
-        playerStatsButton.addActionListener(new ActionListener() {
+        
+        playerInventoryButton.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) {
-                // Display player's inventory and gold
-                StringBuilder inventoryInfo = new StringBuilder();
-                inventoryInfo.append("Gold: ").append(player.getGold()).append("\n\n");
-                inventoryInfo.append("Inventory:\n").append(player.getInventory().toString());
-                
-                // Update the inventoryTextArea and statsLabel
-                inventoryTextArea.setText(inventoryInfo.toString());
-                statsLabel.setText("Gold: " + player.getGold());
-                
-                // Show a message dialog with player's stats
-                JOptionPane.showMessageDialog(MarketGUI.this, "Gold: " + player.getGold() + "\n\nInventory:\n" + player.getInventory().toString(), "Player Stats", JOptionPane.INFORMATION_MESSAGE);
-                
-                // Display player's statistics in the console
-                System.out.println("Now your stats are " + player.getpoints() + " points " + player.getGold() + " gold");
-                System.out.println("Your inventory is: ");
-                player.displayinventory();
+                InventoryGUI inventoryGUI = new InventoryGUI(player.getInventory(), player.getTeam());
+                inventoryGUI.viewInventory();
             }
         });
         
@@ -149,8 +140,10 @@ public class MarketGUI extends JFrame {
         athleteListModel.clear();
         ArrayList<Athlete> athletes = market.getAthletes();
         for (Athlete athlete : athletes) {
+
             athleteListModel.addElement(athlete);
-        }
+        } 
+
     }
 
     private void updateItemList() {
@@ -159,6 +152,11 @@ public class MarketGUI extends JFrame {
         for (Item item : items) {
             itemListModel.addElement(item);
         }
+    }
+
+    //Andy : make sure the market is updated by turn
+    private void updateMarket(Player player) {
+        market.generatemarket(player.getTurn());
     }
 
     private void displayAthletes() {
@@ -194,9 +192,10 @@ public class MarketGUI extends JFrame {
 
     
     public static void main(String[] args) {
+        Player player = new Player("Easy", "sss");
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new MarketGUI();
+                new MarketGUI( player);
             }
         });
     }
