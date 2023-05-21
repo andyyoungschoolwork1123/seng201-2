@@ -31,6 +31,7 @@ public class MarketGUI extends JFrame {
         updateMarket(player);
         // Create UI controls
         this.athleteListModel = new DefaultListModel<>();
+
         this.itemListModel = new DefaultListModel<>();
         this.athleteList = new JList<>(athleteListModel);
         this.itemList = new JList<>(itemListModel);
@@ -100,6 +101,8 @@ public class MarketGUI extends JFrame {
                         player.addsubs(selectedAthlete);
                         playegold.setText("Player Gold: " + player.getGold());
                         JOptionPane.showMessageDialog(MarketGUI.this, "You bought " + selectedAthlete.getName() + " for " + selectedAthlete.getStoreValue() + " gold!", "Purchase Successful", JOptionPane.INFORMATION_MESSAGE);
+                        market.removeAthlete(selectedAthlete);
+                        updateAthleteList();
                     } else {
                         JOptionPane.showMessageDialog(MarketGUI.this, "Purchase failed.", "Purchase Failed", JOptionPane.ERROR_MESSAGE);
                     }
@@ -114,6 +117,8 @@ public class MarketGUI extends JFrame {
                         player.addInventory(selectedItem);
                         playegold.setText("Player Gold: " + player.getGold());
                         JOptionPane.showMessageDialog(MarketGUI.this, "You bought " + selectedItem.getName() + " for " + selectedItem.getStoreValue() + " gold!", "Purchase Successful", JOptionPane.INFORMATION_MESSAGE);
+                        market.removeItem(selectedItem);
+                        updateItemList();
                     } else {
                         JOptionPane.showMessageDialog(MarketGUI.this, "Purchase failed.", "Purchase Failed", JOptionPane.ERROR_MESSAGE);
                     }
@@ -142,6 +147,8 @@ public class MarketGUI extends JFrame {
         for (Athlete athlete : athletes) {
 
             athleteListModel.addElement(athlete);
+            athleteList.setCellRenderer(new AthleteListCellRenderer());
+
         } 
 
     }
@@ -169,8 +176,8 @@ public class MarketGUI extends JFrame {
                     .append("Defence: ").append(athlete.getDefence()).append("\n")
                     .append("Role: ").append(athlete.getRole()).append("\n")
                     .append("Store Value: ").append(athlete.getStoreValue()).append("\n")
-                    .append("Sellback Price: ").append(athlete.getSellbackPrice()).append("\n")
-                    .append("Amount: ").append(athlete.getAmount()).append("\n\n");
+                    .append("Sellback Price: ").append(athlete.getSellbackPrice()).append("\n\n")
+                    ;
         }
         JOptionPane.showMessageDialog(this, athleteInfo.toString(), "Athletes Information", JOptionPane.INFORMATION_MESSAGE);
     }
@@ -187,7 +194,8 @@ public class MarketGUI extends JFrame {
         }
         JOptionPane.showMessageDialog(this, itemInfo.toString(), "Items Information", JOptionPane.INFORMATION_MESSAGE);
     }
-
+    
+   
 
 
     

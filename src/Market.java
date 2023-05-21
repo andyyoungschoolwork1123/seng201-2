@@ -359,7 +359,7 @@ public class Market {
  * @param turn the current turn of the game
  */    
     public void generatemarket(int turn){
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 4; i++) {
             if (Math.random() >0.25){
                 Athlete athlete = Athlete.generateAthlete(turn, "Forward");
                 addAthlete(athlete);

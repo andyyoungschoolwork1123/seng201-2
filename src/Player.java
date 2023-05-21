@@ -50,7 +50,7 @@ public class Player {
      * @return a string representation of the player
      */
     public String toString() {
-        return "Name: " + name + ", point " + (points) + "\n" + "gold: " + gold;
+        return "Name: " + name +" ,week "+Turn+ ", point " + (points) + "\n" + "gold: " + gold;
     }
 
     /**
