@@ -71,7 +71,10 @@ public class InventoryGUI {
                     // Apply the item to the selected athlete
                     item.applyToAthlete(athlete);
                     JOptionPane.showMessageDialog(null, "Item applied to " + athlete.getName());
-                    athleteFrame.dispose();   
+                    inventory.remove(item);
+                    athleteFrame.dispose();
+                    frame.dispose();
+                    viewInventory();
                 }
             });
             athletePanel.add(athleteButton);
@@ -87,7 +90,6 @@ public class InventoryGUI {
         athleteFrame.setVisible(true);
     }
 
-    // Assuming this method is already defined elsewhere
     
     public static void main(String[] args) {
         ArrayList<Item> inventory = new ArrayList<>();
