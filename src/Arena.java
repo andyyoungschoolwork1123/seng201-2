@@ -1,10 +1,15 @@
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
-
+/**
+ * The Arena class represents an arena where teams can compete against available opponents.
+ */
 public class Arena {
     private ArrayList<Team> availableOpponents;
     private ArrayList<String> availableOpponentsNames;
-
+ /**
+     * Constructs an Arena object with a list of available opponents.
+     * The available opponents are initialized with predefined names.
+     */
     public Arena() {
         this.availableOpponents = new ArrayList<Team>();
         this.availableOpponentsNames = new ArrayList<String>();
@@ -20,12 +25,35 @@ public class Arena {
         availableOpponentsNames.add("Gorgon");
     }
 
+
+    /**
+     * Returns the list of available opponents.
+     *
+     * @return the list of available opponents
+     */
+
     public ArrayList<Team> getAvailableOpponents() {
         return availableOpponents;
     }
+
+
+/**
+     * Returns the list of available opponents' names.
+     *
+     * @return the list of available opponents' names
+     */
+
     public ArrayList<String> getAvailableOpponentsNames() {
         return availableOpponentsNames;
     }
+
+    /**
+     * Initializes the list of available opponents for a given turn.
+     * Clears the current list of available opponents and generates new teams with athletes based on the turn and strategy types.
+     *
+     * @param turn the current turn
+     */
+
     public void InitAvailableOpponents(int turn) {
         this.availableOpponents.clear();
         ArrayList<Athlete> team1 = generate_AvailableTeamAthletes(turn,"balance");
@@ -47,14 +75,27 @@ public class Arena {
         availableOpponents.add(opponent4);
 
     }
+    /**
+     * Adds an opponent team to the list of available opponents.
+     *
+     * @param t the team to add
+     */
 
     public void addOpponent(Team t) {
         availableOpponents.add(t);
     }
-
+    /**
+     * Removes an opponent team from the list of available opponents.
+     *
+     * @param t the team to remove
+     */
     public void removeOpponent(Team t) {
         availableOpponents.remove(t);
     }
+    /**
+     * Displays the available opponents in the command-line interface.
+     * Prints the name and total estimated power of each available opponent.
+     */
 
     public void displayAvailableOpponents_cmd() {
         System.out.println("Available opponents:");
@@ -64,6 +105,15 @@ public class Arena {
             //System.out.println((i+1) + ". " + opponent.getName() + " (" + opponent.getRole() + ")");
         
     }
+
+ /**
+     * Generates a list of available athletes for a team based on the specified type.
+     *
+     * @param turn the current turn or round
+     * @param type the type of team (e.g., "balance", "offense", "defense")
+     * @return the list of available athletes for the team
+     */
+
     public ArrayList<Athlete> generate_AvailableTeamAthletes(int turn,String type) {
         ArrayList<Athlete> ava = new ArrayList<Athlete>();
 
@@ -122,12 +172,24 @@ public class Arena {
         return ava;
         
     }
+
+    /**
+     * Creates a team for the player based on their selected players and substitutes.
+     *
+     * @param player the player object representing the player
+     * @return the team object representing the player's team
+     */
     public Team createPlayerTeam(Player player){
         Team Team_player = new Team(player.getName(),player.getTeam(),player.getsubs());
         return Team_player;
 
     }
     
+    /**
+     * Performs the pre-battle setup for the player, including team selection and opponent selection.
+     *
+     * @param player the player object representing the player
+     */
     public void pre_battle(Player player) {
         if (player.getTeam().size() < 5) {
             System.out.println("You need to have 5 players in your team to battle");
@@ -149,11 +211,11 @@ public class Arena {
         battle_easy(playerTeam,opponent,player);
     }
     
-    /**
-     * @param Team_player
-     * @param opponent
-     * @param player
-     */
+/**Simulates a battle between two teams.
+ * @param Team_player the team controlled by the player
+ * @param opponent the opposing team
+ * @param player the player object
+ * */
     public void battle_easy(Team Team_player,Team opponent,Player player) {
         Team Team2 = opponent;
         
@@ -281,6 +343,16 @@ public class Arena {
 
 
     }
+
+/**
+ * Simulates a soccer match between two teams.
+ *
+ * @param Team_player The team controlled by the player.
+ * @param opponent The opposing team.
+ * @param player The player participating in the match.
+ * @return A String containing the details of the match.
+ */
+
     public String battle(Team Team_player,Team opponent,Player player) {
         StringBuilder output = new StringBuilder();
     
@@ -393,7 +465,13 @@ public class Arena {
         output.append("You get ").append((int)(Team2.gettotalestpower()/10)).append(" gold\n");
         return output.toString();
     }
-    
+
+/**
+ * Allows the substitution of players in a team.
+ *
+ * @param team The team for which to perform the substitution.
+ */
+
     public void subplayer(Team team){
         if (team.getsubs().size() == 0){
             System.out.println("No subs available");
@@ -420,7 +498,7 @@ public class Arena {
         System.out.println(subon.getName() + " is subbed on");
     }
 
-
+/**run the code  */
     public static void main(String[] args) {
         Arena arena = new Arena();
         arena.InitAvailableOpponents(1);
