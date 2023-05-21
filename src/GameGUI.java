@@ -1,9 +1,14 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
 public class GameGUI {
+    private boolean isArenaClicked = false;
+    private JComboBox<Athlete> athleteSelect;  // to select the athlete
+    private JButton trainButton;  // to train the selected athlete
     private JFrame frame;
     private JPanel leftPanel, centerPanel, rightPanel;
     private JTextArea infoText, outputText;
@@ -19,7 +24,7 @@ public class GameGUI {
         infoText.setText("Player statistics and information here...");
         Dimension buttonDimension = new Dimension(150, 25);
         teamButton = new JButton("View Team");
-        teamButton.addActionListener(e -> viewTeam(player.getTeam(), player.getsubs()));
+        teamButton.addActionListener(e -> viewTeam(player.getTeam()));
         teamButton.setMaximumSize(buttonDimension);
         subButton = new JButton("View Subs");
         subButton.addActionListener(e -> viewsub(player.getsubs()));
@@ -43,7 +48,33 @@ public class GameGUI {
         centerPanel.setFocusable(false);
         centerPanel.setPreferredSize(new Dimension(400, 400));
         frame.add(centerPanel, BorderLayout.CENTER);
-
+        JButton endTurnButton = new JButton("End Turn");
+        
+        endTurnButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Disable arena button
+                arenaButton.setEnabled(false);
+        
+                // Train athletes
+                player.train_athletes();
+        
+                // Handle random events
+                player.handleRandomEvents();
+        
+                // Other actions as needed...
+            }
+        });
+        
+        
+        
+        
+        
+        
+        
+        
+        endTurnButton.setMaximumSize(buttonDimension);
+        centerPanel.add(endTurnButton);
         // Right panel for market place or arena selection
         rightPanel = new JPanel();
         rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
@@ -51,7 +82,15 @@ public class GameGUI {
         marketButton.setMaximumSize(buttonDimension);
         arenaButton = new JButton("Arena");
         arenaButton.setMaximumSize(buttonDimension);
-        arenaButton.addActionListener(e -> openArena(player));
+        arenaButton.addActionListener(e -> arenaButton.addActionListener(f -> {
+            if (!isArenaClicked) {
+                ArenaGUI arenaGUI = new ArenaGUI(player);
+                arenaGUI.createAndShowGUI();
+                arenaGUI.updateOpponents();
+                isArenaClicked = true;
+                arenaButton.setEnabled(false);
+            }
+        }));
         marketButton.addActionListener(e -> openMarket(player));
         rightPanel.add(marketButton);
         rightPanel.add(arenaButton);
@@ -84,34 +123,56 @@ public class GameGUI {
         infoText.setText(playerInfo.toString());
     }
     //private void 
-    private void viewTeam(ArrayList<Athlete> team1, ArrayList<Athlete> team2) {
+    private void viewTeam(ArrayList<Athlete> team1) {
         JFrame teamFrame = new JFrame("Team View");
-        teamFrame.setLayout(new BorderLayout());
+        JPanel panel = new JPanel();
+        teamFrame.add(panel,BorderLayout.SOUTH);
+        athleteSelect = new JComboBox<>();
+        athleteSelect.setBounds(10, 50, 200, 25);
+        panel.add(athleteSelect);
     
+        // Add athletes to the JComboBox
+        for (Athlete athlete : team1) {
+            
+            
+            athleteSelect.addItem(athlete);
+        }
+        athleteSelect.setRenderer(new AthleteListCellRenderer());
+
+        // Create the train button
+        trainButton = new JButton("Train Athlete");
+        trainButton.setBounds(220, 400, 150, 25);
+        trainButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Athlete selectedAthlete = (Athlete) athleteSelect.getSelectedItem();
+                if (selectedAthlete != null) {
+                    selectedAthlete.train();  // call the train() function on selected athlete
+                }
+                JDialog dialog = new JDialog();
+                dialog.setAlwaysOnTop(true);
+                JOptionPane.showMessageDialog(dialog, "Athlete trained!" + selectedAthlete.toString());
+
+            }
+        });
+        panel.add(trainButton);
         JTextArea team1Area = new JTextArea();
         for (Athlete athlete : team1) {
             team1Area.append(athlete.toString());
         }
-        teamFrame.add(new JScrollPane(team1Area), BorderLayout.CENTER);
-    
-        JTextArea team2Area = new JTextArea();
-        for (Athlete athlete : team2) {
-            team2Area.append(athlete.toString());
-        }
-        teamFrame.add(new JScrollPane(team2Area), BorderLayout.SOUTH);
+        teamFrame.add(new JScrollPane(team1Area), BorderLayout.NORTH);
     
         teamFrame.setSize(500, 400); 
         teamFrame.setLocationRelativeTo(null); // center the frame
         teamFrame.setVisible(true);
     }
+    
 
     
     
     private void viewInventory(Player player) {
-        ArrayList<Athlete> allAthletes = new ArrayList<>();
-        allAthletes.addAll(player.getTeam());
-        allAthletes.addAll(player.getsubs());        
-        InventoryGUI inventoryGUI = new InventoryGUI(player.getInventory(), allAthletes);
+             
+        InventoryGUI inventoryGUI = new InventoryGUI(player.getInventory(), player.getTeam());
         inventoryGUI.viewInventory();
 
     }
@@ -147,7 +208,9 @@ public class GameGUI {
     public static void main(String[] args) {
         Player player = new Player("Easy", "testing");
         Item item = new Item("Potion", "Consumable", 50, 0, 0);
-
+        Team team = new Team();
+        player.setTeam(team.getteam());
+        player.setsubs(team.getsubs());
         player.addInventory(item);
         //player.init_team()
         new GameGUI(player);
