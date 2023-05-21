@@ -221,7 +221,8 @@ public class GameGUI {
     }
     
     private void openMarket(Player player) {
-        //MarketGUI marketGUI = new MarketGUI(player);
+        MarketGUI marketGUI = new MarketGUI(player);
+        
     }
     
     
