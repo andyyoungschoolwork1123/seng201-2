@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -11,12 +10,12 @@ import java.util.List;
 public class Player {
     private String difficulty;
     private int gold;
-    private ArrayList<Athlete> team;
+    private ArrayList<Athlete> team = new ArrayList<Athlete>();
     private int points;
     private ArrayList<Item> inventory = new ArrayList<Item>();
     private int Turn = 1;
     private String name;
-    private ArrayList<Athlete> subs;
+    private ArrayList<Athlete> subs = new ArrayList<Athlete>();
     public int maxturn;
     /**
      * Constructs a player with the given difficulty and name.
