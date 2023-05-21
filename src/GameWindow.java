@@ -33,6 +33,7 @@ public class GameWindow {
         frame = new JFrame();
         frame.setBounds(100, 100, 450, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setTitle("Game Setting");
         frame.getContentPane().setLayout(null);
 
         JLabel lblPlayerName = new JLabel("Player Name:");
