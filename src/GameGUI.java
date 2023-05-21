@@ -43,9 +43,14 @@ public class GameGUI {
 
         // Center panel for text output
         centerPanel = new JPanel();
-        outputText = new JTextArea("Textual output here...");
+        outputText = new JTextArea(20, 30); // 20 rows, 30 columns
+        outputText.setText("Text output here...");
+        outputText.setEditable(false);
+
+        JScrollPane scrollPane = new JScrollPane(outputText);
+        scrollPane.setPreferredSize(new Dimension(400, 400)); // Width, Height
+
         centerPanel.add(new JScrollPane(outputText));
-        centerPanel.setFocusable(false);
         centerPanel.setPreferredSize(new Dimension(400, 400));
         frame.add(centerPanel, BorderLayout.CENTER);
         JButton endTurnButton = new JButton("End Turn");
@@ -53,16 +58,25 @@ public class GameGUI {
         endTurnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Disable arena button
-                arenaButton.setEnabled(false);
+                // enable arena button
+                arenaButton.setEnabled(true);
         
-                // Train athletes
-                player.train_athletes();
-        
+                // restore athletes stamina
+                player.restoreStamina();
                 // Handle random events
-                player.handleRandomEvents();
-        
+                String endTurnText = player.handleRandomEvents();
+                updateOutputText(endTurnText);
+                
                 // Other actions as needed...
+                player.inc_trun();
+                if (player.getTurn() >= player.maxturn){
+                    JDialog dialog = new JDialog();
+                    dialog.setAlwaysOnTop(true);
+                    JOptionPane.showMessageDialog(dialog, "Game Over! You have reached the maximum turn!\n "+player.toString()+"\n Thanks for playing!");
+
+
+                }
+                updateInfoText(player);
             }
         });
         
@@ -109,10 +123,17 @@ public class GameGUI {
     }
     public void updateInfoText(String text) {
         infoText.setText(text);
+
     }
     public void updateOutputText(String text) {
-        outputText.setText(text);
-    }   
+        SwingUtilities.invokeLater(() -> {
+            outputText.setText(text);
+            if (text.isEmpty()){
+                outputText.setText("nothing happened");
+            }
+        });
+    }
+    
     public void updateInfoText(Player player) {
         StringBuilder playerInfo = new StringBuilder();
         playerInfo.append("Name: ").append(player.getName()).append("\n");
@@ -198,11 +219,7 @@ public class GameGUI {
     private void openMarket(Player player) {
         //MarketGUI marketGUI = new MarketGUI(player);
     }
-    private void openArena(Player player) {
-       ArenaGUI arenaGUI = new ArenaGUI(player);
-       arenaGUI.createAndShowGUI();
-        arenaGUI.updateOpponents();
-    }
+    
     
 
     public static void main(String[] args) {
