@@ -15,7 +15,7 @@ public class GameGUI {
     private JFrame frame;
     private JPanel leftPanel, centerPanel, rightPanel;
     private JTextArea infoText, outputText;
-    private JButton teamButton, inventoryButton, marketButton, arenaButton,subButton;
+    private JButton  arenaButton;
     
     /**
      * Constructs a new GameGUI object with the specified player.
@@ -23,36 +23,59 @@ public class GameGUI {
      * @param player the player object for the game
      */
     public GameGUI(Player player) {
-        frame = new JFrame("Game GUI");
-        frame.setLayout(new BorderLayout());
+        frame = createFrame("Sport management");
 
+        // Creating panels
+        leftPanel = createLeftPanel(player);
+        centerPanel = createCenterPanel(player);
+        rightPanel = createRightPanel(player);
+
+        // Adding panels to frame
+        frame.add(leftPanel, BorderLayout.WEST);
+        frame.add(centerPanel, BorderLayout.CENTER);
+        frame.add(rightPanel, BorderLayout.EAST);
+
+        updateInfoText(player);
+
+        // Frame settings
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setSize(700, 470);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    private JFrame createFrame(String title) {
+        JFrame frame = new JFrame(title);
+        frame.setLayout(new BorderLayout());
+        return frame;
+    }
+
+    private JPanel createLeftPanel(Player player) {
         // Left panel for player statistics and information
-        leftPanel = new JPanel();
+        JPanel leftPanel = new JPanel();
         leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
         infoText = new JTextArea(8, 20);
         infoText.setText("Player statistics and information here...");
         infoText.setEditable(false);
-        Dimension buttonDimension = new Dimension(150, 25);
-        teamButton = new JButton("View Team");
-        teamButton.addActionListener(e -> viewTeam(player.getTeam()));
-        teamButton.setMaximumSize(buttonDimension);
-        subButton = new JButton("View Subs");
-        subButton.addActionListener(e -> viewsub(player.getsubs()));
-        subButton.setMaximumSize(buttonDimension);
 
-        inventoryButton = new JButton("View Inventory");
-        inventoryButton.setMaximumSize(buttonDimension);
-        inventoryButton.addActionListener(e -> viewInventory(player));
+        Dimension buttonDimension = new Dimension(150, 25);
+        JButton teamButton = createButton("View Team", buttonDimension, e -> viewTeam(player.getTeam()));
+        JButton subButton = createButton("View Subs", buttonDimension, e -> viewsub(player.getsubs()));
+        JButton inventoryButton = createButton("View Inventory", buttonDimension, e -> viewInventory(player));
+
         leftPanel.add(infoText);
         leftPanel.add(teamButton);
         leftPanel.add(subButton);
-
-        
         leftPanel.add(inventoryButton);
-        frame.add(leftPanel, BorderLayout.WEST);
 
+        return leftPanel;
+    }
+
+    private JPanel createCenterPanel(Player player) {
         // Center panel for text output
-        centerPanel = new JPanel();
+        JPanel centerPanel = new JPanel();
         outputText = new JTextArea(20, 30); // 20 rows, 30 columns
         outputText.setText("Text output here...");
         outputText.setEditable(false);
@@ -62,15 +85,52 @@ public class GameGUI {
 
         centerPanel.add(new JScrollPane(outputText));
         centerPanel.setPreferredSize(new Dimension(400, 400));
-        frame.add(centerPanel, BorderLayout.CENTER);
-        JButton endTurnButton = new JButton("End Turn");
-        
-        endTurnButton.addActionListener(new ActionListener() {
-            
-            @Override
-            public void actionPerformed(ActionEvent e) {
 
-        /**
+        Dimension buttonDimension = new Dimension(150, 25);
+        JButton endTurnButton = createButton("End Turn", buttonDimension, e -> endTurnAction(e, player));
+        centerPanel.add(endTurnButton);
+
+        return centerPanel;
+    }
+
+    private JPanel createRightPanel(Player player) {
+        // Right panel for market place or arena selection
+        JPanel rightPanel = new JPanel();
+        rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
+
+        Dimension buttonDimension = new Dimension(150, 25);
+        JButton marketButton = createButton("Market Place", buttonDimension, e -> openMarket(player));
+        JButton arenaButton = createButton("Arena", buttonDimension, e -> arenaAction(e, player));
+        this.arenaButton = arenaButton;
+        rightPanel.add(marketButton);
+        rightPanel.add(arenaButton);
+
+        return rightPanel;
+    }
+    /**
+     * This method is called when the "Arena" button is clicked.
+     * It creates and shows the ArenaGUI, updates the opponents, and disables the arena button.
+     *
+     * 
+     */
+
+    private void arenaAction(ActionEvent e, Player player) {
+        
+    if (!isArenaClicked) {
+        ArenaGUI arenaGUI = new ArenaGUI(player);
+        arenaGUI.createAndShowGUI();
+        arenaGUI.updateOpponents();
+        isArenaClicked = true;
+        arenaButton.setEnabled(false);
+    }
+    if (arenaButton.isEnabled() == false){
+        updateOutputText("You have already enter the arena once");
+    }
+}
+        
+            
+        
+    /**
          * This method is called when the "End Turn" button is clicked.
          * It performs the following actions:
          * - Enables the arena button.
@@ -83,6 +143,7 @@ public class GameGUI {
          *
          * @param e the action event
          */
+    private void endTurnAction(ActionEvent e, Player player) {
         // enable arena button
                 // enable arena button
                 arenaButton.setEnabled(true);
@@ -104,49 +165,12 @@ public class GameGUI {
                 }
                 updateInfoText(player);
             }
-        });
-        
-        
 
-        endTurnButton.setMaximumSize(buttonDimension);
-        centerPanel.add(endTurnButton);
-        // Right panel for market place or arena selection
-        rightPanel = new JPanel();
-        rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
-        marketButton = new JButton("Market Place");
-        marketButton.setMaximumSize(buttonDimension);
-        arenaButton = new JButton("Arena");
-        arenaButton.setMaximumSize(buttonDimension);
-        arenaButton.addActionListener(e -> arenaButton.addActionListener(f -> {
-    /**
-     * This method is called when the "Arena" button is clicked.
-     * It creates and shows the ArenaGUI, updates the opponents, and disables the arena button.
-     *
-     * 
-     */
-            if (!isArenaClicked) {
-                ArenaGUI arenaGUI = new ArenaGUI(player);
-                arenaGUI.createAndShowGUI();
-                arenaGUI.updateOpponents();
-                isArenaClicked = true;
-                arenaButton.setEnabled(false);
-            }
-        }));
-        marketButton.addActionListener(e -> openMarket(player));
-        rightPanel.add(marketButton);
-        rightPanel.add(arenaButton);
-        frame.add(rightPanel, BorderLayout.EAST);
-        updateInfoText(player);
-
-
-        // Frame settings
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setSize(700, 470);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    
+    private JButton createButton(String text, Dimension dimension, ActionListener listener) {
+        JButton button = new JButton(text);
+        button.setMaximumSize(dimension);
+        button.addActionListener(listener);
+        return button;
     }
 /**
  * Updates the information text area with the provided text.
