@@ -110,6 +110,7 @@ public class GameWindow {
         AthleteSelectionWindow selectionWindow = new AthleteSelectionWindow(player);
         selectionWindow.setVisible(true);
     }
+    
 }
 
 

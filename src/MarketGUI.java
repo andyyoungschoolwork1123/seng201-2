@@ -141,7 +141,7 @@ public class MarketGUI extends JFrame {
         
         playerInventoryButton.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) {
-                InventoryGUI inventoryGUI = new InventoryGUI(player.getInventory(), player.getTeam());
+                InventoryGUI inventoryGUI = new InventoryGUI(player, player.getTeam());
                 inventoryGUI.viewInventory();
             }
         });

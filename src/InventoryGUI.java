@@ -9,15 +9,18 @@ public class InventoryGUI {
     private ArrayList<Item> inventory;
     private ArrayList<Athlete> allAthletes;
     private JFrame frame;
+    private Player player;
     /**
      * Constructs a new InventoryGUI object with the given inventory and athlete list.
      *
      * @param inventory    the player's inventory
      * @param allAthletes  the list of all available athletes
+     * @param player       the player object frim gamegui
      */
-    public InventoryGUI(ArrayList<Item> inventory, ArrayList<Athlete> allAthletes) {
-        this.inventory = inventory;
+    public InventoryGUI(Player player, ArrayList<Athlete> allAthletes) {
+        this.inventory = player.getInventory();
         this.allAthletes = allAthletes;
+        this.player = player;
     }
     /**
      * Displays the inventory GUI.
@@ -33,10 +36,10 @@ public class InventoryGUI {
         for (Item item : inventory) {
             JPanel itemPanel = new JPanel();
             itemPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-
-            JButton itemButton = new JButton(item.toString());
+            JLabel itemLabel = new JLabel(item.getName());
+            JButton itemButton = new JButton("view item");
             JButton useButton = new JButton("Use");
-
+            JButton sellButton = new JButton("Sell");
             itemButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -53,9 +56,22 @@ public class InventoryGUI {
                     selectAthlete(item);
                 }
             });
+            sellButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Handle "Sell" button click
+                    inventory.remove(item);
+                    player.addgold(item.getSellbackPrice());
+                    JOptionPane.showMessageDialog(null, "Item sold for " + item.getSellbackPrice() + " gold");
+                    viewInventory();
+                }
+            });
 
+            
+            itemPanel.add(itemLabel);
             itemPanel.add(itemButton);
             itemPanel.add(useButton);
+            itemPanel.add(sellButton);
             inventoryPanel.add(itemPanel);
         }
 
@@ -109,16 +125,16 @@ public class InventoryGUI {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        ArrayList<Item> inventory = new ArrayList<>();
-        inventory.add(new Item("Sword", "Weapon", 100, 10, 0));
-        inventory.add(new Item("Shield", "Armor", 100, 0, 10));
-        inventory.add(new Item("Potion", "Potion", 50, 0, 0));
+        Player player = new Player("Easy", "ddd");
+        player.addInventory(new Item("Sword", "Weapon", 100, 10, 0));
+        player.addInventory(new Item("Shield", "Armor", 100, 0, 10));
+        player.addInventory(new Item("Potion", "Potion", 50, 0, 0));
         ArrayList<Athlete> allAthletes = new ArrayList<>();
         allAthletes.add(new Athlete("Athlete 1", 10, 10, 10,"Runner"));
         allAthletes.add(new Athlete("Athlete 2", 10, 10, 10, "Cyclist"));
         allAthletes.add(new Athlete("Athlete 3", 10, 10, 10, "Sprinter"));
         allAthletes.add(new Athlete("Athlete 4", 10, 10, 10, "SuperAthlete"));
-        InventoryGUI inventoryGUI = new InventoryGUI(inventory, allAthletes);
+        InventoryGUI inventoryGUI = new InventoryGUI(player, allAthletes);
         inventoryGUI.viewInventory();
     }
 }
