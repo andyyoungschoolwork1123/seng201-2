@@ -4,16 +4,26 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-
+/**
+ * A window that displays the information of selected athletes.
+ */
 public class SelectedAthletesWindow extends JFrame {
 
     private ArrayList<Athlete> team;
+
+     /**
+     * Constructs a SelectedAthletesWindow with the specified team of athletes.
+     * 
+     * @param team The team of athletes to display in the window.
+     */
 
     public SelectedAthletesWindow(ArrayList<Athlete> team) {
         this.team = team;
         initialize();
     }
-
+    /**
+     * Initializes the components and settings of the SelectedAthletesWindow.
+     */
     private void initialize() {
         setTitle("Selected Athletes");
         setBounds(100, 100, 300, 400);
