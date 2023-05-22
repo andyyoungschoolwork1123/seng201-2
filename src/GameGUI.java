@@ -85,7 +85,7 @@ public class GameGUI {
         // enable arena button
                 // enable arena button
                 arenaButton.setEnabled(true);
-        
+                isArenaClicked = false;
                 // restore athletes stamina
                 player.restoreStamina();
                 // Handle random events
@@ -258,7 +258,7 @@ public class GameGUI {
  */
     private void viewInventory(Player player) {
              
-        InventoryGUI inventoryGUI = new InventoryGUI(player.getInventory(), player.getTeam());
+        InventoryGUI inventoryGUI = new InventoryGUI(player, player.getTeam());
         inventoryGUI.viewInventory();
 
     }

@@ -114,7 +114,7 @@ public class ArenaGUI {
                     //arena.battle(playerTeam,selectedOpponent,player);
                     String battleResult = arena.battle(playerTeam, selectedOpponent, player); // call the function
                     textArea.setText(battleResult); // set the text
-
+                    startBattleButton.setEnabled(false);
                     // Update the UI to reflect the new game state
                 }
             }
@@ -133,7 +133,7 @@ public class ArenaGUI {
                 //arena.battle(playerTeam,selectedOpponent,player);
                 //String battleResult = playerTeam.su(playerTeam, player); // call the function
                 //textArea.setText(battleResult); // set the text
-                InventoryGUI inventoryGUI = new InventoryGUI(player.getInventory(), playerTeam.getteam());
+                InventoryGUI inventoryGUI = new InventoryGUI(player, playerTeam.getteam());
                 inventoryGUI.viewInventory();
 
                 // Update the UI to reflect the new game state

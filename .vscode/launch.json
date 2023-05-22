@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "InventoryGUI",
+            "request": "launch",
+            "mainClass": "InventoryGUI",
+            "projectName": "JAVA_TEST_a897b0e1"
+        },
+        {
+            "type": "java",
+            "name": "GameGUI",
+            "request": "launch",
+            "mainClass": "GameGUI",
+            "projectName": "JAVA_TEST_a897b0e1"
+        },
+        {
+            "type": "java",
             "name": "ArenaGUI",
             "request": "launch",
             "mainClass": "ArenaGUI",
