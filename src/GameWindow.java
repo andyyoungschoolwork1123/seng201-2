@@ -7,11 +7,18 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 public class GameWindow {
+/**
+ * The main game window for setting up the game.
+ */
 
     private JFrame frame;
     private JTextField playerNameField;
     private JComboBox<String> difficultyComboBox;
-
+    /**
+     * The entry point of the application.
+     *
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -24,11 +31,15 @@ public class GameWindow {
             }
         });
     }
-
+     /**
+     * Constructs a new instance of the game window.
+     */
     public GameWindow() {
         initialize();
     }
-
+    /**
+     * Initializes the contents of the game window.
+     */
     private void initialize() {
         frame = new JFrame();
         frame.setBounds(100, 100, 450, 300);
@@ -76,7 +87,9 @@ public class GameWindow {
         btnStartGame.addActionListener(e -> openAthleteSelectionWindow());
     }
 
-
+    /**
+     * Opens the athlete selection window to choose athletes for the game.
+     */
     private void openAthleteSelectionWindow() {
         String playerName = playerNameField.getText();
         String difficulty = (String) difficultyComboBox.getSelectedItem();
