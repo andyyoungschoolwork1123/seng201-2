@@ -4,6 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+/**
+ * The MarketGUI class represents a graphical user interface for a market where players can buy athletes and items.
+ */
+
 public class MarketGUI extends JFrame {
 
     private Market market;
@@ -20,7 +24,11 @@ public class MarketGUI extends JFrame {
     private AbstractButton statsLabel;
     
 
-
+    /**
+     * Constructs a new MarketGUI object with the specified player.
+     *
+     * @param player the player interacting with the market
+     */
     public MarketGUI(Player player) {
         // Create the market
         this.market = new Market();
@@ -141,6 +149,14 @@ public class MarketGUI extends JFrame {
         
     }
 
+/**
+ * Updates the athlete list by retrieving the latest list of athletes from the market
+ * and updating the athlete list model.
+ * 
+ * The method clears the existing athlete list model, retrieves the list of athletes from the market,
+ * and adds each athlete to the athlete list model. Additionally, it sets a custom cell renderer
+ * for the athlete list to ensure proper rendering of athlete items.
+ */
     private void updateAthleteList() {
         athleteListModel.clear();
         ArrayList<Athlete> athletes = market.getAthletes();
@@ -153,6 +169,13 @@ public class MarketGUI extends JFrame {
 
     }
 
+/**
+ * Updates the item list by retrieving the latest list of items from the market
+ * and updating the item list model.
+ * 
+ * The method clears the existing item list model, retrieves the list of items from the market,
+ * and adds each item to the item list model.
+ */
     private void updateItemList() {
         itemListModel.clear();
         ArrayList<Item> items = market.getItems();
@@ -160,12 +183,26 @@ public class MarketGUI extends JFrame {
             itemListModel.addElement(item);
         }
     }
-
+/**
+ * Updates the market by generating a new market based on the specified player's turn.
+ * 
+ * This method ensures that the market is updated based on the player's turn. It calls
+ * the market's "generatemarket" method, passing the player's turn as a parameter to generate
+ * a new market state.
+ * 
+ * @param player The player whose turn is used to update the market.
+ */
     //Andy : make sure the market is updated by turn
     private void updateMarket(Player player) {
         market.generatemarket(player.getTurn());
     }
-
+/**
+ * Displays the information of athletes in a dialog box.
+ * 
+ * Retrieves the list of athletes from the market and generates a formatted string
+ * containing the athlete information. The method then displays the athlete information
+ * in a dialog box using JOptionPane.
+ */
     private void displayAthletes() {
         StringBuilder athleteInfo = new StringBuilder();
         ArrayList<Athlete> athletes = market.getAthletes();
@@ -182,6 +219,13 @@ public class MarketGUI extends JFrame {
         JOptionPane.showMessageDialog(this, athleteInfo.toString(), "Athletes Information", JOptionPane.INFORMATION_MESSAGE);
     }
 
+/**
+ * Displays the information of items in a dialog box.
+ * 
+ * Retrieves the list of items from the market and generates a formatted string
+ * containing the item information. The method then displays the item information
+ * in a dialog box using JOptionPane.
+ */
     private void displayItems() {
         StringBuilder itemInfo = new StringBuilder();
         ArrayList<Item> items = market.getItems();
@@ -198,7 +242,7 @@ public class MarketGUI extends JFrame {
    
 
 
-    
+  /** test and run */  
     public static void main(String[] args) {
         Player player = new Player("Easy", "sss");
         SwingUtilities.invokeLater(new Runnable() {
