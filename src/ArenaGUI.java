@@ -4,6 +4,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
+/**
+ * A graphical user interface for an arena game.
+ */
 public class ArenaGUI {
 
     private Arena arena;
@@ -13,12 +17,23 @@ public class ArenaGUI {
     private JButton subButton;
     private JButton startBattleButton;
     private JFrame frame;
+
+
+ /**
+     * Constructs an ArenaGUI object with the given player.
+     *
+     * @param player the player for the arena game
+     */
     public ArenaGUI(Player player) {
         this.arena =new Arena();
         this.player = player;
         this.playerTeam = arena.createPlayerTeam(player);
     }
 
+
+/**
+     * Creates and shows the GUI.
+     */
     public void createAndShowGUI() {
         JFrame frame = new JFrame("Arena Game");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -32,7 +47,11 @@ public class ArenaGUI {
         
     
     }
-
+/**
+ * Places the components on the panel.
+ *
+ * @param panel the panel to which the components are added
+ */
     private void placeComponents(JPanel panel) {
         panel.setLayout(null);
 
@@ -83,6 +102,12 @@ public class ArenaGUI {
         startBattleButton.setBounds(380, 10, 150, 25);
         startBattleButton.addActionListener(new ActionListener() {
             @Override
+/**
+ * Performs the action when the start battle button is clicked.
+ *
+ * @param e the action event
+ */
+ 
             public void actionPerformed(ActionEvent e) {
                 Team selectedOpponent = (Team) opponentSelect.getSelectedItem();
                 if (selectedOpponent != null) {
@@ -99,6 +124,11 @@ public class ArenaGUI {
         btnUseitemButton.setBounds(550, 130, 200, 25);
         btnUseitemButton.addActionListener(new ActionListener() {
             @Override
+/**
+ * Performs the action when the start battle button is clicked.
+ *
+ * @param e the action event
+ */
             public void actionPerformed(ActionEvent e) {
                 //arena.battle(playerTeam,selectedOpponent,player);
                 //String battleResult = playerTeam.su(playerTeam, player); // call the function
@@ -111,12 +141,20 @@ public class ArenaGUI {
         });
         panel.add(btnUseitemButton);
     }
+/**
+ * Handles the action when the substitute player button is clicked.
+ *
+ * @param frame the parent JFrame
+ */
     public void subButton(JFrame frame) {
         SubstitutionDialog dialog = new SubstitutionDialog(frame, playerTeam);
                     dialog.pack();
                     dialog.setVisible(true);        // Update the UI to reflect the new player state
 
     }
+/**
+ * Updates the list of available opponents in the opponent selection dropdown.
+ */
     public void updateOpponents() {
         // Clear the current items
         opponentSelect.removeAllItems();
@@ -127,16 +165,25 @@ public class ArenaGUI {
             opponentSelect.addItem(opponent);
         }
     }
+/**
+ * Updates the player's team and substitutes in the player object.
+ */
     public void updateplayerTeams(){
         //update player result
         player.setTeam(playerTeam.getteam());
         player.setsubs(playerTeam.getsubs());
 
     }
+/**
+ * Gets the player object, updating the player's team and substitutes before returning.
+ *
+ * @return the updated player object
+ */
     public Player getPlayer() {
         updateplayerTeams();
         return this.player;
     }
+/** run  */
     public static void main(String[] args) {
         Player player = new Player("Easy", "testing");
         Team team = new Team();
