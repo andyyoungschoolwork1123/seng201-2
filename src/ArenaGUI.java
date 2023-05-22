@@ -2,8 +2,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+
 
 /**
  * A graphical user interface for an arena game.

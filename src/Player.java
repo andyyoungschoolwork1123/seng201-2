@@ -567,6 +567,7 @@ public String handleRandomEvents() {
 /**
  * Handles the event where an athlete quits the team randomly.
  * Each athlete in the team has a chance to quit.
+ * cmd version
  */
     private void handleAthleteQuitEvent_cmd() {
         double chance = calculateEventChance(0.02); // Adjust the chance as desired
@@ -584,6 +585,7 @@ public String handleRandomEvents() {
 /**
  * Handles the event where a new athlete joins the team randomly.
  * A new athlete can join if there are free slots available in the reserves.
+ * cmd version
  */
 
     private void handleNewAthleteJoinEvent_cmd() {
@@ -601,6 +603,7 @@ public String handleRandomEvents() {
  * Calculates the adjusted event chance based on the base chance and other factors such as difficulty setting.
  * @param baseChance The base chance of the event.
  * @return The adjusted chance value.
+ * 
  */
     private double calculateEventChance(double baseChance) {
         // Adjust the baseChance based on the difficulty setting or other factors
