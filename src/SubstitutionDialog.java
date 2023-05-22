@@ -1,12 +1,19 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-
+/**
+ * A dialog for performing player substitutions in a team.
+ */
 public class SubstitutionDialog extends JDialog {
     private Team team;
     private JComboBox<Athlete> teamCombo;
     private JComboBox<Athlete> subCombo;
-    
+     /**
+     * Constructs a SubstitutionDialog with the specified parent frame and team.
+     * 
+     * @param parent The parent frame of the dialog.
+     * @param team   The team for which the substitutions are performed.
+     */
     public SubstitutionDialog(JFrame parent, Team team) {
         super(parent, "Substitute Player", true);
         this.team = team;
