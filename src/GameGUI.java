@@ -31,6 +31,7 @@ public class GameGUI {
         leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
         infoText = new JTextArea(8, 20);
         infoText.setText("Player statistics and information here...");
+        infoText.setEditable(false);
         Dimension buttonDimension = new Dimension(150, 25);
         teamButton = new JButton("View Team");
         teamButton.addActionListener(e -> viewTeam(player.getTeam()));
@@ -106,12 +107,7 @@ public class GameGUI {
         });
         
         
-        
-        
-        
-        
-        
-        
+
         endTurnButton.setMaximumSize(buttonDimension);
         centerPanel.add(endTurnButton);
         // Right panel for market place or arena selection
@@ -146,7 +142,7 @@ public class GameGUI {
         // Frame settings
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
-        frame.setSize(800, 600);
+        frame.setSize(700, 470);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -199,6 +195,7 @@ public class GameGUI {
         JPanel panel = new JPanel();
         teamFrame.add(panel,BorderLayout.SOUTH);
         JTextArea team1Area = new JTextArea();
+        team1Area.setEditable(false);
         for (Athlete athlete : team1) {
             team1Area.append(athlete.toString());
         }
