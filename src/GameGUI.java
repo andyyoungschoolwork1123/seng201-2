@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
+/**
+ * The GameGUI class represents the graphical user interface for the game.
+ * It provides buttons and panels for player statistics, team information, inventory, and game actions.
+ */
 public class GameGUI {
     private boolean isArenaClicked = false;
     private JComboBox<Athlete> athleteSelect;  // to select the athlete
@@ -13,6 +16,12 @@ public class GameGUI {
     private JPanel leftPanel, centerPanel, rightPanel;
     private JTextArea infoText, outputText;
     private JButton teamButton, inventoryButton, marketButton, arenaButton,subButton;
+    
+    /**
+     * Constructs a new GameGUI object with the specified player.
+     *
+     * @param player the player object for the game
+     */
     public GameGUI(Player player) {
         frame = new JFrame("Game GUI");
         frame.setLayout(new BorderLayout());
@@ -56,8 +65,24 @@ public class GameGUI {
         JButton endTurnButton = new JButton("End Turn");
         
         endTurnButton.addActionListener(new ActionListener() {
+            
             @Override
             public void actionPerformed(ActionEvent e) {
+
+        /**
+         * This method is called when the "End Turn" button is clicked.
+         * It performs the following actions:
+         * - Enables the arena button.
+         * - Restores the athletes' stamina.
+         * - Handles random events.
+         * - Updates the output text area.
+         * - Increments the turn counter.
+         * - Checks if the maximum turn limit is reached and displays a game over message if so.
+         * - Updates the information text area with the player's information.
+         *
+         * @param e the action event
+         */
+        // enable arena button
                 // enable arena button
                 arenaButton.setEnabled(true);
         
@@ -97,6 +122,12 @@ public class GameGUI {
         arenaButton = new JButton("Arena");
         arenaButton.setMaximumSize(buttonDimension);
         arenaButton.addActionListener(e -> arenaButton.addActionListener(f -> {
+    /**
+     * This method is called when the "Arena" button is clicked.
+     * It creates and shows the ArenaGUI, updates the opponents, and disables the arena button.
+     *
+     * 
+     */
             if (!isArenaClicked) {
                 ArenaGUI arenaGUI = new ArenaGUI(player);
                 arenaGUI.createAndShowGUI();
@@ -121,10 +152,20 @@ public class GameGUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     
     }
+/**
+ * Updates the information text area with the provided text.
+ *
+ * @param text the text to be displayed in the information area
+ */
     public void updateInfoText(String text) {
         infoText.setText(text);
 
     }
+/**
+ * Updates the output text area with the provided text.
+ *
+ * @param text the text to be displayed in the output area
+ */
     public void updateOutputText(String text) {
         SwingUtilities.invokeLater(() -> {
             outputText.setText(text);
@@ -133,7 +174,11 @@ public class GameGUI {
             }
         });
     }
-    
+ /**
+ * Updates the information text area with the player's information.
+ *
+ * @param player the player object containing the information
+ */   
     public void updateInfoText(Player player) {
         StringBuilder playerInfo = new StringBuilder();
         playerInfo.append("Name: ").append(player.getName()).append("\n");
@@ -143,6 +188,11 @@ public class GameGUI {
         playerInfo.append("Turn: ").append(player.getTurn()).append("\n");
         infoText.setText(playerInfo.toString());
     }
+    /**
+     * Opens the window to view the player's team.
+     *
+     * @param team the team object to be viewed
+     */
     //private void 
     private void viewTeam(ArrayList<Athlete> team1) {
         JFrame teamFrame = new JFrame("Team View");
@@ -169,6 +219,13 @@ public class GameGUI {
         trainButton.setBounds(220, 400, 150, 25);
         trainButton.addActionListener(new ActionListener() {
             @Override
+/**
+ * Performs the action when the train button is clicked.
+ * Trains the selected athlete and displays a dialog box with the result.
+ * Updates the team1Area with the updated team information.
+ *
+ * @param e the action event
+ */
             public void actionPerformed(ActionEvent e) {
                 Athlete selectedAthlete = (Athlete) athleteSelect.getSelectedItem();
                 if (selectedAthlete != null) {
@@ -194,7 +251,11 @@ public class GameGUI {
     
 
     
-    
+/**
+ * Opens the inventory GUI to view the player's inventory and team.
+ *
+ * @param player the player whose inventory and team to view
+ */
     private void viewInventory(Player player) {
              
         InventoryGUI inventoryGUI = new InventoryGUI(player.getInventory(), player.getTeam());
@@ -204,7 +265,11 @@ public class GameGUI {
         
     
     
-    
+  /**
+ * Displays a frame to view the list of substitute athletes.
+ *
+ * @param subs the list of substitute athletes to display
+ */  
     private void viewsub(ArrayList<Athlete> subs) {
         JFrame subFrame = new JFrame("Sub View");
         subFrame.setLayout(new BorderLayout());
@@ -219,7 +284,11 @@ public class GameGUI {
         subFrame.setLocationRelativeTo(null); // center the frame
         subFrame.setVisible(true);
     }
-    
+/**
+ * Opens the market GUI to access the market options for the player.
+ *
+ * @param player the player accessing the market
+ */
     private void openMarket(Player player) {
         MarketGUI marketGUI = new MarketGUI(player);
         
