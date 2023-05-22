@@ -2,17 +2,26 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
-
+/**
+ * GUI class for displaying and interacting with the player's inventory.
+ */
 public class InventoryGUI {
     private ArrayList<Item> inventory;
     private ArrayList<Athlete> allAthletes;
     private JFrame frame;
-
+    /**
+     * Constructs a new InventoryGUI object with the given inventory and athlete list.
+     *
+     * @param inventory    the player's inventory
+     * @param allAthletes  the list of all available athletes
+     */
     public InventoryGUI(ArrayList<Item> inventory, ArrayList<Athlete> allAthletes) {
         this.inventory = inventory;
         this.allAthletes = allAthletes;
     }
-
+    /**
+     * Displays the inventory GUI.
+     */
     public void viewInventory() {
         frame = new JFrame("Inventory");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -55,7 +64,11 @@ public class InventoryGUI {
         frame.setVisible(true);
     }
 
-    private void selectAthlete(Item item) {
+    /**
+     * Opens the athlete selection window for applying the selected item to an athlete.
+     *
+     * @param item the item to be applied
+     */   private void selectAthlete(Item item) {
         // Create a new frame for athlete selection
         JFrame athleteFrame = new JFrame("Select an athlete");
         athleteFrame.setLayout(new BorderLayout());
@@ -90,7 +103,11 @@ public class InventoryGUI {
         athleteFrame.setVisible(true);
     }
 
-    
+    /**
+     * The main method for testing the InventoryGUI class.
+     *
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
         ArrayList<Item> inventory = new ArrayList<>();
         inventory.add(new Item("Sword", "Weapon", 100, 10, 0));
