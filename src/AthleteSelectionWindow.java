@@ -8,15 +8,27 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+/**
+ * Represents a window for selecting athletes.
+ */
+
 public class AthleteSelectionWindow extends JFrame {
 
     private Player player;
     private ArrayList<Athlete> team = new ArrayList<Athlete>();
+    /**
+     * Creates an instance of AthleteSelectionWindow.
+     *
+     * @param player the player object
+     */
 
     public AthleteSelectionWindow(Player player) {
         this.player = player;
         initialize();
     }
+    /**
+     * Initializes the athlete selection window.
+     */
 
     private void initialize() {
         setTitle("Athlete Selection");
@@ -79,13 +91,17 @@ public class AthleteSelectionWindow extends JFrame {
         setVisible(true);
         
     }
-
+    /**
+     * Opens the window to view the selected athletes.
+     */
     private void openSelectedAthletesWindow() {
         SelectedAthletesWindow selectedAthletesWindow = new SelectedAthletesWindow(team);
         selectedAthletesWindow.setVisible(true);
     }
     
-                                                                                  
+    /**
+     * Proceeds to the next window after athlete selection.
+     */                                                                              
     private void proceedToNextWindow() {
         player.setTeam(team);
 
